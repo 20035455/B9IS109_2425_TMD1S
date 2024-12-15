@@ -1,0 +1,191 @@
+<div class="modal fade" id="view-customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<form method="post" id="customer-form">
+    {% csrf_token %}
+<div class="modal-dialog modal-dialog-centered modal-xxl" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel"><span>Customer Details</span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <ul class="nav nav-tabs nav-tabs-custom nav-justified quote-form" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#order-lines" role="tab">
+                            <span>Customer Info</span>
+                        </a>
+                    </li>
+                   
+                    
+                </ul>
+                
+                <div class="col-md-6 mt-30">
+                    
+                    <div class="inputGroup form-control">
+                        <input type="text" data-class="First_name" value="{{customer.customer_firstname|default:''}}" class="First_name1"  name="fname">
+                        <label  for="name" {% if customer.customer_firstname %} class="active"  {% endif %}>First Name</label>
+                    </div>
+                    <div class="First_name"></div>
+
+                    <div class="inputGroup form-control">
+                        <input type="text" value="{{customer.customer_lastname|default:''}}" name="lname">
+                        <label for="name" {% if customer.customer_lastname %} class="active"  {% endif %}>Last Name</label>
+                        {% comment %} <i class="bx bx-search search-icn"></i> {% endcomment %}
+                    </div>
+
+                    
+
+                
+
+                </div>
+                <div class="col-md-6 mt-30">
+
+
+                    <div class="inputGroup form-control">
+                        <input type="text" value="{{customer.customer_email|default:''}}" data-class="Email" class="Email1" name="email">
+                        <label for="name" {% if customer.customer_email %} class="active"  {% endif %}>Email</label>
+                        {% comment %} <i class="bx bx-search search-icn"></i> {% endcomment %}
+                    </div>
+                    <div class="Email"></div>
+
+                    <div class="inputGroup form-control">
+                        <input type="hidden" name="subcompany_id"  value="{{subcompany_id.id}}">
+                        <input type="number" value="{{customer.customer_phone_no|default:''}}" data-class="Phone" class="Phone1" name="phone">
+                        <label for="name" {% if customer.customer_phone_no %} class="active"  {% endif %}>Phone</label>
+                    </div>
+                    <div class="Phone"></div>
+
+                   
+                </div>
+               
+            </div>
+
+            <ul class="nav nav-tabs nav-tabs-custom nav-justified quote-form" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#order-lines" role="tab">
+                        <span>Order Lines</span>
+                    </a>
+                </li>
+                
+            </ul>
+            <hr class="quote-frm-hr">
+            <div class="tab-pane" id="order-lines" role="tabpanel">
+                <div class="quote-list">
+                    <div class="table-responsive quote-table">
+                        <table class="table mb-0 ">
+
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Purchase Price</th>
+                                    <th>Sales price</th>
+                                    <th>Discount</th>
+                                    <th>GST</th> 
+                                    <th>Total</th>
+                                    
+
+                                </tr>
+                            </thead>
+                            <tbody id="append_new_row">
+                               {% for product in product_detail %}
+                               <tr>
+                               
+                                <td>{{product.product_name|default:''}}</td>
+                                <td>{{product.product_quantity|default:''}}</td>
+                                <td>{{product.customer_product.purchase_amount|default:''}}</td>
+                                <td>{{product.product_sale_price|default:0}}</td>
+                                <td>{{product.discount_amount|default:'0'}}</td>
+                                <td>{{product.gst_percentage|default:'0'}}% <br>
+                                    Amount : {{product.gst_amount|default:'0'}}</td>
+                                <td>{{product.total_amount|default:''}}</td>
+                               
+                            </tr>
+                           
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="my-3">
+                        <div class="quote-total">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Sub Total</h5>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <h4>{{customer.sub_total_amount}}</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="quote-total">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Discount</h5>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <h4>{{customer.total_discount_amount}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quote-total">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Total CGST</h5>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <h4 id="total_cgst">{{customer.cgst_amount}}</h4>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="quote-total">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Total SGST</h5>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <h4 id="total_sgst">{{customer.sgst_amount}}</h4>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="quote-total">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Total Tax</h5>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <h4>{{customer.total_tax_amount}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="quote-total">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Total Amount</h5>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    
+                                    <h4 id="total_price_htag">{{customer.grand_total_amount}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="other-info" role="tabpanel">
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+            <a href="pdf?id={{customer.id}}" target="_blank"> <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" >Generate Invoice</button></a>
+            <a href="html_to_pdf?id={{customer.id}}" ><button type="button" class="btn btn-light text-uppercase br-50 btn-md"  >Download Invoice</button></a>
+        </div> 
+    </div>
+</div>
+</form>
+</div>

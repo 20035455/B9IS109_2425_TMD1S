@@ -1,0 +1,96 @@
+{% load static %}
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="d-flex align-items-center">
+            <div class="navbar-brand-box">
+                <a href="sub_company" class="logo">
+                    <span class="logo-lg">
+                        <img src="{% static 'assets/images/images_back.png' %}" alt="" height="23" style="
+                        width: 50px;
+                        height: 50px;
+                    ">
+                    </span>
+                </a>
+            </div>
+            <button type="button" class="btn btn-sm font-size-16 d-lg-none header-item waves-effect waves-light"
+                data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+            <div class="topnav">
+                <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                    <div class="collapse navbar-collapse" id="topnav-menu-content">
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="dashboard?id={{subcompany_id.id}}" id="topnav-dashboard" role="button">
+                                    <span key="t-dashboards">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="lead?id={{subcompany_id.id}}"
+                                    id="topnav-pages" role="button">
+                                    <span>Category</span>
+                                </a>
+                                
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none btn btn-primary"
+                                    href="accounts?id={{subcompany_id.id}}" id="topnav-pages" role="button">
+                                    <span>Product</span>
+                                </a>
+                               
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="customer?id={{subcompany_id.id}}"
+                                    id="topnav-pages" role="button">
+                                    <span>Customer</span>
+                                </a>
+                                
+                            </li>
+                            {% comment %} <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="opportunities"
+                                    id="topnav-pages" role="button">
+                                    <span>Opportunity</span>
+                                </a>
+                               
+                            </li>
+                            <li class="nav-item dropdown d-none">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages"
+                                    role="button">
+                                    <span>Forecasts</span>
+                                </a>
+                               
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="quotation"
+                                    id="topnav-pages" role="button">
+                                    <span>Quotation</span>
+                                </a>
+                               
+                            </li> {% endcomment %}
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+        </div>
+
+        <div class="d-flex align-items-center header-rightside-btns">
+           
+            
+          
+          
+
+            <div class="dropdown d-inline-block user-dropdown ms-2">
+                <a class="dropdown-item text-danger" href="#" onclick="logout_fun()"><i
+                    class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
+                    key="t-logout">Logout</span></a>
+                
+            </div>
+
+        </div>
+    </div>
+</header>

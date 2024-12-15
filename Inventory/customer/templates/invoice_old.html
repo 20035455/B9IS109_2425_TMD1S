@@ -1,0 +1,355 @@
+
+{% load static %}
+<html>
+    <head>
+         
+
+  <style>
+        .top_rw{ background-color:#f4f4f4; }
+        .td_w{ }
+        button{ padding:5px 10px; font-size:14px;}
+        .invoice-box {
+            max-width: 890px;
+            margin: auto;
+            padding:10px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 14px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+            border-bottom: solid 1px #ccc;
+        }
+        .invoice-box table td {
+            padding: 0px;
+            vertical-align:middle;
+        }
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+        .invoice-box table tr.information table td {
+            padding-bottom: 25px;
+        }
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            font-size:12px;
+        }
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+        .invoice-box table tr.item td{
+            border-bottom: 1px solid #eee;
+        }
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+        .rtl table {
+            text-align: right;
+        }
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+    </style> 
+
+
+    </head>
+    <body>
+    
+        <div class="invoice-box">
+            <table cellpadding="0" cellspacing="0">
+            <tr class="top_rw">
+               <td colspan="2">
+                  <h2 style="margin-bottom: 0px;"> Invoice </h2>
+                  <span style=""> Invoice No: {{customer.order_id}} </span> 
+               </td>
+                    <td  style="width:30%; margin-right: 10px;">
+                    Date: {{customer.date|safe}}<br>
+               </td> 
+                <tr class="information">
+                      <td colspan="3">
+                        <table>
+                            <tr>
+                                <td colspan="2">
+                                <b> Customer </b> <br>
+                                    Name : {{customer.customer_firstname|default:''}} {{customer.customer_lastname|default:''}} <br>
+                                    Phone : {{customer.customer_phone_no|default:''}}<br>
+                                    Email : {{customer.customer_email|default:''}}<br>
+                                   
+                                </td>
+                                <td> <b> Shop </b><br>
+                                    Name : {{customer.subcompany_id.company_name}}<br>
+                                    Email : {{customer.subcompany_id.email}}<br>
+                                    Phone : {{customer.subcompany_id.phone}} <br>
+                                    Location : {{customer.subcompany_id.location}}<br>
+                                    GST No : {{customer.subcompany_id.gst_number|default:''}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <td colspan="3">
+                <table cellspacing="0px" cellpadding="2px">
+                <tr class="heading">
+                    <td style="width:25%;">
+                        Product Name
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:10%; text-align:right;">
+                        Rate 
+                    </td>
+                    <td style="width:10%; text-align:center;">
+                        Quanity.
+                    </td>
+                    <td style="width:10%; text-align:center;">
+                        Tax(%)
+                    </td>
+                    <td style="width:10%; text-align:center;">
+                        Discount.
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                     <td style="width:15%; text-align:right;">
+                        AMOUNT 
+                    </td>
+                </tr>
+                {% for i in product_data %}
+                <tr class="item">
+                   <td style="width:25%;">
+                       {{i.product_name|default:''}}
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:10%; text-align:right;">
+                        {{i.product_sale_price}}
+                    </td>
+                    <td style="width:10%; text-align:center;">
+                        {{i.product_quantity}}
+                    </td>
+                    <td style="width:10%; text-align:center;">
+                        {{i.gst_percentage|default:''}}
+                    </td>
+                    <td style="width:10%; text-align:center;">
+                        {{i.discount_amount}}
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                     <td style="width:15%; text-align:right;">
+                        {{i.total_amount}}
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr></tr>
+                <tr class="item">
+                    <td style="width:20%;"> </td>
+                     <td style="width:10%; text-align:center;">
+                         
+                     </td>
+                     <td style="width:10%; text-align:right;">
+                        
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                      <td style="width:15%; text-align:right;">
+                        <b>  Sub Total </b>
+                     </td>
+                      <td style="width:15%; text-align:right;">
+                       
+                      </td>
+                      
+                      <td style="width:15%; text-align:right;">
+                        {{customer.sub_total_amount}}
+                     </td>
+                </tr>
+                <tr class="item">
+                    <td style="width:25%;">  </td>
+                     <td style="width:10%; text-align:center;">
+                         
+                     </td>
+                     <td style="width:10%; text-align:right;">
+                        
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                      <td style="width:15%; text-align:right;">
+                        <b>  Discount </b>
+                     </td>
+                      <td style="width:15%; text-align:right;">
+                       
+                      </td>
+                      
+                      <td style="width:15%; text-align:right;">
+                        {{customer.total_discount_amount}}
+                     </td>
+                </tr>
+                <tr class="item">
+                    <td style="width:25%;">  </td>
+                     <td style="width:10%; text-align:center;">
+                         
+                     </td>
+                     <td style="width:10%; text-align:right;">
+                        
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                      <td style="width:15%; text-align:right;">
+                        <b> Tax Value</b>
+                     </td>
+                      <td style="width:15%; text-align:right;">
+                       
+                      </td>
+                      
+                      <td style="width:15%; text-align:right;">
+                        {{customer.total_tax_amount|default:'0.00'}}
+                     </td>
+                </tr>
+                <tr class="item">
+                    <td style="width:25%;">  </td>
+                     <td style="width:10%; text-align:center;">
+                         
+                     </td>
+                     <td style="width:10%; text-align:right;">
+                        
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                      <td style="width:15%; text-align:right;">
+                        <b>CGST</b>
+                     </td>
+                      <td style="width:15%; text-align:right;">
+                       
+                      </td>
+                      
+                      <td style="width:15%; text-align:right;">
+                        {{customer.cgst_amount|default:'0.00'}}
+                     </td>
+                </tr>
+                <tr class="item">
+                    <td style="width:25%;">  </td>
+                     <td style="width:10%; text-align:center;">
+                         
+                     </td>
+                     <td style="width:10%; text-align:right;">
+                        
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                      <td style="width:15%; text-align:right;">
+                        <b>SGST</b>
+                     </td>
+                      <td style="width:15%; text-align:right;">
+                       
+                      </td>
+                      
+                      <td style="width:15%; text-align:right;">
+                        {{customer.sgst_amount|default:'0.00'}}
+                     </td>
+                </tr>
+               
+                <tr class="item">
+                   <td style="width:25%;">  </td>
+                    <td style="width:10%; text-align:center;">
+                        
+                    </td>
+                    <td style="width:10%; text-align:right;">
+                        
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                    <td style="width:15%; text-align:right;">
+                    </td>
+                     <td style="width:15%; text-align:right;">
+                        <b>Total </b>
+                    </td>
+                     <td style="width:15%; text-align:right;">
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                       {{customer.grand_total_amount}}
+                    </td>
+                </tr>
+                </td>
+                </table>
+              
+                <tr>
+                   <td colspan="3">
+                     <table cellspacing="0px" cellpadding="2px">
+                         <tr>
+                            <td width="50%"></td>
+                            <td width="13%"></td>
+                            <td></td>
+                            <td>
+                                 <b> Signature </b>
+                            </td>
+                        </tr>
+                     </table>
+                   </td>
+                </tr>
+            </table>
+        </div>
+    
+ 
+
+</body>
+</html>

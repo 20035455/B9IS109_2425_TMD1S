@@ -1,0 +1,1435 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>SHOPIFY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+
+
+    <style>
+        .empty-bx {
+            text-align: center;
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            }
+            .empty-bx img{
+                margin-bottom: 10px;
+            }
+            .empty-bx h4{
+                font-weight: 700;
+                font-size: 20px;
+            }
+        a {
+            color: var(--bs-link-color);
+            {% comment %} text-decoration: none; {% endcomment %}
+        }
+        .non-valid{
+            padding-right: calc(1.5em + .94rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f46a6a'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23f46a6a' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + .235rem) center;
+            background-size: calc(.75em + .47rem) calc(.75em + .47rem);
+            border-color: #f46a6a;
+        }
+        .valid{
+            border-color: #34c38f;
+            padding-right: calc(1.5em + .94rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2334c38f' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + .235rem) center;
+            background-size: calc(.75em + .47rem) calc(.75em + .47rem)
+        }
+        .nonvalid-alert{
+            width: 100%;
+            margin-top: .25rem;
+            font-size: 80%;
+            color: #f46a6a
+        }
+        .loader-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff23;
+            z-index: 99999;
+          }
+          
+    </style>
+
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout-wrapper">
+        {% comment %} {% include 'navbar.html' %} {% endcomment %}
+
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex align-items-center">
+                    <div class="navbar-brand-box">
+                        <a href="sub_company" class="logo">
+                            <span class="logo-lg">
+                                <img src="{% static 'assets/images/images_back.png' %}" alt="" height="23" style="
+                                width: 50px;
+                                height: 50px;
+                            ">
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm font-size-16 d-lg-none header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link arrow-none" href="dashboard?id={{subcompany_id.id}}" id="topnav-dashboard" role="button">
+                                            <span key="t-dashboards">Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none btn btn-primary" href="lead?id={{subcompany_id.id}}"
+                                            id="topnav-pages" role="button">
+                                            <span>Category</span>
+                                            
+                                        </a>
+                                       
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="accounts?id={{subcompany_id.id}}"
+                                            id="topnav-pages" role="button">
+                                            <span>Product</span>
+                                            
+                                        </a>
+                                       
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="customer?id={{subcompany_id.id}}"
+                                            id="topnav-pages" role="button">
+                                            <span>Customer</span>
+                                            
+                                        </a>
+                                        
+                                    </li>
+                                    
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center header-rightside-btns">
+                    
+                 
+                   
+                   
+
+                    <div class="dropdown d-inline-block user-dropdown ms-2">
+                        <a class="dropdown-item text-danger" href="#" onclick="logout_fun()"><i
+                            class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
+                            key="t-logout">Logout</span></a>
+                       
+                    </div>
+
+                </div>
+            </div>
+        </header> 
+
+
+
+
+        <div class="page-content">
+            <div class="container-fluid px-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="top-header-div">
+                            <div class="main-heading">
+                               
+                                
+                            </div>
+                            
+                            <div class="top-header-rightbtns">
+                                <form class="app-search d-none d-lg-block">
+                                    <div class="position-relative">
+                                        <input type="hidden" value="{{subcompany_id.id}}" id="subcompany_id" name="subcompany_id">
+                                        <input type="text" class="form-control" onkeyup="Search()" id="search_value" name="search_value" placeholder="Search...">
+                                        <span class="bx bx-search-alt"></span>
+                                    </div>
+                                </form>
+                                <div class="dropdown d-inline-block">
+                                    
+
+                                   
+                                </div>
+                               
+                                
+                                        <div class="dropdown d-inline-block user-dropdown">
+                                            
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0"
+                                                aria-labelledby="page-header-notifications-dropdown">
+                                                <div class="p-3">
+                                                    <div class="row align-items-center noti-heading">
+                                                        <div class="col">
+                                                            <h5 class="m-0" key="t-notifications">filter</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div data-simplebar style="max-height: 230px;">
+                    
+                                                    <div class="global-action-btns">
+                                                        <div class="form-check form-check-primary mb-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Account Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Amount
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Stage
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                    onclick="open_modal()">
+                                    <i class="bx bx-plus-circle font-size-15 align-middle me-1"></i> New
+                                </button>
+                            </div>
+                        </div>
+                        <div class="lead-table table-view">
+                            <div class="table-responsive append_category_search_result">
+                                <table class="table table-striped" id="main_table_id" {% if not category_data %} style="visibility:hidden;"{% endif %}>
+                                    <thead>
+                                        <tr>
+                                            <th width="40px"><input class="form-check-input" type="checkbox"
+                                                    id="formCheck1"></th>
+                                            <th width="54px">S No</th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Name
+                                                    
+                                                </div>
+                                            </th>
+                                            
+                                           
+                                            
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="append_new_category">
+
+                                        {% for i in category_data %}
+                                        <tr class="trclass{{i.id}}">
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>{{forloop.counter}}</td>
+                                            <td id="category{{i.id}}">
+                                                <a href="#">
+                                                    <div class="avatar-div">
+                                                        {% comment %} <img src="assets/images/users/avatar-7.jpg" alt=""
+                                                            class="avatar-xs rounded-circle"> {% endcomment %}
+                                                        <span>{{i.category_name|default:''}}</span>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li ><a href="#" id="category-edit-modal-btn" data-id="{{i.id}}"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1" ></i>Edit</a>
+                                                        </li>
+                                                        <li ><a href="#" onclick="category_delete({{i.id}})"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                       
+
+                                    </tbody>
+                                </table>
+                                {% if not category_data %}
+                                <div class="empty-bx" id="no_data_div" {% if not category_data %}style="visibility:visible;"{% endif %} >
+                                    <img src="{% static 'assets/images/empty-empty.gif' %}" alt="" style="width: 300px;">
+                                    <h4>There is no data.</h4>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bottom-pagination-div">
+                <ul class="pagination pagination-rounded pb-1">
+                    <li class="page-item disabled">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a href="javascript: void(0);" class="page-link">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">3</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <div class="modal fade" id="add-lead" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"  id="remove_error">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+              {% comment %} <button type="button" class="close" data-dismiss="modal" aria-label="Close"> {% endcomment %}
+                {% comment %} <span aria-hidden="true">&times;</span> {% endcomment %}
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="category-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="hidden" value="{{subcompany_id.id}}" name="subcompany_id">
+                  <label for="recipient-name" class="col-form-label">Category:</label>
+                  <input type="text" class="form-control category1" data-class="category" name="category_name" id="recipient-name">
+                </div>
+                <div class="category"></div>
+                {% comment %} <div class="form-group">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div> {% endcomment %}
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                data-bs-dismiss="modal">Close</button>              
+                <button type="button" class="btn btn-primary" id="category-save-btn">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    {% comment %} <div class="modal fade" id="add-lead1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Add Lead</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="uploadArea" class="upload-area">
+                                
+                                <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                                    <span class="drop-zoon__icon">
+                                        <i class='bx bxs-file-image'></i>
+                                    </span>
+                                    <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                    <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                                    <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                        draggable="false">
+                                    <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                                </div>
+
+                                <div id="fileDetails" class="upload-area__file-details file-details">
+                                    <h3 class="file-details__title">Uploaded File</h3>
+
+                                    <div id="uploadedFile" class="uploaded-file">
+                                        <div class="uploaded-file__icon-container">
+                                            <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                            <span class="uploaded-file__icon-text"></span>
+                                        </div>
+
+                                        <div id="uploadedFileInfo" class="uploaded-file__info">
+                                            <span class="uploaded-file__name">Proejct 1</span>
+                                            <span class="uploaded-file__counter">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <h6 class="selct-box-head">Lead Status</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Unqualified</option>
+                                        <option value="CA">New</option>
+                                        <option value="NV">Working</option>
+                                        <option value="CA">Nurturing </option>
+                                        <option value="NV">Qualified</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Name</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Title</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Email</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Phone</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Mobile</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Website</label>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Company</label>
+                            </div>
+                            <h6 class="selct-box-head">Rating</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Hot</option>
+                                        <option value="CA">Warm</option>
+                                        <option value="CA">Cold</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-grp">
+                                <h6 class="d-flex align-items-center"><span class="lead-owner">Lead Owner : </span>
+                                    <div><img src="assets/images/users/avatar-1.jpg" alt=""
+                                            class="avatar-xs rounded-circle mx-2"><span>Nabeel</span></div>
+                                </h6>
+                            </div>
+
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">No. of Employees</label>
+                            </div>
+
+                            <h6 class="selct-box-head">Industry</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Agriculture</option>
+                                        <option value="CA">Apparel</option>
+                                        <option value="HI">Banking</option>
+                                        <option value="CA">Chemicals</option>
+                                        <option value="HI">Communications</option>
+                                        <option value="CA">Constructions</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+
+                            <h6 class="selct-box-head">Lead Source</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Advertisement</option>
+                                        <option value="CA">Customer</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+
+
+                            <h5 class="addrss-info mt-3">Address Information</h5>
+                            <div class="form-grp">
+                                <textarea id="formmessage" class="form-control" rows="3"
+                                    placeholder="Street"></textarea>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">No. of Employees</label>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Zip/Postel Code</label>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">State/Province</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Country</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+    {% comment %} <div class="modal fade" id="edit-lead" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Lead Name</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="uploadArea" class="upload-area">
+                                <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                                    <span class="drop-zoon__icon">
+                                        <i class='bx bxs-file-image'></i>
+                                    </span>
+                                    <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                    <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                                    <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                        draggable="false">
+                                    <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                                </div>
+
+                                <div id="fileDetails" class="upload-area__file-details file-details">
+                                    <h3 class="file-details__title">Uploaded File</h3>
+
+                                    <div id="uploadedFile" class="uploaded-file">
+                                        <div class="uploaded-file__icon-container">
+                                            <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                            <span class="uploaded-file__icon-text"></span>
+                                        </div>
+
+                                        <div id="uploadedFileInfo" class="uploaded-file__info">
+                                            <span class="uploaded-file__name">Proejct 1</span>
+                                            <span class="uploaded-file__counter">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <h6 class="selct-box-head">Lead Status</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Unqualified</option>
+                                        <option value="CA">New</option>
+                                        <option value="NV">Working</option>
+                                        <option value="CA">Nurturing </option>
+                                        <option value="NV">Qualified</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Name</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Title</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Email</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Phone</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Mobile</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Website</label>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Company</label>
+                            </div>
+                            <h6 class="selct-box-head">Rating</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Hot</option>
+                                        <option value="CA">Warm</option>
+                                        <option value="CA">Cold</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-grp">
+                                <h6 class="d-flex align-items-center"><span class="lead-owner">Lead Owner : </span>
+                                    <div><img src="assets/images/users/avatar-1.jpg" alt=""
+                                            class="avatar-xs rounded-circle mx-2"><span>Nabeel</span></div>
+                                </h6>
+                            </div>
+
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">No. of Employees</label>
+                            </div>
+
+                            <h6 class="selct-box-head">Industry</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Agriculture</option>
+                                        <option value="CA">Apparel</option>
+                                        <option value="HI">Banking</option>
+                                        <option value="CA">Chemicals</option>
+                                        <option value="HI">Communications</option>
+                                        <option value="CA">Constructions</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+
+                            <h6 class="selct-box-head">Lead Source</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Advertisement</option>
+                                        <option value="CA">Customer</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+
+
+                            <h5 class="addrss-info mt-3">Address Information</h5>
+                            <div class="form-grp">
+                                <textarea id="formmessage" class="form-control" rows="3"
+                                    placeholder="Street"></textarea>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">No. of Employees</label>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Zip/Postel Code</label>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">State/Province</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Country</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="import" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Add Lead</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="uploadArea" class="upload-area">
+                        <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                            <span class="drop-zoon__icon">
+                                <i class='bx bxs-file-image'></i>
+                            </span>
+                            <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                            <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                            <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                draggable="false">
+                            <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                        </div>
+
+                        <div id="fileDetails" class="upload-area__file-details file-details">
+                            <h3 class="file-details__title">Uploaded File</h3>
+
+                            <div id="uploadedFile" class="uploaded-file">
+                                <div class="uploaded-file__icon-container">
+                                    <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                    <span class="uploaded-file__icon-text"></span>
+                                </div>
+
+                                <div id="uploadedFileInfo" class="uploaded-file__info">
+                                    <span class="uploaded-file__name">Proejct 1</span>
+                                    <span class="uploaded-file__counter">0%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Upload</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="change-status" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Change Status</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="selct-box-head">Change Status</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control">
+                                        <option value="AK">None</option>
+                                        <option value="HI">Unqualified</option>
+                                        <option value="CA">New</option>
+                                        <option value="NV">Working</option>
+                                        <option value="CA">Nurturing </option>
+                                        <option value="NV">Qualified</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Upload</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="change-owner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Change Owner</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="selct-box-head">Search Owner</h6>
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label class="search-icon" for="name">Search Owner</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div> {% endcomment %}
+    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Category</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete_modal_id" name="category_id">
+              <h4 class="delete-hint">Are you sure you want to delete this Category?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="delete-category-btn">Delete</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="modal fade" id="log_out" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Logout</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="inactive_modal_id2" >
+              <h4 class="delete-hint">Are you sure you want to logged out?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+               <a href="logout_view"> <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="logout-btn" >Logout</button></a>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="not_delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Category</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete_modal_id" name="category_id">
+              <h4 class="delete-hint">Sorry, Cannot delete product category as products exist in this category</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">ok</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="modal fade" id="log-call" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Log a Call</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Task</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="date">
+                    <label for="name">Due Date</label>
+                </div>
+
+                <h6 class="selct-box-head">Assign to</h6>
+                <div class="form-grp inputGroup">
+                    <div class="select-inp">
+                        <select class="form-control">
+                            <option value="AK">None</option>
+                            <option value="HI">Qualificatio</option>
+                            <option value="CA">Need Analysis</option>
+                            <option value="NV">Proposal</option>
+                            <option value="CA">Negotiation </option>
+                            <option value="NV">Closed won</option>
+                            <option value="NV">Closed Lost </option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-event" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Event</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+                <div class="row">
+                    <h6 class="selct-box-head">Start</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h6 class="selct-box-head">End</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Location</label>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    <div id="edit-category-div"></div>
+    <div class="loader-mask" style="display: none"></div>
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    <script>
+        $(function () {
+            $(".ddl-select").each(function () {
+
+
+                $(this).hide();
+                var $select = $(this);
+                var _id = $(this).attr("id");
+                var wrapper = document.createElement("div");
+                wrapper.setAttribute("class", "ddl ddl_" + _id);
+
+                var input = document.createElement("h6");
+
+                input.setAttribute("class", "ddl-input");
+                input.setAttribute("id", "ddl_" + _id);
+                input.innerHTML = $(this)[0].options[$(this)[0].selectedIndex].innerText
+
+                $(this).before(wrapper);
+                var $ddl = $(".ddl_" + _id);
+                $ddl.append(input);
+                $ddl.append("<div class='ddl-options ddl-options-" + _id + "'></div>");
+                var $ddl_input = $("#ddl_" + _id);
+                var $ops_list = $(".ddl-options-" + _id);
+                var $ops = $(this)[0].options;
+                for (var i = 0; i < $ops.length; i++) {
+                    $ops_list.append(
+                        "<div data-value='" +
+                        $ops[i].value +
+                        "'>" +
+                        $ops[i].innerText +
+                        "</div>"
+                    );
+                }
+
+                $ddl_input.click(function () {
+                    $ddl.toggleClass("active");
+                });
+                $ddl_input.blur(function () {
+                    $ddl.removeClass("active");
+                });
+                $ops_list.find("div").click(function () {
+                    document.getElementsByClassName("ddl-input")[0].innerHTML = $(this).text();
+                    $ddl.removeClass("active");
+                });
+            });
+        });
+    </script>
+
+<script>
+    $('.inputGroup input').on('focusin', function () {
+        $(this).parent().find('label').addClass('active');
+    });
+
+    $('.inputGroup input').on('focusout', function () {
+        if (!this.value) {
+            $(this).parent().find('label').removeClass('active');
+        }
+    });
+
+    var dateInputs = document.querySelectorAll('.inputGroup input[type="date"] , .inputGroup input[type="time"]');
+
+    dateInputs.forEach(function (dateInput) {
+        dateInput.addEventListener('input', function () {
+            if (this.value) {
+                this.classList.add('hasValue');
+            } else {
+                this.classList.remove('hasValue');
+            }
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    function showError(message) {
+        Swal.fire({
+            icon: "error",
+            title: message,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            width: "350px",
+            padding: "1.5rem",
+            background: "#f8f9fa",
+            iconColor: "#dc3545",
+            iconHtml: '<i class="fas fa-times-circle"></i>',
+            customClass: {
+                title: "swal-title",
+                container: "swal-container",
+            },
+        });
+    }
+
+    function showSuccess(message) {
+        Swal.fire({
+            icon: "success",
+            title: message,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            width: "350px",
+            padding: "1.5rem",
+            background: "#f8f9fa",
+            iconColor: "#28a745",
+            iconHtml: '<i class="fas fa-check-circle"></i>',
+            customClass: {
+                title: "swal-title",
+                container: "swal-container",
+            },
+        });
+    }
+</script>
+
+
+<script>
+    function backendValidation(validationClass, create_error_dict) {
+      for (var key in create_error_dict) {
+        if (create_error_dict.hasOwnProperty(key)) {
+          var inputName = key;
+          var error_message = create_error_dict[key];
+          $('.' + inputName + '1').addClass('non-valid ' + validationClass);
+          $('.' + inputName).addClass('nonvalid-alert ' + validationClass);
+          $('.' + inputName).html(error_message);
+        }
+      }
+    }
+
+  function RemoveBackendValidation(validationClass) {
+    $('.' + validationClass).html('');
+    $('.' + validationClass).removeClass('non-valid '+validationClass);
+    $('.' + validationClass).removeClass('nonvalid-alert '+validationClass);
+  }
+
+
+</script>
+
+<script>
+    function open_modal() {
+        $('#add-lead').modal('show');
+        $("#category-form")[0].reset();
+        $("#remove_error").load(location.href + " #remove_error"); 
+    }
+</script>
+
+<script>
+    $(document).on('click', '#category-save-btn', function (e) {
+        e.preventDefault();
+        var formdata = new FormData($('#category-form')[0]); 
+        $('.loader-mask').show();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "add_category_action" %}',
+            data: formdata,
+            cache: false,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()  
+            },
+            success: function (data) {
+                RemoveBackendValidation('create_category_validation');
+                switch(data['status']) {
+                    case 'success':
+                        $('.loader-mask').hide();
+                        $('#main_table_id').css('visibility','visible');
+                        $('#no_data_div').css('visibility','hidden');
+                        RemoveBackendValidation('create_category_validation');
+                        showSuccess("sucessss");
+                        $('#add-lead').modal('hide');
+                        var cate = data.created_serializer;
+                        $("#append_new_category").prepend(`
+                            <tr class="trclass${cate.id}">
+                                <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                <td>${data.created_data_count}</td>
+                                <td id="category${cate.id}">
+                                    <a href="#">
+                                        <div class="avatar-div">
+                                            <span>${cate.category_name}</span>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a href="#" id="category-edit-modal-btn" data-id="${cate.id}" class="dropdown-item d-flex align-items-center"><i class="bx bx-edit font-size-16 me-1"></i>Edit</a></li>
+                                            <li><a href="#" onclick="category_delete(${cate.id})" class="dropdown-item d-flex align-items-center"><i class="bx bx-trash font-size-16 me-1"></i>Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        `);
+                        $("#category-form")[0].reset();
+                        break;
+                    case 'error_dict':
+                        $('.loader-mask').hide();
+                        backendValidation("create_category_validation", data['error_dict']);
+                        break;
+                    case 'error':
+                        $('.loader-mask').hide();
+                        showError("Something went wrong");
+                        break;
+                    default:
+                        break;
+                } 
+            }
+        });
+    });
+</script>
+
+
+ <script>
+    $(document).on('click', '#category-edit-modal-btn', function (event) {
+    var id = $(this).attr("data-id")
+    $('.loader-mask').show();
+    var url = "edit_category_modal";
+    $.ajax({
+        url: url,
+        data: {
+            'id': id,   
+        },
+        success: function (data) {
+            $('.loader-mask').hide();
+            $("#edit-category-div").empty().append(data);
+            $('#edit-category').modal('show');
+        }
+    });
+})
+</script>
+
+<script>
+    $(document).on('click', '#category-edit-btn', function (e) {
+       e.preventDefault(); 
+       $('.loader-mask').show(); 
+       var formdata = new FormData($('#category-edit-form')[0]);   
+       var id = $(this).attr("data-id")  
+       $.ajax({
+         type: 'POST',
+         url: 'edit_category_action/'+id,
+         data: formdata,
+         cache: false,
+         processData: false,
+         contentType: false,
+         headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()  
+                },
+         success: function (data) {
+            RemoveBackendValidation('edit_category_validation')
+            switch(data['status']) {
+                case 'success':
+                    $('.loader-mask').hide();
+                    RemoveBackendValidation('edit_category_validation')
+                    showSuccess('Updated Successfully')
+                    $("#edit-category").modal('hide')
+                    var cate = data.after_update[0];
+                        $('#category' + id).text(cate.category_name);
+                        $("#category-edit-form")[0].reset();
+                    break;
+                case 'error_dict':
+                    $('.loader-mask').hide();
+                    backendValidation("edit_category_validation", data['error_dict'])
+                    break;
+                case 'error':
+                    $('.loader-mask').hide();
+                    showError( "Something Went Wrong")
+                    break;
+                case 'no_update':
+                    $('.loader-mask').hide();
+                    showError('No update')
+                    break;
+                default:
+                    $('.loader-mask').hide();
+                    break;
+          } 
+        }
+       });
+    });
+</script>
+
+
+   <script>
+        function category_delete(val) {
+            $("#delete_modal_id").val(val)
+            $("#delete").modal('show')
+        }
+        $(document).on('click', '#delete-category-btn', function (e) {
+            $('.loader-mask').show();
+            id = $("#delete_modal_id").val()
+         $.ajax({
+                 type: 'GET',
+                 url: 'delete_category/'+id,            
+                 processData: false,
+                 contentType: false,
+                 success: function (data) {
+                    switch(data['status']) {
+                    case 'success':
+                        $('.loader-mask').hide();
+                        $("#delete").modal('hide') 
+                        $(".trclass"+id).remove()  
+                        break;
+                    case 'error':
+                        $('.loader-mask').hide();
+                        $("#delete").modal('hide')  
+                        $("#not_delete").modal('show') 
+                        //$(".trclass"+id).remove()  
+                        break;
+                    default:
+                        $('.loader-mask').hide();
+                        break;
+              } 
+            }
+     
+        })
+    });
+
+</script>
+
+
+   <script>
+    function logout_fun() {
+        $('#log_out').modal('show')
+    }
+    
+</script>
+
+
+<script>
+    function Search() {
+        var search_value = document.getElementById("search_value").value;
+        var subcompany_id = document.getElementById("subcompany_id").value;
+        redirect_url = "category_search"
+        $.ajax({
+            url: redirect_url,
+            data: {
+                'search_value': search_value,
+                "subcompany_id" : subcompany_id,
+            },
+            type: 'GET',
+            success: function (data) {
+
+                $(".append_category_search_result").empty().append(data)
+            },
+        })
+    }
+</script>
+
+
+</body>
+
+</html>

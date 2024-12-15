@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>SHOPIFY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout-wrapper">
+
+
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex align-items-center">
+                    <div class="navbar-brand-box">
+                        <a href="index.html" class="logo">
+                            <span class="logo-lg">
+                                <img src="assets/images/logo.png" alt="" height="23">
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm font-size-16 d-lg-none header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                            <span key="t-dashboards">Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="lead.html"
+                                            id="topnav-pages" role="button">
+                                            <span>Lead</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Lead</a>
+                                            <a href="#" class="dropdown-item">Lead</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="product.html"
+                                            id="topnav-pages" role="button">
+                                            <span>Accounts</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Accounts</a>
+                                            <a href="#" class="dropdown-item">Accounts</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="customer.html"
+                                            id="topnav-pages" role="button">
+                                            <span>customer</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">customer</a>
+                                            <a href="#" class="dropdown-item">customer</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="opportunities.html"
+                                            id="topnav-pages" role="button">
+                                            <span>Opportunity</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Opportunity</a>
+                                            <a href="#" class="dropdown-item">Opportunity</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown d-none">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages"
+                                            role="button">
+                                            <span>Forecasts</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Forecasts</a>
+                                            <a href="#" class="dropdown-item">Forecasts</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="quotation.html"
+                                            id="topnav-pages" role="button">
+                                            <span>Quotation</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Quotation</a>
+                                            <a href="#" class="dropdown-item">Quotation</a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center header-rightside-btns">
+                    <form class="app-search d-none d-lg-block">
+                        <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="bx bx-search-alt"></span>
+                        </div>
+                    </form>
+                    <a href="sticky-notes.html"><button type="button"
+                            class="btn btn-primary waves-effect waves-light"><i class="bx bx-notepad"></i></button></a>
+                    <div class="dropdown d-inline-block user-dropdown">
+                        <button type="button" class="btn header-item btn-primary waves-effect waves-light"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="far fa-comments"></i>
+
+                        </button>
+                        <span class="badge bg-warning">13</span>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h5 class="m-0" key="t-notifications"> Chats </h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#!" key="t-view-all"> View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-simplebar style="max-height: 230px;">
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2 border-top d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View
+                                        More..</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown d-inline-block user-dropdown">
+                        <button type="button" class="btn header-item btn-primary waves-effect waves-light"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="bx bx-plus"></i>
+
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center noti-heading">
+                                    <div class="col">
+                                        <h5 class="m-0" key="t-notifications">GLOBAL ACTIONS</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-simplebar style="max-height: 230px;">
+
+                                <div class="global-action-btns">
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#log-call"><button type="button" class="btn btn-orange waves-effect waves-light me-2"><i class="bx bx-phone-call"></i></button>Log a Call</a>
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#new-task"><button type="button" class="btn btn-info waves-effect waves-light me-2"><i class="bx bxs-edit"></i></button>New task</a> 
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#new-event"><button type="button" class="btn btn-success waves-effect waves-light me-2"><i class="bx bx-calendar-plus"></i></button>New Event</a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="settings.html"><button type="button" class="btn btn-primary waves-effect waves-light"><i
+                                class="bx bx-cog"></i></button></a>
+                    <div class="dropdown d-inline-block user-dropdown">
+                        <button type="button" class="btn header-item btn-primary waves-effect waves-light"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="bx bx-bell"></i>
+
+                        </button>
+                        <span class="badge bg-warning">30</span>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center noti-heading">
+                                    <div class="col">
+                                        <h5 class="m-0" key="t-notifications"> Notifications </h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#!" key="t-view-all"> View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-simplebar style="max-height: 230px;">
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2 border-top d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View
+                                        More..</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown d-inline-block user-dropdown ms-2">
+                        <a class="" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
+                                alt="Header Avatar">
+
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="profile.html"><i class="bx bx-user font-size-16 align-middle me-1"></i>
+                                <span key="t-profile">Profile</span></a>
+                            <a class="dropdown-item d-block" href="settings.html"><i
+                                    class="bx bx-wrench font-size-16 align-middle me-1"></i> <span
+                                    key="t-settings">Settings</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#"><i
+                                    class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
+                                    key="t-logout">Logout</span></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+
+
+        <div class="page-content">
+            <div class="container-fluid px-0 d-flex align-items-center justify-content-center">
+                <div class="card-profile">
+                    <div class="card-body">
+                        <div class="profile-banner d-flex justify-content-center">
+                            <img src="assets/images/profile-avatar.png" alt="" class="img-fluid rounded-circle">
+                        </div>
+                        <div class="profile-cntns text-center">
+                            <h4>Muhammed Nabeel</h4>
+                            <h5>nabeel@gmail.com</h5>
+                        </div>
+                        <div class="d-flex profile-location align-items-center text-center justify-content-center mt-3">
+                            <img src="assets/images/india-flag.svg" alt="" class="img-fluid">
+                            <h6>Kerala, India</h6>
+                        </div>
+                     <div class="d-flex active-time align-items-center justify-content-center">
+                        <i class="bx bxs-circle"></i>
+                        <p>Full Time</p>
+                     </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light profile-btn">
+                                <i class="mdi mdi-account-circle"></i>Follow
+                            </button>
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light profile-btn">
+                                <i class="mdi mdi-message-settings-outline"></i>Message
+                            </button>
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light profile-btn">
+                                <i class="mdi mdi-dots-horizontal"></i>More
+                            </button> 
+                        </div>
+                        <hr class="profile-border my-3">
+                        <div class="profile-skills">
+                            <h3>Skills</h3>
+                            <div class="flex-sm">
+                                <button type="button" class="btn btn-light waves-effect">UI Designer</button>
+                                <button type="button" class="btn btn-light waves-effect">UX Designer</button>
+                                <button type="button" class="btn btn-light waves-effect">Design System</button>
+                                <button type="button" class="btn btn-light waves-effect">Product</button>
+                                <button type="button" class="btn btn-light waves-effect">UI Designer</button>
+                                <button type="button" class="btn btn-light waves-effect">UX Designer</button>
+                                <button type="button" class="btn btn-light waves-effect">Design System</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+    <script src="assets/libs/jquery/jquery.min.js"></script>
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/pages/note.js"></script>
+
+
+    <script>
+        // upload image
+        const uploadArea = document.querySelector('#uploadArea')
+
+
+        const dropZoon = document.querySelector('#dropZoon');
+        const loadingText = document.querySelector('#loadingText');
+        const fileInput = document.querySelector('#fileInput');
+        const previewImage = document.querySelector('#previewImage');
+        const fileDetails = document.querySelector('#fileDetails');
+        const uploadedFile = document.querySelector('#uploadedFile');
+        const uploadedFileInfo = document.querySelector('#uploadedFileInfo');
+        const uploadedFileName = document.querySelector('.uploaded-file__name');
+        const uploadedFileIconText = document.querySelector('.uploaded-file__icon-text');
+        const uploadedFileCounter = document.querySelector('.uploaded-file__counter');
+        const imagesTypes = [
+            "jpeg",
+            "png",
+            "svg",
+            "gif"
+        ];
+
+        dropZoon.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            dropZoon.classList.add('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('dragleave', function (event) {
+            dropZoon.classList.remove('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('drop', function (event) {
+            event.preventDefault();
+            dropZoon.classList.remove('drop-zoon--over');
+            const file = event.dataTransfer.files[0];
+            uploadFile(file);
+        });
+
+        dropZoon.addEventListener('click', function (event) {
+            fileInput.click();
+        });
+
+
+        fileInput.addEventListener('change', function (event) {
+
+            const file = event.target.files[0];
+            uploadFile(file);
+        });
+
+        function uploadFile(file) {
+            const fileReader = new FileReader();
+            const fileType = file.type;
+            const fileSize = file.size;
+
+            if (fileValidate(fileType, fileSize)) {
+                dropZoon.classList.add('drop-zoon--Uploaded');
+                loadingText.style.display = "block";
+                previewImage.style.display = 'none';
+                uploadedFile.classList.remove('uploaded-file--open');
+                uploadedFileInfo.classList.remove('uploaded-file__info--active');
+
+                fileReader.addEventListener('load', function () {
+                    setTimeout(function () {
+                        uploadArea.classList.add('upload-area--open');
+                        loadingText.style.display = "none";
+                        previewImage.style.display = 'block';
+                        fileDetails.classList.add('file-details--open');
+                        uploadedFile.classList.add('uploaded-file--open');
+                        uploadedFileInfo.classList.add('uploaded-file__info--active');
+                    }, 500);
+
+                    previewImage.setAttribute('src', fileReader.result);
+                    uploadedFileName.innerHTML = file.name;
+
+                    progressMove();
+                });
+
+                fileReader.readAsDataURL(file);
+            } else {
+
+                this;
+
+            };
+        };
+
+
+        function progressMove() {
+            let counter = 0;
+            setTimeout(() => {
+                let counterIncrease = setInterval(() => {
+                    if (counter === 100) {
+                        clearInterval(counterIncrease);
+                    } else {
+                        counter = counter + 10;
+                        uploadedFileCounter.innerHTML = `${counter}%`
+                    }
+                }, 100);
+            }, 600);
+        };
+
+        function fileValidate(fileType, fileSize) {
+            let isImage = imagesTypes.filter((type) => fileType.indexOf(`image/${type}`) !== -1);
+            if (isImage[0] === 'jpeg') {
+                uploadedFileIconText.innerHTML = 'jpg';
+            } else {
+                uploadedFileIconText.innerHTML = isImage[0];
+            };
+
+            if (isImage.length !== 0) {
+                if (fileSize <= 2000000) {
+                    return true;
+                } else {
+                    return alert('Please Your File Should be 2 Megabytes or Less');
+                };
+            } else {
+                return alert('Please make sure to upload An Image File Type');
+            };
+        };
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var disabled = false;
+            $('.edit-icon').click(function () {
+                let cParent = $(this).parent();
+                cParent.children('input').prop('disabled', false);
+                cParent.children('input').focus();
+            })
+        });
+    </script>
+
+    <script>
+        ClassicEditor.create(document.querySelector(".editor"), {
+                toolbar: {
+                    items: [
+                        "heading",
+                        "|",
+                        "bold",
+                        "italic",
+                        "link",
+                        "bulletedList",
+                        "numberedList",
+                        "|",
+                        "indent",
+                        "outdent",
+                        "|",
+                        "imageUpload",
+                        "blockQuote",
+                        "mediaEmbed",
+                        "undo",
+                        "redo",
+                    ],
+                },
+                language: "es",
+                image: {
+                    toolbar: ["imageTextAlternative", "imageStyle:full", "imageStyle:side"],
+                },
+                licenseKey: "",
+            })
+            .then((editor) => {
+                window.editor = editor;
+            })
+            .catch((error) => {
+                console.error("Oops, something went wrong!");
+                console.error(
+                    "Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:"
+                );
+                console.warn("Build id: ref2goguw78q-8ghiwfe1qu83");
+                console.error(error);
+            });
+    </script>
+</body>
+
+</html>

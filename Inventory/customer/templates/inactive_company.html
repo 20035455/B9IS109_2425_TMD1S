@@ -1,0 +1,642 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>SHOPIFY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+    <style>
+        .empty-bx {
+            text-align: center;
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            }
+            .empty-bx img{
+                margin-bottom: 10px;
+            }
+            .empty-bx h4{
+                font-weight: 700;
+                font-size: 20px;
+            }
+        .loader-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff23;
+            z-index: 99999;
+          }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout-wrapper">
+
+
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex align-items-center">
+                    
+                    <button type="button" class="btn btn-sm font-size-16 d-lg-none header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+
+                                    
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="sub_company"
+                                            id="topnav-pages" role="button">
+                                            <span>Active Company</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link arrow-none btn btn-primary" href="inactive_company" id="topnav-dashboard" role="button">
+                                            <span key="t-dashboards"> Inactive Company</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center header-rightside-btns">
+                   
+                    
+                    
+                    
+                   
+                   
+
+                    <div class="dropdown d-inline-block user-dropdown ms-2">
+                        <a class="dropdown-item text-danger" href="#" onclick="logout_fun()"><i
+                            class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
+                            key="t-logout">Logout</span></a>
+                       
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+
+
+        <div class="page-content">
+            <div class="container-fluid px-0">
+             <div class="row gx-3">
+                <div class="col-lg-9">
+                    <div class="dashboard-leads">
+                        <div class="top-header-div d-flex justify-content-between">
+                            <h3 class="dashboard-sub-head">Company.</h3>
+                            
+                            {% comment %} <div class="top-header-rightbtns sm-non-margn">
+                                <form class="app-search d-none d-lg-block">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <span class="bx bx-search-alt"></span>
+                                    </div>
+                                </form>
+                                <button type="button" class="btn btn-primary waves-effect waves-light me-0" onclick="open_modal()">
+                                    <i class="bx bx-plus-circle font-size-15 align-middle me-1"></i> Add New Company
+                                </button>
+                            </div> {% endcomment %}
+                           
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="main_table_id" {% if not subcompany_data %} style="visibility:hidden;" {% endif %}>
+                                <thead class="b-none">
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="append-data-div">
+                                    {% for i in subcompany_data %}
+                                    <tr class="trclass{{i.id}}">
+                                        <td>
+                                            <a href="#">
+                                                <div class="company-div d-flex align-items-center py-1"> 
+                                                    {% if i.photo == '' or i.photo == None %}
+                                                    <img src="{% static 'assets/images/imag233.jpg' %}" alt="" class="rounded-circle">
+                                                    {% else %}
+                                                    <img src="../media/{{i.photo}}" alt="" class="rounded-circle">
+                                                    {% endif %}
+                                                    <div class="ms-3">
+                                                        <h3 id="company_name{{i.id}}">{{i.company_name|default:''}}</h3>
+                                                        <h4 id="email{{i.id}}">{{i.email|default:''}}</h4>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td><button type="button" onclick="inactive_modal({{i.id}})" class="btn btn-soft-warning waves-effect waves-light cmpny-sts-btn adm-inactive-btn">Inactive</button></td>
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a href="#" onclick="delete_modal({{i.id}})" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bx bx-trash font-size-16 me-1"></i>
+                                                </a>
+                                                {% comment %} <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a href="#" class="dropdown-item d-flex align-items-center" id="company-edit-modal-btn" data-id="{{i.id}}"><i class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                    </li>
+                                                    <li><a href="#" class="dropdown-item d-flex align-items-center" onclick="delete_modal({{i.id}})"><i class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                    </li>
+                                                </ul> {% endcomment %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                   
+                                    {% comment %} <tr>
+                                        <td>
+                                            <a href="dashboard">
+                                                <div class="company-div d-flex align-items-center py-1"> 
+                                                    <img src="../static/assets/images/company-logo-2.svg" alt="" class="rounded-circle">
+                                                    <div class="ms-3">
+                                                        <h3>pixbit Solutions</h3>
+                                                        <h4>pixbit@gmail.com</h4>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td><button type="button" class="btn btn-soft-warning waves-effect waves-light cmpny-sts-btn adm-inactive-btn">Inactive</button></td>
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li data-bs-toggle="modal" data-bs-target="#add-admin-company"><a href="#" class="dropdown-item d-flex align-items-center"><i class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                    </li>
+                                                    <li><a href="#" class="dropdown-item d-flex align-items-center"><i class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endcomment %}
+                                    
+                                </tbody>
+                            </table>
+                            {% if not subcompany_data %}
+                                <div class="empty-bx" id="no_data_div" {% if not subcompany_data %}style="visibility:visible;"{% endif %} >
+                                    <img src="{% static 'assets/images/empty-empty.gif' %}" alt="" style="width: 300px;">
+                                    <h4>There is no data.</h4>
+                                </div>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                   <div class="row">
+                    <div class="col-lg-12">
+                        <div class="total-compny-div">
+                            <h4>Total Companies</h4>
+                            <h2 id="company_count">{{subcompany_data_count}}</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div id="doughnut-chart" data-colors='["--bs-primary","--bs-warning", "--bs-danger","--bs-info", "--bs-success"]' class="e-charts"></div>
+                    </div>
+                   </div>
+                </div>
+             </div>
+
+            </div>
+         
+        </div>
+    </div>
+
+
+{% comment %} 
+    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Lead</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete_modal_id" name="company_id">
+              <h4 class="delete-hint">Are you sure you want to delete this lead?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="delete-company-btn">Delete</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div> {% endcomment %}
+
+
+    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Company</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete_modal_id" name="company_id">
+              <h4 class="delete-hint">Are you sure you want to delete this company?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="delete-company-btn">Delete</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <div class="modal fade" id="delete_to_inactive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Company</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" class="inactive_modal_id" >
+              <h4 class="delete-hint">Sorry, you cannot delete the Company because there are Customers associated with it.</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" data-bs-dismiss="modal">ok</button>
+               
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="modal fade" id="inactive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Activate Company</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="inactive_modal_id2" >
+              <h4 class="delete-hint">Are you sure you want to activate this company?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="inactive-company-btn" >Activate</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="log_out" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Logout</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h4 class="delete-hint">Are you sure you want to logged out?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+               <a href="logout_view"> <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="logout-btn" >Logout</button></a>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="add-admin-company" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Add Company</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method='post' id="company-form">
+                        {% csrf_token %}
+                    <div class="row">
+                        <div >
+                            {% comment %} <div id="uploadArea" class="upload-area">
+                                <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                                    <span class="drop-zoon__icon">
+                                        <i class='bx bxs-file-image'></i>
+                                    </span>
+                                    <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                    <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                                    <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                        draggable="false">
+                                    <input type="file" name="company_image" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                                </div>
+
+                                <div id="fileDetails" class="upload-area__file-details file-details">
+                                    <h3 class="file-details__title">Uploaded File</h3>
+
+                                    <div id="uploadedFile" class="uploaded-file">
+                                        <div class="uploaded-file__icon-container">
+                                            <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                            <span class="uploaded-file__icon-text"></span>
+                                        </div>
+
+                                        <div id="uploadedFileInfo" class="uploaded-file__info">
+                                            <span class="uploaded-file__name">Proejct 1</span>
+                                            <span class="uploaded-file__counter">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> {% endcomment %}
+                            <div class="container" style=" margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;">
+                                <div class="avatar-upload" style=" margin-top: 50px; margin-bottom: 0px;">
+                                    <div class="avatar-edit">
+                                        <input type='file' name="company_image" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                        <label for="imageUpload"></label>
+                                    </div>
+                                    <div class="avatar-preview" style=" bottom: 50px;">
+                                        <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inputGroup form-control" >
+                                <input type="text" data-class="company_name" class="company_name1 mb-0" name="company_name">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="company_name mb-2"></div>
+
+                            <div class="inputGroup form-control">
+                                <input type="number" data-class="phone" class="phone1 mb-0" name="phone">
+                                <label for="name">Phone</label>
+                            </div>
+                            <div class="phone mb-2"></div>
+                            
+                            <div class="inputGroup form-control">
+                                <input type="text" data-class="email" class="email1 mb-0" name="email">
+                                <label for="name">Email</label>
+                            </div>
+                            <div class="email mb-2"></div>
+                            
+                           
+                        </div>
+                        
+                               
+                                      
+                      
+                    </div>
+                </form>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="company-save-btn">Save</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="edit-company-div"></div>
+<div class="loader-mask" style="display: none">
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'assets/libs/echarts/echarts.min.js' %}"></script>
+    <script src="{% static 'assets/js/pages/echarts.init.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    <script>
+        $(function () {
+            $(".ddl-select").each(function () {
+
+
+                $(this).hide();
+                var $select = $(this);
+                var _id = $(this).attr("id");
+                var wrapper = document.createElement("div");
+                wrapper.setAttribute("class", "ddl ddl_" + _id);
+
+                var input = document.createElement("h6");
+
+                input.setAttribute("class", "ddl-input");
+                input.setAttribute("id", "ddl_" + _id);
+                input.innerHTML = $(this)[0].options[$(this)[0].selectedIndex].innerText
+
+                $(this).before(wrapper);
+                var $ddl = $(".ddl_" + _id);
+                $ddl.append(input);
+                $ddl.append("<div class='ddl-options ddl-options-" + _id + "'></div>");
+                var $ddl_input = $("#ddl_" + _id);
+                var $ops_list = $(".ddl-options-" + _id);
+                var $ops = $(this)[0].options;
+                for (var i = 0; i < $ops.length; i++) {
+                    $ops_list.append(
+                        "<div data-value='" +
+                        $ops[i].value +
+                        "'>" +
+                        $ops[i].innerText +
+                        "</div>"
+                    );
+                }
+
+                $ddl_input.click(function () {
+                    $ddl.toggleClass("active");
+                });
+                $ddl_input.blur(function () {
+                    $ddl.removeClass("active");
+                });
+                $ops_list.find("div").click(function () {
+                    document.getElementsByClassName("ddl-input")[0].innerHTML = $(this).text();
+                    $ddl.removeClass("active");
+                });
+            });
+        });
+    </script>
+   
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                    $('#imagePreview').hide();
+                    $('#imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imageUpload").change(function() {
+            readURL(this);
+        });
+    </script>
+
+
+
+    <script>
+        $('.inputGroup input').on('focusin', function () {
+            $(this).parent().find('label').addClass('active');
+        });
+    
+        $('.inputGroup input').on('focusout', function () {
+            if (!this.value) {
+                $(this).parent().find('label').removeClass('active');
+            }
+        });
+    
+        var dateInputs = document.querySelectorAll('.inputGroup input[type="date"] , .inputGroup input[type="time"]');
+    
+        dateInputs.forEach(function (dateInput) {
+            dateInput.addEventListener('input', function () {
+                if (this.value) {
+                    this.classList.add('hasValue');
+                } else {
+                    this.classList.remove('hasValue');
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        function inactive_modal(val) {
+            $("#inactive_modal_id2").val(val)
+            $("#inactive").modal('show')
+        }
+        $(document).on('click', '#inactive-company-btn', function (e) {
+            $('.loader-mask').show();
+            id = $("#inactive_modal_id2").val()
+         $.ajax({
+                 type: 'GET',
+                 url: 'inactive_company_action/'+id,            
+                 processData: false,
+                 contentType: false,
+                 success: function (data) {
+                    switch(data['status']) {
+                    case 'success':
+                        $('.loader-mask').hide();
+                        $("#inactive").modal('hide') 
+                        $(".trclass"+id).remove()   
+                        break;
+                    case 'error':
+                        $('.loader-mask').hide();
+                        alert("Something went wrong")
+                        break;
+                    default:
+                        $('.loader-mask').hide();
+                        break;
+              } 
+    
+            }
+     
+        })
+    });
+    
+</script>
+
+    <script>
+        function delete_modal(val) {
+            $("#delete_modal_id").val(val)
+            $("#inactive_modal_id").val(val)
+            $("#delete").modal('show')
+        }
+        $(document).on('click', '#delete-company-btn', function (e) {
+            $('.loader-mask').show();
+            id = $("#delete_modal_id").val()
+         $.ajax({
+                 type: 'GET',
+                 url: 'delete_subcompany/'+id,            
+                 processData: false,
+                 contentType: false,
+                 success: function (data) {
+                    switch(data['status']) {
+                    case 'success':
+                        $('.loader-mask').hide();
+                        $("#delete").modal('hide') 
+                        $(".trclass"+id).remove()   
+                        break;
+                    case 'error':
+                        $('.loader-mask').hide();
+                        $("#delete").modal('hide')  
+                        $("#delete_to_inactive").modal('show') 
+                        break;
+                    default:
+                        $('.loader-mask').hide();
+                        break;
+              } 
+           }
+        })
+    });
+    
+</script>
+
+    <script>
+        function logout_fun() {
+            $('#log_out').modal('show')
+        }
+        
+    </script>
+
+    
+
+</body>
+
+</html>

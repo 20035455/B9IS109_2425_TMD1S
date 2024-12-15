@@ -1,0 +1,1953 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>SHOPIFY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+
+    <style>
+        .empty-bx {
+            text-align: center;
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            }
+            .empty-bx img{
+                margin-bottom: 10px;
+            }
+            .empty-bx h4{
+                font-weight: 700;
+                font-size: 20px;
+            }
+        .non-valid{
+            padding-right: calc(1.5em + .94rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f46a6a'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23f46a6a' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + .235rem) center;
+            background-size: calc(.75em + .47rem) calc(.75em + .47rem);
+            border-color: #f46a6a;
+        }
+        .valid{
+            border-color: #34c38f;
+            padding-right: calc(1.5em + .94rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2334c38f' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + .235rem) center;
+            background-size: calc(.75em + .47rem) calc(.75em + .47rem)
+        }
+        .nonvalid-alert{
+            width: 100%;
+            margin-top: .25rem;
+            font-size: 80%;
+            color: #f46a6a
+        }
+        .loader-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff23;
+            z-index: 99999;
+          }
+        h2 {
+            font-family: 'Damion', cursive;
+            font-weight: 400;
+            color: #4caf50;
+            font-size: 35px;
+            text-align: center;
+            position: relative;
+        }
+        h2:before {
+            position: absolute;
+            content: '';
+            width: 100%;
+            left: 0;
+            top: 22px;
+            background: #4caf50;
+            height: 1px;
+        }
+        h2 i {
+            font-style: normal;
+            background: #fff;
+            position: relative;
+            padding: 10px;
+        }
+        :focus{outline: none;}
+        
+        /* necessary to give position: relative to parent. */
+        input[type="text"]{font: 10px/10px 'Muli', sans-serif; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
+        
+        :focus{outline: none;}
+        
+        .col-3{float: left; width: 27.33%; margin: 40px 3%; position: relative;} /* necessary to give position: relative to parent. */
+        input[type="text"]{font: 10px/10px "Lato", Arial, sans-serif; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
+        
+        .effect-1, 
+        .effect-2, 
+        .effect-3{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;}
+        
+        .effect-1 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-1:focus ~ .focus-border{width: 100%; transition: 0.4s;}
+        
+        .effect-2 ~ .focus-border{position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-2:focus ~ .focus-border{width: 100%; transition: 0.4s; left: 0;}
+        
+        .effect-3 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; z-index: 99;}
+        .effect-3 ~ .focus-border:before, 
+        .effect-3 ~ .focus-border:after{content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 100%; background-color: #4caf50; transition: 0.4s;}
+        .effect-3 ~ .focus-border:after{left: auto; right: 0;}
+        .effect-3:focus ~ .focus-border:before, 
+        .effect-3:focus ~ .focus-border:after{width: 50%; transition: 0.4s;}
+        
+        .effect-4,
+        .effect-5,
+        .effect-6{border: 0; padding: 5px 0 7px; border: 1px solid transparent; border-bottom-color: #ccc; transition: 0.4s;}
+        
+        .effect-4:focus,
+        .effect-5:focus,
+        .effect-6:focus{padding: 5px 14px 7px; transition: 0.4s;}
+        
+        .effect-4 ~ .focus-border{position: absolute; height: 0; bottom: 0; left: 0; width: 100%; transition: 0.4s; z-index: -1;}
+        .effect-4:focus ~ .focus-border{transition: 0.4s; height: 36px; border: 2px solid #4caf50; z-index: 1;}
+        
+        .effect-5 ~ .focus-border{position: absolute; height: 36px; bottom: 0; left: 0; width: 0; transition: 0.4s;}
+        .effect-5:focus ~ .focus-border{width: 100%; transition: 0.4s; border: 2px solid #4caf50;}
+        
+        .effect-6 ~ .focus-border{position: absolute; height: 36px; bottom: 0; right: 0; width: 0; transition: 0.4s;}
+        .effect-6:focus ~ .focus-border{width: 100%; transition: 0.4s; border: 2px solid #4caf50;}
+        
+        .effect-7,
+        .effect-8,
+        .effect-9{border: 1px solid #ccc; padding: 7px 14px 9px; transition: 0.4s;}
+        
+        .effect-7 ~ .focus-border:before,
+        .effect-7 ~ .focus-border:after{content: ""; position: absolute; top: 0; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-7 ~ .focus-border:after{top: auto; bottom: 0;}
+        .effect-7 ~ .focus-border i:before,
+        .effect-7 ~ .focus-border i:after{content: ""; position: absolute; top: 50%; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.6s;}
+        .effect-7 ~ .focus-border i:after{left: auto; right: 0;}
+        .effect-7:focus ~ .focus-border:before,
+        .effect-7:focus ~ .focus-border:after{left: 0; width: 100%; transition: 0.4s;}
+        .effect-7:focus ~ .focus-border i:before,
+        .effect-7:focus ~ .focus-border i:after{top: 0; height: 100%; transition: 0.6s;}
+        
+        .effect-8 ~ .focus-border:before,
+        .effect-8 ~ .focus-border:after{content: ""; position: absolute; top: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.3s;}
+        .effect-8 ~ .focus-border:after{top: auto; bottom: 0; left: auto; right: 0;}
+        .effect-8 ~ .focus-border i:before,
+        .effect-8 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.4s;}
+        .effect-8 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-8:focus ~ .focus-border:before,
+        .effect-8:focus ~ .focus-border:after{width: 100%; transition: 0.3s;}
+        .effect-8:focus ~ .focus-border i:before,
+        .effect-8:focus ~ .focus-border i:after{height: 100%; transition: 0.4s;}
+        
+        .effect-9 ~ .focus-border:before,
+        .effect-9 ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.2s; transition-delay: 0.2s;}
+        .effect-9 ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+        .effect-9 ~ .focus-border i:before,
+        .effect-9 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.2s;}
+        .effect-9 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+        .effect-9:focus ~ .focus-border:before,
+        .effect-9:focus ~ .focus-border:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+        .effect-9:focus ~ .focus-border:after{transition-delay: 0.2s;}
+        .effect-9:focus ~ .focus-border i:before,
+        .effect-9:focus ~ .focus-border i:after{height: 100%; transition: 0.2s;}
+        .effect-9:focus ~ .focus-border i:after{transition-delay: 0.4s;}
+        
+        .effect-10, 
+        .effect-11, 
+        .effect-12,
+        .effect-13,
+        .effect-14,
+        .effect-15{border: 0; padding: 7px 15px; border: 1px solid #ccc; position: relative; background: transparent;}
+        
+        .effect-10 ~ .focus-bg{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #ededed; opacity: 0; transition: 0.5s; z-index: -1;}
+        .effect-10:focus ~ .focus-bg{transition: 0.5s; opacity: 1;}
+        
+        .effect-11 ~ .focus-bg{position: absolute; left: 0; top: 0; width: 0; height: 100%; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-11:focus ~ .focus-bg{transition: 0.3s; width: 100%;}
+        
+        .effect-12 ~ .focus-bg{position: absolute; left: 50%; top: 0; width: 0; height: 100%; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-12:focus ~ .focus-bg{transition: 0.3s; width: 100%; left: 0;}
+        
+        .effect-13 ~ .focus-bg:before,
+        .effect-13 ~ .focus-bg:after{content: ""; position: absolute; left: 0; top: 0; width: 0; height: 100%; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-13:focus ~ .focus-bg:before{transition: 0.3s; width: 50%;}
+        .effect-13 ~ .focus-bg:after{left: auto; right: 0;}
+        .effect-13:focus ~ .focus-bg:after{transition: 0.3s; width: 50%;}
+        
+        .effect-14 ~ .focus-bg:before,
+        .effect-14 ~ .focus-bg:after{content: ""; position: absolute; left: 0; top: 0; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-14:focus ~ .focus-bg:before{transition: 0.3s; width: 50%; height: 100%;}
+        .effect-14 ~ .focus-bg:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-14:focus ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%;}
+        
+        .effect-15 ~ .focus-bg:before,
+        .effect-15 ~ .focus-bg:after{content: ""; position: absolute; left: 50%; top: 50%; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-15:focus ~ .focus-bg:before{transition: 0.3s; width: 50%; left: 0; top: 0; height: 100%;}
+        .effect-15 ~ .focus-bg:after{left: auto; right: 50%; top: auto; bottom: 50%;}
+        .effect-15:focus ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%; bottom: 0; right: 0;}
+        
+        
+        .effect-16, 
+        .effect-17, 
+        .effect-18{border: 0; padding: 4px 0; border-bottom: 1px solid #ccc; background-color: transparent;}
+        
+        .effect-16 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-16:focus ~ .focus-border,
+        .has-content.effect-16 ~ .focus-border{width: 100%; transition: 0.4s;}
+        .effect-16 ~ label{position: absolute; left: 0; width: 100%; top: 9px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-16:focus ~ label, .has-content.effect-16 ~ label{top: -16px; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-17 ~ .focus-border{position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-17:focus ~ .focus-border,
+        .has-content.effect-17 ~ .focus-border{width: 100%; transition: 0.4s; left: 0;}
+        .effect-17 ~ label{position: absolute; left: 0; width: 100%; top: 9px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-17:focus ~ label, .has-content.effect-17 ~ label{top: -16px; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-18 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; z-index: 99;}
+        .effect-18 ~ .focus-border:before, 
+        .effect-18 ~ .focus-border:after{content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 100%; background-color: #4caf50; transition: 0.4s;}
+        .effect-18 ~ .focus-border:after{left: auto; right: 0;}
+        .effect-18:focus ~ .focus-border:before, 
+        .effect-18:focus ~ .focus-border:after,
+        .has-content.effect-18 ~ .focus-border:before,
+        .has-content.effect-18 ~ .focus-border:after{width: 50%; transition: 0.4s;}
+        .effect-18 ~ label{position: absolute; left: 0; width: 100%; top: 9px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-18:focus ~ label, .has-content.effect-18 ~ label{top: -16px; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-19,
+        .effect-20,
+        .effect-21{border: 1px solid #ccc; padding: 7px 14px; transition: 0.4s; background: transparent;}
+        
+        .effect-19 ~ .focus-border:before,
+        .effect-19 ~ .focus-border:after{content: ""; position: absolute; top: -1px; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-19 ~ .focus-border:after{top: auto; bottom: 0;}
+        .effect-19 ~ .focus-border i:before,
+        .effect-19 ~ .focus-border i:after{content: ""; position: absolute; top: 50%; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.6s;}
+        .effect-19 ~ .focus-border i:after{left: auto; right: 0;}
+        .effect-19:focus ~ .focus-border:before,
+        .effect-19:focus ~ .focus-border:after,
+        .has-content.effect-19 ~ .focus-border:before,
+        .has-content.effect-19 ~ .focus-border:after{left: 0; width: 100%; transition: 0.4s;}
+        .effect-19:focus ~ .focus-border i:before,
+        .effect-19:focus ~ .focus-border i:after,
+        .has-content.effect-19 ~ .focus-border i:before,
+        .has-content.effect-19 ~ .focus-border i:after{top: -1px; height: 100%; transition: 0.6s;}
+        .effect-19 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-19:focus ~ label, .has-content.effect-19 ~ label{top: -18px; left: 0; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-20 ~ .focus-border:before,
+        .effect-20 ~ .focus-border:after{content: ""; position: absolute; top: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.3s;}
+        .effect-20 ~ .focus-border:after{top: auto; bottom: 0; left: auto; right: 0;}
+        .effect-20 ~ .focus-border i:before,
+        .effect-20 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.4s;}
+        .effect-20 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-20:focus ~ .focus-border:before,
+        .effect-20:focus ~ .focus-border:after,
+        .has-content.effect-20 ~ .focus-border:before,
+        .has-content.effect-20 ~ .focus-border:after{width: 100%; transition: 0.3s;}
+        .effect-20:focus ~ .focus-border i:before,
+        .effect-20:focus ~ .focus-border i:after,
+        .has-content.effect-20 ~ .focus-border i:before,
+        .has-content.effect-20 ~ .focus-border i:after{height: 100%; transition: 0.4s;}
+        .effect-20 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-20:focus ~ label, .has-content.effect-20 ~ label{top: -18px; left: 0; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-21 ~ .focus-border:before,
+        .effect-21 ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.2s; transition-delay: 0.2s;}
+        .effect-21 ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+        .effect-21 ~ .focus-border i:before,
+        .effect-21 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.2s;}
+        .effect-21 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+        .effect-21:focus ~ .focus-border:before,
+        .effect-21:focus ~ .focus-border:after,
+        .has-content.effect-21 ~ .focus-border:before,
+        .has-content.effect-21 ~ .focus-border:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+        .effect-21:focus ~ .focus-border:after,
+        .has-content.effect-21 ~ .focus-border:after{transition-delay: 0.2s;}
+        .effect-21:focus ~ .focus-border i:before,
+        .effect-21:focus ~ .focus-border i:after,
+        .has-content.effect-21 ~ .focus-border i:before,
+        .has-content.effect-21 ~ .focus-border i:after{height: 100%; transition: 0.2s;}
+        .effect-21:focus ~ .focus-border i:after,
+        .has-conten.effect-21 ~ .focus-border i:after{transition-delay: 0.4s;}
+        .effect-21 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-21:focus ~ label, .has-content.effect-21 ~ label{top: -18px; left: 0; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-22, 
+        .effect-23, 
+        .effect-24{border: 0; padding: 7px 15px; border: 1px solid #ccc; position: relative; background: transparent;}
+        
+        .effect-22 ~ .focus-bg{position: absolute; left: 0; top: 0; width: 0; height: 100%; background-color: transparent; transition: 0.4s; z-index: -1;}
+        .effect-22:focus ~ .focus-bg, 
+        .has-content.effect-22 ~ .focus-bg{transition: 0.4s; width: 100%; background-color: #ededed;}
+        .effect-22 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-22:focus ~ label, .has-content.effect-22 ~ label{top: -18px; left: 0; font-size: 12px; color: #333; transition: 0.3s;}
+        
+        .effect-23 ~ .focus-bg:before,
+        .effect-23 ~ .focus-bg:after{content: ""; position: absolute; left: 0; top: 0; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-23:focus ~ .focus-bg:before,
+        .has-content.effect-23 ~ .focus-bg:before{transition: 0.3s; width: 50%; height: 100%;}
+        .effect-23 ~ .focus-bg:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-23:focus ~ .focus-bg:after,
+        .has-content.effect-23 ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%;}
+        .effect-23 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-23:focus ~ label, .has-content.effect-23 ~ label{top: -18px; left: 0; font-size: 12px; color: #333; transition: 0.3s;}
+        
+        .effect-24 ~ .focus-bg:before,
+        .effect-24 ~ .focus-bg:after{content: ""; position: absolute; left: 50%; top: 50%; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-24:focus ~ .focus-bg:before,
+        .has-content.effect-24 ~ .focus-bg:before{transition: 0.3s; width: 50%; left: 0; top: 0; height: 100%;}
+        .effect-24 ~ .focus-bg:after{left: auto; right: 50%; top: auto; bottom: 50%;}
+        .effect-24:focus ~ .focus-bg:after,
+        .has-content.effect-24 ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%; bottom: 0; right: 0;}
+        .effect-24 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-24:focus ~ label, .has-content.effect-24 ~ label{top: -18px; left: 0; font-size: 12px; color: #333; transition: 0.3s;}
+        
+    </style>
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout-wrapper">
+
+
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex align-items-center">
+                    <div class="navbar-brand-box">
+                        <a href="sub_company" class="logo">
+                            <span class="logo-lg">
+                                <img src="{% static 'assets/images/images_back.png' %}" alt="" height="23" style="
+                                width: 50px;
+                                height: 50px;
+                            ">
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm font-size-16 d-lg-none header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link arrow-none" href="dashboard?id={{subcompany_id.id}}" id="topnav-dashboard" role="button">
+                                            <span key="t-dashboards">Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="lead?id={{subcompany_id.id}}"
+                                            id="topnav-pages" role="button">
+                                            <span>Category</span>
+                                        </a>
+                                       
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="accounts?id={{subcompany_id.id}}"
+                                            id="topnav-pages" role="button">
+                                            <span>Product</span>
+                                        </a>
+                                       
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none btn btn-primary"
+                                            href="customer?id={{subcompany_id.id}}" id="topnav-pages" role="button">
+                                            <span>Customer</span>
+                                        </a>
+                                        
+                                    </li>
+                                    {% comment %} <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="opportunities"
+                                            id="topnav-pages" role="button">
+                                            <span>Opportunity</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Opportunity</a>
+                                            <a href="#" class="dropdown-item">Opportunity</a>
+                                        </div>
+                                    </li> {% endcomment %}
+                                    {% comment %} <li class="nav-item dropdown d-none">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages"
+                                            role="button">
+                                            <span>Forecasts</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Forecasts</a>
+                                            <a href="#" class="dropdown-item">Forecasts</a>
+                                        </div>
+                                    </li> {% endcomment %}
+                                    {% comment %} <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="quotation"
+                                            id="topnav-pages" role="button">
+                                            <span>Quotation</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Quotation</a>
+                                            <a href="#" class="dropdown-item">Quotation</a>
+                                        </div>
+                                    </li> {% endcomment %}
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center header-rightside-btns">
+                    
+                  
+                  
+                   
+                    <div class="dropdown d-inline-block user-dropdown ms-2">
+                        <a class="dropdown-item text-danger" href="#" onclick="logout_fun()"><i
+                            class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
+                            key="t-logout">Logout</span></a>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+
+
+        <div class="page-content">
+            <div class="container-fluid px-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="top-header-div">
+                            <div class="main-heading">
+                              
+                            </div>
+                            <div class="top-header-btns">
+                                <button data-bs-toggle="modal" data-bs-target="#import" type="button" class="btn btn-soft-dark waves-effect waves-light"><i
+                                        class="bx bx-import"></i>Import</button>
+                            </div>
+                            <div class="top-header-rightbtns">
+                                <form class="app-search d-none d-lg-block">
+                                    <div class="position-relative">
+                                        <input type="hidden" id="subcompany_id" value="{{subcompany_id.id}}">
+                                        <input type="text" id="search_value" onkeyup="Search()" class="form-control" placeholder="Search...">
+                                        <span class="bx bx-search-alt"></span>
+                                    </div>
+                                </form>
+                                
+                                
+                               
+                                        <div class="dropdown d-inline-block user-dropdown">
+                                           
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0"
+                                                aria-labelledby="page-header-notifications-dropdown">
+                                                <div class="p-3">
+                                                    <div class="row align-items-center noti-heading">
+                                                        <div class="col">
+                                                            <h5 class="m-0" key="t-notifications">filter</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div data-simplebar style="max-height: 230px;">
+                    
+                                                    <div class="global-action-btns">
+                                                        <div class="form-check form-check-primary mb-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Account Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Amount
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Stage
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                    onclick="open_modal()">
+                                    <i class="bx bx-plus-circle font-size-15 align-middle me-1"></i> New
+                                </button>
+                            </div>
+                        </div>
+                        <div class="lead-table table-view">
+                            <div class="table-responsive append_customer_search_result">
+                                <table class="table table-striped" id="main_table_id" {% if not customer_data %} style="visibility:hidden;" {% endif %}>
+                                    <thead>
+                                        <tr>
+                                            <th width="40px"><input class="form-check-input" type="checkbox"
+                                                    id="formCheck1"></th>
+                                            <th width="54px">S No</th>
+                                    
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Product Owner
+                                                   
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Owner Email
+                                                
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Owner Phone
+                                                   
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                   Total Price
+                                                    
+                                                </div>
+                                            </th>
+                                           
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                     Date 
+                                                   
+                                                </div>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="append_new_data">
+ 
+
+                                        {% for i in customer_data %}
+                                        <tr class="trclass{{i.id}}">
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>{{forloop.counter}}</td>
+                                            <td><div class="avatar-div">
+                                                <a href="#">
+                                                <img src="{% static 'assets/images/users/avatar-7.jpg' %}" alt=""
+                                                    class="avatar-xs rounded-circle">
+                                                <span>{{i.customer_firstname|default:''}} {{i.customer_lastname|default:''}}</span></a>
+                                            </div></td>
+                                            <td>{{i.customer_email|default:''}}</td>
+                                            <td>{{i.customer_phone_no|default:''}}</td>
+                                            <td>{{i.total_amount|default:''}}</td>
+                                            <td>{{i.created_dt|date:"d-m-Y"}},{{i.created_tm|default:''}}</td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li ><a href="pdf?id={{i.id}}" target="_blank"
+                                                            class="dropdown-item d-flex align-items-center"><svg  style="width: 15px;height: 15px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M288 256H96v64h192v-64zm89-151L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-153 31V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H72c-4.4 0-8-3.6-8-8V72zm0 64c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H72c-4.4 0-8-3.6-8-8v-16zm256 304c0 4.4-3.6 8-8 8h-80c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16zm0-200v96c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-96c0-8.8 7.2-16 16-16h224c8.8 0 16 7.2 16 16z"/></svg>
+                                                            Invoice</a>
+                                                    </li>
+                                                        <li ><a href="#" id="view_customer_detail" data-id="{{i.id}}"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>View</a>
+                                                        </li>
+                                                        <li ><a href="#" onclick="delete_modal({{i.id}})"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        
+                                                       
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+              
+                                       
+                                     
+                                    </tbody>
+                                </table>
+                                {% if not customer_data %}
+                                <div class="empty-bx" id="no_data_div" {% if not customer_data %}style="visibility:visible;"{% endif %} >
+                                    <img src="{% static 'assets/images/empty-empty.gif' %}" alt="" style="width: 300px;">
+                                    <h4>There is no data.</h4>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bottom-pagination-div">
+                <ul class="pagination pagination-rounded pb-1">
+                    <li class="page-item disabled">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a href="javascript: void(0);" class="page-link">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">3</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    
+
+    <div class="modal fade" id="add-contact" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form method="post" id="customer-form">
+        {% csrf_token %}
+    <div class="modal-dialog modal-dialog-centered modal-xxl" id="remove_error" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Add Quote</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <ul class="nav nav-tabs nav-tabs-custom nav-justified quote-form" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#order-lines" role="tab">
+                                <span>Customer Info</span>
+                            </a>
+                        </li>
+                       
+                        
+                    </ul>
+                    
+                    <div class="col-md-6 mt-30">
+                        
+                        <div class="inputGroup form-control">
+                            <input type="text" data-class="First_name" class="First_name1 mb-0"  name="fname">
+                            <label class="search-icon" for="name">First Name</label>
+                        </div>
+                        <div class="First_name mb-2"></div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text" name="lname">
+                            <label for="name">Last Name</label>
+                            {% comment %} <i class="bx bx-search search-icn"></i> {% endcomment %}
+                        </div>
+
+                        
+
+                    
+
+                    </div>
+                    <div class="col-md-6 mt-30">
+
+
+                        <div class="inputGroup form-control">
+                            <input type="text" data-class="Email" class="Email1 mb-0" name="email">
+                            <label for="name">Email</label>
+                            {% comment %} <i class="bx bx-search search-icn"></i> {% endcomment %}
+                        </div>
+                        <div class="Email mb-2"></div>
+
+                        <div class="inputGroup form-control">
+                            <input type="hidden" name="subcompany_id"  value="{{subcompany_id.id}}">
+                            <input type="number" data-class="Phone" class="Phone1 mb-0" name="phone">
+                            <label for="name">Phone</label>
+                        </div>
+                        <div class="Phone mb-2"></div>
+
+                       
+                    </div>
+                   
+                </div>
+
+                <ul class="nav nav-tabs nav-tabs-custom nav-justified quote-form" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#order-lines" role="tab">
+                            <span>Order Lines</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+                <hr class="quote-frm-hr">
+                
+                <div class="tab-pane" id="order-lines" role="tabpanel">
+                    <div class="quote-list">
+                        <div class="table-responsive quote-table">
+                            
+                            <table class="table mb-0 ">
+                                
+                                <thead>
+                                    
+                                    
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Purchase Price</th>
+                                        <th>Sales price</th>
+                                        <th>Discount(%)</th>
+                                        <th>GST(%)</th> 
+                                        <th>Total</th>
+                                        <th><i class="bx bx-filter-alt"></i></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="append_new_row">
+                               
+                                    <tr>
+                                        <th scope="row">
+                                            <input type="hidden" value="0" name="row_id">
+                                            <select class="effect-2 customer_product0" type="text" name="product_id" placeholder="Enter Product" style="width: 150px;" onchange="SelectProduct(0)">
+                                                <option value="None">Select</option>
+                                                {% for i in product_data %}
+                                                {% if i.number != "0" %}
+                                                <option value="{{i.id}}">{{i.product_name|default:''}}</option>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                          </th>
+                                        <td><input class="effect-2 customer_product_quantity0" min="0" name="quantity0" type="number" placeholder="Quanity" style="width: 150px;" onchange="totalCalculator(0)"> </td>
+                                        <td><input class="effect-2 product_purchase_price_show0" min="0" type="number" placeholder="Purchase price" style="width: 150px;" readonly></td>
+                                        <td><input class="effect-2 sale_price0" type="number" min="0" name="sales_price0" placeholder="Sales Price" style="width: 150px;" onchange="totalCalculator(0)"></td>
+                                        <td><input class="effect-2 sales_discount0" type="number"  min="0" max="100" name="discount0" id="disount_percentage0" oninput="validateNumber(0)" placeholder="Discount%" style="width: 100px;" onchange="totalCalculator(0)"></td>
+                                        <td><input class="effect-2 sale_price_gst_percentage0"  min="0"  name="gst0" max="100" id="gst_percentage0" oninput="validateNumber(0)" type="number" placeholder="GST%" style="width: 100px;" onchange="totalCalculator(0)"></td> 
+                                        <td><input class="effect-2 total_amount0" type="number" min="0" name="total0" placeholder="Total price" style="width: 150px;" readonly></td>
+                                        <td class="">
+                                           
+                                                <a href="#" class="remCF" href="javascript:void(0);" >
+                                                    <i class="bx bx-trash font-size-16 me-1"></i>
+                                                </a>
+                                                
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                                <tr>
+                                    <td colspan="9" class="add-tble-list">
+                                        <div class="d-flex add-table-content">
+                                            <a href="#" onclick="add_new_line()">Add a product </a>
+                                        </div>
+                                    </td>
+                                </tr> 
+                            </table>
+                        </div>
+                        <div class="my-3">
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Subtotal</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <h4 id="total_subtotal_htag">0</h4>
+                                    </div>
+                                </div>
+
+                            </div> 
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Discount</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <h4 id="total_discount_htag">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Total Tax</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <h4 id="total_tax_htag">0</h4>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Total Amount</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        
+                                        <h4 id="total_price_htag">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="other-info" role="tabpanel">
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="customer-save-btn">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+
+
+    <div class="modal fade" id="edit-contact" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Edit Contact(Contact Name)</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="uploadArea" class="upload-area">
+                            <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                                <span class="drop-zoon__icon">
+                                    <i class='bx bxs-file-image'></i>
+                                </span>
+                                <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                                <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                    draggable="false">
+                                <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                            </div>
+
+                            <div id="fileDetails" class="upload-area__file-details file-details">
+                                <h3 class="file-details__title">Uploaded File</h3>
+
+                                <div id="uploadedFile" class="uploaded-file">
+                                    <div class="uploaded-file__icon-container">
+                                        <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                        <span class="uploaded-file__icon-text"></span>
+                                    </div>
+
+                                    <div id="uploadedFileInfo" class="uploaded-file__info">
+                                        <span class="uploaded-file__name">Proejct 1</span>
+                                        <span class="uploaded-file__counter">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label class="search-icon" for="name">Account Name</label>
+                            <i class="bx bx-search search-icn"></i>
+                        </div>
+
+                        <div class="form-grp">
+                            <h6 class="d-flex align-items-center"><span class="lead-owner">Account Owner : </span>
+                                <div><img src="../static/assets/images/users/avatar-1.jpg" alt=""
+                                        class="avatar-xs rounded-circle mx-2"><span>Nabeel</span></div>
+                            </h6>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Name</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Title</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Email</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Phone</label>
+                        </div>
+
+                        <h5 class="addrss-info">Additional Information</h5>
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Mobile</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Fax</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Reports to</label>
+                            <i class="bx bx-search search-icn"></i>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Department</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <h5 class="addrss-info mt-0">Address Information</h5>
+                        <h6 class="shipping-billing-head">Mailing Address</h6>
+                        <div class="form-grp">
+                            <textarea id="formmessage" class="form-control" rows="3"
+                                placeholder=" Mailing Street"></textarea>
+                        </div>
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Mailing Country</label>
+                        </div>
+
+                        <div class="row gx-2">
+                            <div class="col-lg-6">
+                                <div class="inputGroup form-control">
+                                    <input type="text">
+                                    <label for="name">Mailing Zip/Postel Code</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="inputGroup form-control">
+                                    <input type="text">
+                                    <label for="name">Mailing State/Province</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Mailing Country</label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="import" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Add Lead</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="uploadArea" class="upload-area">
+                        <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                            <span class="drop-zoon__icon">
+                                <i class='bx bxs-file-image'></i>
+                            </span>
+                            <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                            <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                            <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                draggable="false">
+                            <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                        </div>
+
+                        <div id="fileDetails" class="upload-area__file-details file-details">
+                            <h3 class="file-details__title">Uploaded File</h3>
+
+                            <div id="uploadedFile" class="uploaded-file">
+                                <div class="uploaded-file__icon-container">
+                                    <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                    <span class="uploaded-file__icon-text"></span>
+                                </div>
+
+                                <div id="uploadedFileInfo" class="uploaded-file__info">
+                                    <span class="uploaded-file__name">Proejct 1</span>
+                                    <span class="uploaded-file__counter">0%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Upload</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Customer</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete_modal_id">
+              <h4 class="delete-hint">Are you sure you want to delete this Customer?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="delete-customer-btn">Delete</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="change-owner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Change Owner</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="selct-box-head">Search Owner</h6>
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label class="search-icon" for="name">Search Owner</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="log_out" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Logout</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="inactive_modal_id2" >
+              <h4 class="delete-hint">Are you sure you want to logged out?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+               <a href="logout_view"> <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="logout-btn" >Logout</button></a>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <div class="modal fade" id="log-call" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Log a Call</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Task</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="date">
+                    <label for="name">Due Date</label>
+                </div>
+
+                <h6 class="selct-box-head">Assign to</h6>
+                <div class="form-grp inputGroup">
+                    <div class="select-inp">
+                        <select class="form-control">
+                            <option value="AK">None</option>
+                            <option value="HI">Qualificatio</option>
+                            <option value="CA">Need Analysis</option>
+                            <option value="NV">Proposal</option>
+                            <option value="CA">Negotiation </option>
+                            <option value="NV">Closed won</option>
+                            <option value="NV">Closed Lost </option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-event" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Event</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+                <div class="row">
+                    <h6 class="selct-box-head">Start</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h6 class="selct-box-head">End</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Location</label>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    <div id="view-customer-div"></div>
+    <div class="loader-mask" style="display: none">
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    <script>
+        $(function () {
+            $(".ddl-select").each(function () {
+
+
+                $(this).hide();
+                var $select = $(this);
+                var _id = $(this).attr("id");
+                var wrapper = document.createElement("div");
+                wrapper.setAttribute("class", "ddl ddl_" + _id);
+
+                var input = document.createElement("h6");
+
+                input.setAttribute("class", "ddl-input");
+                input.setAttribute("id", "ddl_" + _id);
+                input.innerHTML = $(this)[0].options[$(this)[0].selectedIndex].innerText
+
+                $(this).before(wrapper);
+                var $ddl = $(".ddl_" + _id);
+                $ddl.append(input);
+                $ddl.append("<div class='ddl-options ddl-options-" + _id + "'></div>");
+                var $ddl_input = $("#ddl_" + _id);
+                var $ops_list = $(".ddl-options-" + _id);
+                var $ops = $(this)[0].options;
+                for (var i = 0; i < $ops.length; i++) {
+                    $ops_list.append(
+                        "<div data-value='" +
+                        $ops[i].value +
+                        "'>" +
+                        $ops[i].innerText +
+                        "</div>"
+                    );
+                }
+
+                $ddl_input.click(function () {
+                    $ddl.toggleClass("active");
+                });
+                $ddl_input.blur(function () {
+                    $ddl.removeClass("active");
+                });
+                $ops_list.find("div").click(function () {
+                    document.getElementsByClassName("ddl-input")[0].innerHTML = $(this).text();
+                    $ddl.removeClass("active");
+                });
+            });
+        });
+    </script>
+    <script>
+        // upload image
+        const uploadArea = document.querySelector('#uploadArea')
+        const dropZoon = document.querySelector('#dropZoon');
+        const loadingText = document.querySelector('#loadingText');
+        const fileInput = document.querySelector('#fileInput');
+        const previewImage = document.querySelector('#previewImage');
+        const fileDetails = document.querySelector('#fileDetails');
+        const uploadedFile = document.querySelector('#uploadedFile');
+        const uploadedFileInfo = document.querySelector('#uploadedFileInfo');
+        const uploadedFileName = document.querySelector('.uploaded-file__name');
+        const uploadedFileIconText = document.querySelector('.uploaded-file__icon-text');
+        const uploadedFileCounter = document.querySelector('.uploaded-file__counter');
+        const imagesTypes = [
+            "jpeg",
+            "png",
+            "svg",
+            "gif"
+        ];
+
+        dropZoon.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            dropZoon.classList.add('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('dragleave', function (event) {
+            dropZoon.classList.remove('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('drop', function (event) {
+            event.preventDefault();
+            dropZoon.classList.remove('drop-zoon--over');
+            const file = event.dataTransfer.files[0];
+            uploadFile(file);
+        });
+
+        dropZoon.addEventListener('click', function (event) {
+            fileInput.click();
+        });
+
+
+        fileInput.addEventListener('change', function (event) {
+
+            const file = event.target.files[0];
+            uploadFile(file);
+        });
+
+        function uploadFile(file) {
+            const fileReader = new FileReader();
+            const fileType = file.type;
+            const fileSize = file.size;
+
+            if (fileValidate(fileType, fileSize)) {
+                dropZoon.classList.add('drop-zoon--Uploaded');
+                loadingText.style.display = "block";
+                previewImage.style.display = 'none';
+                uploadedFile.classList.remove('uploaded-file--open');
+                uploadedFileInfo.classList.remove('uploaded-file__info--active');
+
+                fileReader.addEventListener('load', function () {
+                    setTimeout(function () {
+                        uploadArea.classList.add('upload-area--open');
+                        loadingText.style.display = "none";
+                        previewImage.style.display = 'block';
+                        fileDetails.classList.add('file-details--open');
+                        uploadedFile.classList.add('uploaded-file--open');
+                        uploadedFileInfo.classList.add('uploaded-file__info--active');
+                    }, 500);
+
+                    previewImage.setAttribute('src', fileReader.result);
+                    uploadedFileName.innerHTML = file.name;
+
+                    progressMove();
+                });
+
+                fileReader.readAsDataURL(file);
+            } else {
+
+                this;
+
+            };
+        };
+
+
+        function progressMove() {
+            let counter = 0;
+            setTimeout(() => {
+                let counterIncrease = setInterval(() => {
+                    if (counter === 100) {
+                        clearInterval(counterIncrease);
+                    } else {
+                        counter = counter + 10;
+                        uploadedFileCounter.innerHTML = `${counter}%`
+                    }
+                }, 100);
+            }, 600);
+        };
+
+        function fileValidate(fileType, fileSize) {
+            let isImage = imagesTypes.filter((type) => fileType.indexOf(`image/${type}`) !== -1);
+            if (isImage[0] === 'jpeg') {
+                uploadedFileIconText.innerHTML = 'jpg';
+            } else {
+                uploadedFileIconText.innerHTML = isImage[0];
+            };
+
+            if (isImage.length !== 0) {
+                if (fileSize <= 2000000) {
+                    return true;
+                } else {
+                    return alert('Please Your File Should be 2 Megabytes or Less');
+                };
+            } else {
+                return alert('Please make sure to upload An Image File Type');
+            };
+        };
+    </script>
+    <script>
+        $('.inputGroup input').on('focusin', function () {
+            $(this).parent().find('label').addClass('active');
+        });
+    
+        $('.inputGroup input').on('focusout', function () {
+            if (!this.value) {
+                $(this).parent().find('label').removeClass('active');
+            }
+        });
+    
+        var dateInputs = document.querySelectorAll('.inputGroup input[type="date"] , .inputGroup input[type="time"]');
+    
+        dateInputs.forEach(function (dateInput) {
+            dateInput.addEventListener('input', function () {
+                if (this.value) {
+                    this.classList.add('hasValue');
+                } else {
+                    this.classList.remove('hasValue');
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        $('.inputGroup input').on('focusin', function () {
+            
+            $(this).parent().find('label').addClass('active');
+        });
+    
+        $('.inputGroup input').on('focusout', function () {
+            if (!this.value) {
+                $(this).parent().find('label').removeClass('active');
+            }
+        });
+    
+        var dateInputs = document.querySelectorAll('.inputGroup input[type="date"] , .inputGroup input[type="time"]');
+    
+        dateInputs.forEach(function (dateInput) {
+            dateInput.addEventListener('input', function () {
+                if (this.value) {
+                    this.classList.add('hasValue');
+                } else {
+                    this.classList.remove('hasValue');
+                }
+            });
+        });
+    </script>
+
+<script>
+    rowCounter = 1;
+    function add_new_line() {
+        $('#append_new_row').append(`
+        
+        <tr>
+            <th scope="row">
+                <input type="hidden" value="${rowCounter}" name="row_id">
+                <select class="effect-2 customer_product${rowCounter}" type="text" name="product_id" placeholder="Enter Product" style="width: 150px;" onchange="SelectProduct(${rowCounter})">
+                    <option value="None">Select</option>
+                    {% for i in product_data %}
+                    <option value="{{i.id}}">{{i.product_name}}</option>
+                    {% endfor %}
+                </select>
+              </th>
+              <td><input class="effect-2 customer_product_quantity${rowCounter}" name="quantity${rowCounter}" min="0" type="number" placeholder="Quanity" style="width: 150px;" onchange="totalCalculator(${rowCounter})"> </td>
+              <td><input class="effect-2 product_purchase_price_show${rowCounter}"  min="0" type="number" placeholder="Purchase price" style="width: 150px;" readonly></td>
+              <td><input class="effect-2 sale_price${rowCounter}" type="number" name="sales_price${rowCounter}" min="0" placeholder="Sales Price" style="width: 150px;" onchange="totalCalculator(${rowCounter})"></td>
+              <td><input class="effect-2 sales_discount${rowCounter}" name="discount${rowCounter}" id="disount_percentage${rowCounter}" oninput="validateNumber(${rowCounter})" type="number" min="0" max="100" placeholder="Discount%" style="width: 100px;" onchange="totalCalculator(${rowCounter})"></td>
+              <td><input class="effect-2 sale_price_gst_percentage${rowCounter}" max="100" id="gst_percentage${rowCounter}" oninput="validateNumber(${rowCounter})" name="gst${rowCounter}" min="0" type="number" placeholder="GST%" style="width: 100px;" onchange="totalCalculator(${rowCounter})"></td> 
+              <td><input class="effect-2 total_amount${rowCounter}" type="number" min="0" placeholder="Total price" style="width: 150px;" readonly></td>
+            <td class="">
+               <a href="#" class="remCF" href="javascript:void(0);"><i class="bx bx-trash font-size-16 me-1"></i></a>
+            </td>
+        </tr>                
+
+                           
+        `)
+        rowCounter = rowCounter+1;
+
+    }
+
+    $("#append_new_row").on('click','.remCF',function(){
+        var table = document.getElementById('append_new_row');
+        var rowCount = table.rows.length;
+        if(rowCount <= 2){
+            showError("Atleast one line is mandatory")
+            return;
+        }
+        else {
+        $(this).parent().parent().remove();
+        }
+    }); 
+    
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    function showError(message) {
+        Swal.fire({
+            icon: "error",
+            title: message,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            width: "350px",
+            padding: "1.5rem",
+            background: "#f8f9fa",
+            iconColor: "#dc3545",
+            iconHtml: '<i class="fas fa-times-circle"></i>',
+            customClass: {
+                title: "swal-title",
+                container: "swal-container",
+            },
+        });
+    }
+
+    function showSuccess(message) {
+        Swal.fire({
+            icon: "success",
+            title: message,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            width: "350px",
+            padding: "1.5rem",
+            background: "#f8f9fa",
+            iconColor: "#28a745",
+            iconHtml: '<i class="fas fa-check-circle"></i>',
+            customClass: {
+                title: "swal-title",
+                container: "swal-container",
+            },
+        });
+    }
+</script>
+
+
+<script>
+    function backendValidation(validationClass, create_error_dict) {
+      for (var key in create_error_dict) {
+        if (create_error_dict.hasOwnProperty(key)) {
+          var inputName = key;
+          var error_message = create_error_dict[key];
+          $('.' + inputName + '1').addClass('non-valid ' + validationClass);
+          $('.' + inputName).addClass('nonvalid-alert ' + validationClass);
+          $('.' + inputName).html(error_message);
+        }
+      }
+    }
+
+  function RemoveBackendValidation(validationClass) {
+    $('.' + validationClass).html('');
+    $('.' + validationClass).removeClass('non-valid '+validationClass);
+    $('.' + validationClass).removeClass('nonvalid-alert '+validationClass);
+  }
+
+
+</script>
+
+
+<script>
+    $(document).on('click', '#customer-save-btn', function (e) {
+        e.preventDefault();
+        var formdata = new FormData($('#customer-form')[0]); 
+        $('.loader-mask').show();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "add_customer_action" %}',
+            data: formdata,
+            cache: false,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()  
+            },
+            success: function (data) {
+                RemoveBackendValidation('customer_validation');
+                switch(data['status']) {
+                    case 'success':
+                        $('.loader-mask').hide();
+                        $('#main_table_id').css('visibility','visible');
+                        $('#no_data_div').css('visibility','hidden');
+                        RemoveBackendValidation('customer_validation');
+                        showSuccess("success");
+                        $('#add-contact').modal('hide');
+                        var customer = data.created_serializer;
+                        $("#append_new_data").prepend(`
+                            <tr>
+                                <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                <td>${data.customer_count}</td>
+                                <td>
+                                    <div class="avatar-div">
+                                        <a href="#">
+                                            <img src="../static/assets/images/users/avatar-7.jpg" alt="" class="avatar-xs rounded-circle">
+                                            <span>${customer.customer_firstname} ${customer.customer_lastname}</span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>${customer.customer_email}</td>
+                                <td>${customer.customer_phone_no}</td>
+                                <td>${data.total_price_amount}</td>
+                                <td>${customer.created_dt}, ${customer.created_tm}</td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li ><a href="pdf?id=${customer.id}" target="_blank"
+                                                class="dropdown-item d-flex align-items-center"><svg  style="width: 15px;height: 15px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M288 256H96v64h192v-64zm89-151L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-153 31V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H72c-4.4 0-8-3.6-8-8V72zm0 64c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H72c-4.4 0-8-3.6-8-8v-16zm256 304c0 4.4-3.6 8-8 8h-80c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16zm0-200v96c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-96c0-8.8 7.2-16 16-16h224c8.8 0 16 7.2 16 16z"/></svg>
+                                                Invoice</a>
+                                        </li>
+                                            <li ><a href="#" class="dropdown-item d-flex align-items-center" id="view_customer_detail" data-id="${customer.id}"><i class="bx bx-edit font-size-16 me-1"></i>View</a></li>
+                                            <li ><a href="#" class="dropdown-item d-flex align-items-center" onclick="delete_modal(${customer.id})"><i class="bx bx-trash font-size-16 me-1"></i>Delete</a></li>
+                                        </li>
+                                       
+                                        </ul>
+                                       
+                                    </div>
+                                </td>
+                            </tr>
+                        `);
+                        $("#customer-form")[0].reset();
+                        break;
+                    case 'product_val':
+                        $('.loader-mask').hide();
+                        showError(data['product_val']);
+                        break;
+                    case 'product_validation':
+                        $('.loader-mask').hide();
+                        showError("Atleast one product is mandatory");
+                        break;
+                    case 'error_dict':
+                        $('.loader-mask').hide();
+                        backendValidation("customer_validation", data['error_dict']);
+                        break;
+                    case 'error':
+                        $('.loader-mask').hide();
+                        showError("Something went wrong");
+                        break;
+                    default:
+                        $('.loader-mask').hide();
+                        RemoveBackendValidation('customer_validation');
+                        break;
+                } 
+            }
+        });
+    });
+</script>
+
+
+ <script>
+    function SelectProduct(val) {
+        var customer_product=$(".customer_product"+val).val(); 
+         if (customer_product !="empty"){
+            $.ajax({
+                type: 'GET',
+                url: "product_purchase_amount_view",
+                data: {
+                    'id': customer_product,
+                },
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    switch (data['status']) {
+                        case true:
+                            $(".product_purchase_price_show"+val).val(data['price']); 
+                            $(".sale_price"+val).val(data['price']); 
+                            $(".customer_product_quantity"+val).val('1'); 
+                            $(".total_amount"+val).val(data['price']); 
+
+                            var table = document.getElementById('append_new_row');
+                            var total_amount = 0.0;
+                            var rowCount = table.rows.length;
+                            for (var i = 0; i < rowCount; i++) {
+                                var each_amount = parseFloat($('.total_amount' + i).val()); 
+                                if (each_amount !== '' && !isNaN(each_amount)) {
+                                    total_amount += each_amount;  
+                                }
+                                var row = table.rows[i];
+                            } 
+                            document.getElementById('total_price_htag').innerHTML = total_amount.toFixed(2);
+                            break;
+                    }
+                    $(".loader-mask").hide();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    $(".loader-mask").hide();
+                    showError("Try again later" + errorThrown);
+                }
+            });
+
+        } if (customer_product =="None"){
+            $(".product_purchase_price_show"+val).val('0');  
+            $(".customer_product_quantity"+val).val('0'); 
+            $(".total_amount"+val).val('0');  
+            $(".sale_price"+val).val('0'); 
+        }  
+    };
+ </script>
+
+
+ <!--PERCENTAGE VALIDATION-->
+<script>
+    function validateNumber(val) {
+        const inputValue = document.getElementById('gst_percentage'+val).value;
+        if (inputValue < 0) {
+          document.getElementById('gst_percentage'+val).value = 0;
+        } else if (inputValue > 100) {
+          document.getElementById('gst_percentage'+val).value = 100;
+        }
+
+
+        const inputValue2 = document.getElementById('disount_percentage'+val).value;
+        if (inputValue2 < 0) {
+          document.getElementById('disount_percentage'+val).value = 0;
+        } else if (inputValue2 > 100) {
+          document.getElementById('disount_percentage'+val).value = 100;
+        }
+
+
+    }
+</script>
+
+
+
+ <script>
+    function totalCalculator(val) {
+        var salePrice = $('.sale_price'+val).val();
+        var salesDiscount = $('.sales_discount'+val).val();
+        var customerProductQuantity = $('.customer_product_quantity'+val).val();
+        var salePriceGst = $('.sale_price_gst_percentage'+val).val();
+        var gst_amount = 0
+        if (!salesDiscount) {
+            salesDiscount = 0;
+        }
+        if (!salePrice) {
+            showError('Enter sale price');
+            return;
+        }
+        if (!customerProductQuantity)  {
+            showError('Enter product quantity');
+            return;
+        }
+        if (customerProductQuantity === "0") {
+            showError('Product quantity should be greater than 0');
+            return;
+        }
+
+        let discountAmount = (Number(salePrice) * Number(salesDiscount)) / 100;
+        total = (Number(salePrice) * Number(customerProductQuantity)) - (Number(discountAmount) * Number(customerProductQuantity));
+        
+        if (salePriceGst && (Number(salePriceGst) / 100) * total >= Number(total)) {
+            showError('GST should amount should not be greater than net amount');
+            return;
+        }
+        if (salePriceGst) {
+            gst_amount = (Number(salePriceGst) / Number(100)) * salePrice;
+            gst_amount = Number(gst_amount) * Number(customerProductQuantity)
+        }
+        $('.total_amount'+val).val(total+gst_amount);
+
+    
+        var table = document.getElementById('append_new_row');
+        var total_amount = 0.0;
+        var total_discountAmount = 0;
+        var total_gst_amount = 0;
+        var total_sub_total  = 0;
+        var rowCount = table.rows.length;
+        for (var i = 0; i < rowCount; i++) {
+            var customerProductQuantity = $('.customer_product_quantity'+i).val();
+            var salePrice = $('.sale_price'+i).val();
+            var salesDiscount = $('.sales_discount'+i).val();
+            var salePriceGst = $('.sale_price_gst_percentage'+i).val();
+
+             sub_total = Number(salePrice) * Number(customerProductQuantity);
+            if (sub_total !== '' && !isNaN(sub_total)) {
+            total_sub_total = total_sub_total + sub_total;
+            } 
+            
+            let discountAmount = (Number(salePrice) * Number(salesDiscount)) / 100;
+            if (!isNaN(discountAmount)) {
+                total_discountAmount += discountAmount;  
+            }
+            total = (Number(salePrice) * Number(customerProductQuantity)) - (Number(discountAmount) * Number(customerProductQuantity));
+            
+            gst_amount = (Number(salePriceGst) / Number(100)) * total;
+            total_gst_amount = total_gst_amount + gst_amount;
+
+            var each_amount = parseFloat($('.total_amount' + i).val()); 
+            if (each_amount !== '' && !isNaN(each_amount)) {
+                total_amount += each_amount;  
+            }
+
+            var row = table.rows[i];
+        } 
+        document.getElementById('total_price_htag').innerHTML = total_amount.toFixed(2);
+        document.getElementById('total_discount_htag').innerHTML = total_discountAmount;
+        document.getElementById('total_tax_htag').innerHTML = total_gst_amount;
+        document.getElementById('total_subtotal_htag').innerHTML = total_sub_total;
+        
+
+
+    }
+ </script>
+
+ <script>
+    $(document).on('click', '#view_customer_detail', function (event) {
+    var id = $(this).attr("data-id")
+    $('.loader-mask').show();
+    var url = "view_customer_details";
+    $.ajax({
+        url: url,
+        data: {
+            'id': id,   
+        },
+        success: function (data) {
+            $('.loader-mask').hide();
+            $("#view-customer-div").empty().append(data);
+            $('#view-customer').modal('show');
+        }
+    });
+})
+</script>
+
+<script>
+    function delete_modal(val) {
+        $("#delete_modal_id").val(val)
+        $("#delete").modal('show')
+    }
+    $(document).on('click', '#delete-customer-btn', function (e) {
+        $('.loader-mask').show();
+        id = $("#delete_modal_id").val()
+     $.ajax({
+             type: 'GET',
+             url: 'delete_customer/'+id,            
+             processData: false,
+             contentType: false,
+             success: function (data) {
+                switch(data['status']) {
+                case 'success':
+                    $('.loader-mask').hide();
+                    $("#delete").modal('hide') 
+                    $(".trclass"+id).remove()  
+                    break;
+                case 'error':
+                    $('.loader-mask').hide();
+                    showError("Something went wrong")
+                    break;
+                default:
+                    $('.loader-mask').hide();
+                    break;
+          } 
+        }
+ 
+    })
+   });
+
+</script>
+
+<script>
+    function open_modal() {
+        $('#add-contact').modal('show');
+        $("#customer-form")[0].reset();
+        $("#remove_error").load(location.href + " #remove_error"); 
+    }
+</script>
+
+
+<script>
+    function logout_fun() {
+        $('#log_out').modal('show')
+    }
+    
+</script>
+
+
+<script>
+    function Search() {
+        var search_value = document.getElementById("search_value").value;
+        var subcompany_id = document.getElementById("subcompany_id").value;
+        redirect_url = "customer_search"
+        $.ajax({
+            url: redirect_url,
+            data: {
+                'search_value': search_value,
+                'subcompany_id' : subcompany_id,
+            },
+            type: 'GET',
+            success: function (data) {
+
+                $(".append_customer_search_result").empty().append(data)
+            },
+        })
+    }
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,1723 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>SHOPIFY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+
+
+    <style>
+        .empty-bx {
+        text-align: center;
+        min-height: 78vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        }
+        .empty-bx img{
+            margin-bottom: 10px;
+        }
+        .empty-bx h4{
+            font-weight: 700;
+            font-size: 20px;
+        }
+        a {
+            color: var(--bs-link-color);
+            {% comment %} text-decoration: none; {% endcomment %}
+        }
+        .non-valid{
+            padding-right: calc(1.5em + .94rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f46a6a'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23f46a6a' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + .235rem) center;
+            background-size: calc(.75em + .47rem) calc(.75em + .47rem);
+            border-color: #f46a6a;
+        }
+        .valid{
+            border-color: #34c38f;
+            padding-right: calc(1.5em + .94rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2334c38f' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + .235rem) center;
+            background-size: calc(.75em + .47rem) calc(.75em + .47rem)
+        }
+        .nonvalid-alert{
+            width: 100%;
+            margin-top: .25rem;
+            font-size: 80%;
+            color: #f46a6a
+        }
+        .loader-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff23;
+            z-index: 99999;
+          }
+          
+    </style>
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout-wrapper">
+        
+         <div class="loader-mask" style="display: none">
+
+         </div>
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex align-items-center">
+                    <div class="navbar-brand-box">
+                        <a href="sub_company" class="logo">
+                            <span class="logo-lg">
+                                <img src="{% static 'assets/images/images_back.png' %}" alt="" height="23" style="
+                                width: 50px;
+                                height: 50px;
+                            ">
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm font-size-16 d-lg-none header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link arrow-none" href="dashboard?id={{subcompany_id.id}}" id="topnav-dashboard" role="button">
+                                            <span key="t-dashboards">Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="lead?id={{subcompany_id.id}}"
+                                            id="topnav-pages" role="button">
+                                            <span>Category</span>
+                                        </a>
+                                        
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none btn btn-primary"
+                                            href="accounts?id={{subcompany_id.id}}" id="topnav-pages" role="button">
+                                            <span>Product</span>
+                                        </a>
+                                       
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="customer?id={{subcompany_id.id}}"
+                                            id="topnav-pages" role="button">
+                                            <span>Customer</span>
+                                        </a>
+                                        
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center header-rightside-btns">
+                   
+                    
+                  
+                  
+
+                    <div class="dropdown d-inline-block user-dropdown ms-2">
+                        <a class="dropdown-item text-danger" href="#" onclick="logout_fun()"><i
+                            class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
+                            key="t-logout">Logout</span></a>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+
+        <div class="page-content">
+            <div class="container-fluid px-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="top-header-div">
+                            <div class="main-heading">
+                                <div class="main-heading">
+                                    <h2><img src="{% static 'assets/images/accounts.svg' %}" alt="">
+                                        <div class="team-select d-flex align-items-center">
+                                            <div class="select-dropdwn">
+                                                <select class="ddl-select" id="list" name="list">
+                                                    <option value="1">All Products</option>
+                                                    <option value="2">Available Products</option>
+                                                    <option value="3">Unavailable Products</option>
+                                                    <option value="4">Recently Viewed Accounts</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </h2>
+                                </div>
+                               
+                            </div>
+                            <div class="top-header-btns">
+                                <button data-bs-toggle="modal" data-bs-target="#import" type="button" class="btn btn-soft-dark waves-effect waves-light"><i
+                                    class="bx bx-import"></i>Import</button>
+                            </div>
+                            <div class="top-header-rightbtns">
+                                <form class="app-search d-none d-lg-block">
+                                    <div class="position-relative">
+                                        <input type="hidden" id="subcompany_id" value="{{subcompany_id.id}}">
+                                        <input type="text" id="search_value" onkeyup="Search()" class="form-control" placeholder="Search...">
+                                        <span class="bx bx-search-alt"></span>
+                                    </div>
+                                </form>
+                                <div class="dropdown d-inline-block">
+                                    
+                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 list-kan"
+                                        aria-labelledby="page-header-notifications-dropdown">
+                                       
+                                    </div>
+                                </div>
+                               
+                                        <div class="dropdown d-inline-block user-dropdown">
+                                           
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0"
+                                                aria-labelledby="page-header-notifications-dropdown">
+                                                <div class="p-3">
+                                                    <div class="row align-items-center noti-heading">
+                                                        <div class="col">
+                                                            <h5 class="m-0" key="t-notifications">filter</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div data-simplebar style="max-height: 230px;">
+                    
+                                                    <div class="global-action-btns">
+                                                        <div class="form-check form-check-primary mb-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Account Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Amount
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Stage
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                    onclick="open_modal()">
+                                    <i class="bx bx-plus-circle font-size-15 align-middle me-1"></i> New
+                                </button>
+                            </div>
+                        </div>
+                        <div class="lead-table table-view">                        
+                            <div class="tbl-overflow-hide">
+                                <table id="event-table" class="table table-striped table-resizable mb-0 product_listing_table">
+                                    <thead>
+                                        <tr>
+                                            {% comment %} <th width="40px"><input class="form-check-input" type="checkbox"
+                                                    id="formCheck1"></th> {% endcomment %}
+                                            <th width="54px">S No</th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Category
+                                                    <div class="dropdown">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Product Company
+                                                    <div class="dropdown">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Product Name
+                                                    
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Product Code
+                                                    
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Status
+                                                    <div class="dropdown">
+                                                       
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Quantity
+                                                    <div class="dropdown">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Inventory Location
+                                                    <div class="dropdown">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Supplier Name
+                                                    <div class="dropdown">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            
+                                            
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Price
+                                                    <div class="dropdown">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-content" id="product_listing_tbody">
+                                    </tbody>
+                                </table>
+                                <div class="product_empty_img_div" style="display: flex;justify-content: center;align-items: center;margin-top: 0px;"></div>
+                            </div>
+                            <div class="bootom-nav">
+                                <div class="bootom-nav pagination d-flex justify-content-start" style="left: 0px;" >
+                                    <div class="total-count">
+                                      <h6>Total Count : <span class="total_product">{{total_products}}</span></h6>
+                                      <ul id="product_listing_paginator"></ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        
+                        
+                        
+                        
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bottom-pagination-div">
+                <ul class="pagination pagination-rounded pb-1">
+                    <li class="page-item disabled">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a href="javascript: void(0);" class="page-link">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">3</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+    <div class="modal fade" id="add-account" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form method="post" id="product-form">
+            {% csrf_token %}
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content" id="remove_error">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Add Product</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="uploadArea" class="upload-area">
+                                <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                                    <span class="drop-zoon__icon">
+                                        <i class='bx bxs-file-image'></i>
+                                    </span>
+                                    <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                    <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                                    <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                        draggable="false">
+                                    <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                                </div>
+
+                                <div id="fileDetails" class="upload-area__file-details file-details">
+                                    <h3 class="file-details__title">Uploaded File</h3>
+
+                                    <div id="uploadedFile" class="uploaded-file">
+                                        <div class="uploaded-file__icon-container">
+                                            <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                            <span class="uploaded-file__icon-text"></span>
+                                        </div>
+
+                                        <div id="uploadedFileInfo" class="uploaded-file__info">
+                                            <span class="uploaded-file__name">Proejct 1</span>
+                                            <span class="uploaded-file__counter">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <h6 class="selct-box-head">Product Category</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control" data-class="category" name="category">
+                                        <option value="None">Select</option>
+                                        {% for i in category_data %}
+                                        <option value="{{i.id}}">{{i.category_name|default:''}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="category"></div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text" name="product_company" data-class="product_company" class="product_company1 mb-0">
+                                <label for="name" class="active">Product Company</label>
+                            </div>
+                            <div class="product_company mb-2"></div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text" name="product_name" class="product_name1 mb-0" data-class="product_name">
+                                <label for="name" class="active">Product Name</label>
+                            </div>
+                            <div class="product_name mb-2"></div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text" data-class="product_code" class="product_code1 mb-0" name="product_code">
+                                <label for="name" class="active">Product Code</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text" name="hsn_code">
+                                <input type="hidden" value="{{subcompany_id.id}}" name="subcompany_id">
+                                <label for="name" class="active">Product HSN code</label>
+                            </div>
+
+                            <h6 class="shipping-billing-head">Description</h6>
+                            <div class="form-grp">
+                                <textarea id="formmessage" name="description" class="form-control" rows="3"
+                                    placeholder=""></textarea>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text" name="location">
+                                <label for="name" class="active">Inventory location</label>
+                            </div>
+                                                       
+                            <div class="inputGroup form-control">
+                                <input type="text" name="supplier_name">
+                                <label for="name" class="active">Supplier Name</label>
+                            </div>
+                            <h5 class="addrss-info">Product available status :- 
+
+                            <input class="form-check-input" type="checkbox" name="product_active" value="True" id="flexCheckDefault" checked ></h5>
+
+
+                            
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="inputGroup form-control">
+                                <input type="number" data-class="amount" class="amount1 mb-0" name="amount">
+                                <label for="name" class="active">Purchase Price</label>
+                            </div>
+                            <div class="amount mb-2"></div>
+                            <div class="inputGroup form-control">
+                                <input type="number" data-class="quantity" value="1" class="quantity1 mb-0" name="quantity">
+                                <label for="name" class="active">Quantity</label>
+                            </div>
+                            <div class="quantity mb-2"></div>
+                            <div class="inputGroup form-control">
+                                <input type="number" data-class="sale_price_without_gst" class="sale_price_without_gst1 mb-0" name="sale_price_without_gst" id="sale_price_without_gst">
+                                <label for="sale_price_without_gst" class="active">Sale Price Without Gst</label>
+                            </div>
+
+                            <div class="sale_price_without_gst mb-2"></div>
+                            {% comment %} <h6 class="selct-box-head"></h6> {% endcomment %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 for="gst_percentage">GST%</h6>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" data-class="gst_percentage" class="gst_percentage1 mb-0" value="0" name="gst_percentage" id="gst_percentage">
+                                    </div>
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="gst_amount">Total GST Amount</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" data-class="gst_amount" class="gst_amount1 mb-0" value="0" readonly name="gst_amount" id="gst_amount">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="cgst_percentage">CGST(%)</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="cgst_percentage" class="cgst_percentage1 mb-0" value="0" name="cgst_percentage" id="cgst_percentage">
+                                    </div>
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="cgst_amount">Amount</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="cgst_amount" class="cgst_amount1 mb-0" value="0" readonly name="cgst_amount" id="cgst_amount">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="sgst_percentage">SGST(%)</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="sgst_percentage" class="sgst_percentage1 mb-0" value="0" name="sgst_percentage" id="sgst_percentage">
+                                    </div>
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="sgst_amount">Amount</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="sgst_amount" class="sgst_amount1 mb-0" value="0" readonly name="sgst_amount" id="sgst_amount">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="selct-box-head">Total Sale Amount</h6>
+                            <div class="inputGroup form-control">
+                                <input type="number" readonly data-class="total_amount" class="total_amount1 mb-0" name="total_amount" id="total_amount">
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="product-save-btn">Save</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="modal fade" id="import" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Add Lead</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>                                        
+
+            <div class="modal-body">
+                <div id="uploadArea" class="upload-area">
+                    <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                        <span class="drop-zoon__icon">
+                            <i class='bx bxs-file-image'></i>
+                        </span>
+                        <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                        <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                        <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                            draggable="false">
+                        <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                    </div>
+
+                    <div id="fileDetails" class="upload-area__file-details file-details">
+                        <h3 class="file-details__title">Uploaded File</h3>
+
+                        <div id="uploadedFile" class="uploaded-file">
+                            <div class="uploaded-file__icon-container">
+                                <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                <span class="uploaded-file__icon-text"></span>
+                            </div>
+
+                            <div id="uploadedFileInfo" class="uploaded-file__info">
+                                <span class="uploaded-file__name">Proejct 1</span>
+                                <span class="uploaded-file__counter">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Upload</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Product</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete_modal_id" name="delete_modal_id">
+              <h4 class="delete-hint">Are you sure you want to delete this product?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="delete-product-btn">Delete</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="edit-account" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Edit Account(Account Name)</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="uploadArea" class="upload-area">
+                            <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                                <span class="drop-zoon__icon">
+                                    <i class='bx bxs-file-image'></i>
+                                </span>
+                                <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                                <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image"
+                                    draggable="false">
+                                <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                            </div>
+
+                            <div id="fileDetails" class="upload-area__file-details file-details">
+                                <h3 class="file-details__title">Uploaded File</h3>
+
+                                <div id="uploadedFile" class="uploaded-file">
+                                    <div class="uploaded-file__icon-container">
+                                        <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                        <span class="uploaded-file__icon-text"></span>
+                                    </div>
+
+                                    <div id="uploadedFileInfo" class="uploaded-file__info">
+                                        <span class="uploaded-file__name">Proejct 1</span>
+                                        <span class="uploaded-file__counter">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Account Name</label>
+                        </div>
+
+                        <div class="form-grp">
+                            <h6 class="d-flex align-items-center"><span class="lead-owner">Account Owner : </span>
+                                <div><img src="assets/images/users/avatar-1.jpg" alt=""
+                                        class="avatar-xs rounded-circle mx-2"><span>Nabeel</span></div>
+                            </h6>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Phone</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Parent Account</label>
+                            <i class="bx bx-search search-icn"></i>
+                        </div>
+
+                        <h6 class="selct-box-head">Type</h6>
+                        <div class="form-grp inputGroup">
+                            <div class="select-inp">
+                                <select class="form-control">
+                                    <option value="AK">None</option>
+                                    <option value="AK">Analyst</option>
+                                    <option value="HI">Competitor</option>
+                                    <option value="CA">Customer</option>
+                                </select>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+
+                        <h6 class="selct-box-head">Industry</h6>
+                        <div class="form-grp inputGroup">
+                            <div class="select-inp">
+                                <select class="form-control">
+                                    <option value="AK">None</option>
+                                    <option value="HI">Agriculture</option>
+                                    <option value="CA">Apparel</option>
+                                    <option value="HI">Banking</option>
+                                    <option value="CA">Chemicals</option>
+                                    <option value="HI">Communications</option>
+                                    <option value="CA">Constructions</option>
+                                </select>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+
+
+                        <h5 class="addrss-info">Additional Information</h5>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Website</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Description</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Phone</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Employees</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+
+                        <h5 class="addrss-info mt-0">Address Information</h5>
+                        <h6 class="shipping-billing-head">Billing Address</h6>
+                        <div class="form-grp">
+                            <textarea id="formmessage" class="form-control" rows="3"
+                                placeholder=" Billing Street"></textarea>
+                        </div>
+
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Billing City</label>
+                        </div>
+                        <div class="row gx-2">
+                            <div class="col-lg-6">
+                                <div class="inputGroup form-control">
+                                    <input type="text">
+                                    <label for="name">Billing Zip/Postel Code</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="inputGroup form-control">
+                                    <input type="text">
+                                    <label for="name">Billing State/Province</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Billing Country</label>
+                        </div>
+                        <h6 class="shipping-billing-head">Shipping Address</h6>
+                        <div class="form-grp">
+                            <textarea id="formmessage" class="form-control" rows="3"
+                                placeholder=" Shipping Street"></textarea>
+                        </div>
+
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Shipping City</label>
+                        </div>
+                        <div class="row gx-2">
+                            <div class="col-lg-6">
+                                <div class="inputGroup form-control">
+                                    <input type="text">
+                                    <label for="name">Shipping Zip/Postel Code</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="inputGroup form-control">
+                                    <input type="text">
+                                    <label for="name">Shipping State/Province</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Shipping Country</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="log_out" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Logout</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="inactive_modal_id2" >
+              <h4 class="delete-hint">Are you sure you want to logged out?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+               <a href="logout_view"> <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" id="logout-btn" >Logout</button></a>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="modal fade" id="change-owner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Change Owner</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="selct-box-head">Search Owner</h6>
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label class="search-icon" for="name">Search Owner</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="log-call" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Log a Call</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Task</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="date">
+                    <label for="name">Due Date</label>
+                </div>
+
+                <h6 class="selct-box-head">Assign to</h6>
+                <div class="form-grp inputGroup">
+                    <div class="select-inp">
+                        <select class="form-control">
+                            <option value="AK">None</option>
+                            <option value="HI">Qualificatio</option>
+                            <option value="CA">Need Analysis</option>
+                            <option value="NV">Proposal</option>
+                            <option value="CA">Negotiation </option>
+                            <option value="NV">Closed won</option>
+                            <option value="NV">Closed Lost </option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-event" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Event</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+                <div class="row">
+                    <h6 class="selct-box-head">Start</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h6 class="selct-box-head">End</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Location</label>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    <div id="edit-product-div"></div>
+    
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <script>
+        $('.select2').select2({
+            dropdownParent: $('#add-account')
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".ddl-select").each(function () {
+                $(this).hide();
+                var $select = $(this);
+                var _id = $(this).attr("id");
+                var wrapper = document.createElement("div");
+                wrapper.setAttribute("class", "ddl ddl_" + _id);
+
+                var input = document.createElement("h6");
+
+                input.setAttribute("class", "ddl-input");
+                input.setAttribute("id", "ddl_" + _id);
+                input.innerHTML = $(this)[0].options[$(this)[0].selectedIndex].innerText
+
+                $(this).before(wrapper);
+                var $ddl = $(".ddl_" + _id);
+                $ddl.append(input);
+                $ddl.append("<div class='ddl-options ddl-options-" + _id + "'></div>");
+                var $ddl_input = $("#ddl_" + _id);
+                var $ops_list = $(".ddl-options-" + _id);
+                var $ops = $(this)[0].options;
+                for (var i = 0; i < $ops.length; i++) {
+                    $ops_list.append(
+                        "<div data-value='" +
+                        $ops[i].value +
+                        "'>" +
+                        $ops[i].innerText +
+                        "</div>"
+                    );
+                }
+
+                $ddl_input.click(function () {
+                    $ddl.toggleClass("active");
+                });
+                $ddl_input.blur(function () {
+                    $ddl.removeClass("active");
+                });
+                $ops_list.find("div").click(function () {
+                    document.getElementsByClassName("ddl-input")[0].innerHTML = $(this).text();
+                    $ddl.removeClass("active");
+                });
+            });
+        });
+    </script>
+    <script>
+        // upload image
+        const uploadArea = document.querySelector('#uploadArea')
+        const dropZoon = document.querySelector('#dropZoon');
+        const loadingText = document.querySelector('#loadingText');
+        const fileInput = document.querySelector('#fileInput');
+        const previewImage = document.querySelector('#previewImage');
+        const fileDetails = document.querySelector('#fileDetails');
+        const uploadedFile = document.querySelector('#uploadedFile');
+        const uploadedFileInfo = document.querySelector('#uploadedFileInfo');
+        const uploadedFileName = document.querySelector('.uploaded-file__name');
+        const uploadedFileIconText = document.querySelector('.uploaded-file__icon-text');
+        const uploadedFileCounter = document.querySelector('.uploaded-file__counter');
+        const imagesTypes = [
+            "jpeg",
+            "png",
+            "svg",
+            "gif"
+        ];
+
+        dropZoon.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            dropZoon.classList.add('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('dragleave', function (event) {
+            dropZoon.classList.remove('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('drop', function (event) {
+            event.preventDefault();
+            dropZoon.classList.remove('drop-zoon--over');
+            const file = event.dataTransfer.files[0];
+            uploadFile(file);
+        });
+
+        dropZoon.addEventListener('click', function (event) {
+            fileInput.click();
+        });
+
+
+        fileInput.addEventListener('change', function (event) {
+
+            const file = event.target.files[0];
+            uploadFile(file);
+        });
+
+        function uploadFile(file) {
+            const fileReader = new FileReader();
+            const fileType = file.type;
+            const fileSize = file.size;
+
+            if (fileValidate(fileType, fileSize)) {
+                dropZoon.classList.add('drop-zoon--Uploaded');
+                loadingText.style.display = "block";
+                previewImage.style.display = 'none';
+                uploadedFile.classList.remove('uploaded-file--open');
+                uploadedFileInfo.classList.remove('uploaded-file__info--active');
+
+                fileReader.addEventListener('load', function () {
+                    setTimeout(function () {
+                        uploadArea.classList.add('upload-area--open');
+                        loadingText.style.display = "none";
+                        previewImage.style.display = 'block';
+                        fileDetails.classList.add('file-details--open');
+                        uploadedFile.classList.add('uploaded-file--open');
+                        uploadedFileInfo.classList.add('uploaded-file__info--active');
+                    }, 500);
+
+                    previewImage.setAttribute('src', fileReader.result);
+                    uploadedFileName.innerHTML = file.name;
+
+                    progressMove();
+                });
+
+                fileReader.readAsDataURL(file);
+            } else {
+
+                this;
+
+            };
+        };
+
+
+        function progressMove() {
+            let counter = 0;
+            setTimeout(() => {
+                let counterIncrease = setInterval(() => {
+                    if (counter === 100) {
+                        clearInterval(counterIncrease);
+                    } else {
+                        counter = counter + 10;
+                        uploadedFileCounter.innerHTML = `${counter}%`
+                    }
+                }, 100);
+            }, 600);
+        };
+
+        function fileValidate(fileType, fileSize) {
+            let isImage = imagesTypes.filter((type) => fileType.indexOf(`image/${type}`) !== -1);
+            if (isImage[0] === 'jpeg') {
+                uploadedFileIconText.innerHTML = 'jpg';
+            } else {
+                uploadedFileIconText.innerHTML = isImage[0];
+            };
+
+            if (isImage.length !== 0) {
+                if (fileSize <= 2000000) {
+                    return true;
+                } else {
+                    return alert('Please Your File Should be 2 Megabytes or Less');
+                };
+            } else {
+                return alert('Please make sure to upload An Image File Type');
+            };
+        };
+    </script>
+<script>
+    $('.inputGroup input').on('focusin', function () {
+        $(this).parent().find('label').addClass('active');
+    });
+
+    $('.inputGroup input').on('focusout', function () {
+        if (!this.value) {
+            $(this).parent().find('label').removeClass('active');
+        }
+    });
+
+    var dateInputs = document.querySelectorAll('.inputGroup input[type="date"] , .inputGroup input[type="time"]');
+
+    dateInputs.forEach(function (dateInput) {
+        dateInput.addEventListener('input', function () {
+            if (this.value) {
+                this.classList.add('hasValue');
+            } else {
+                this.classList.remove('hasValue');
+            }
+        });
+    });
+</script>
+
+<script>
+    $('.inputGroup input').on('focusin', function () {
+        
+        $(this).parent().find('label').addClass('active');
+    });
+
+    $('.inputGroup input').on('focusout', function () {
+        if (!this.value) {
+            $(this).parent().find('label').removeClass('active');
+        }
+    });
+
+    var dateInputs = document.querySelectorAll('.inputGroup input[type="date"] , .inputGroup input[type="time"]');
+
+    dateInputs.forEach(function (dateInput) {
+        dateInput.addEventListener('input', function () {
+            if (this.value) {
+                this.classList.add('hasValue');
+            } else {
+                this.classList.remove('hasValue');
+            }
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    function showError(message) {
+        Swal.fire({
+            icon: "error",
+            title: message,
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+            width: "350px",
+            padding: "1.5rem",
+            background: "#f8f9fa",
+            iconColor: "#dc3545",
+            iconHtml: '<i class="fas fa-times-circle"></i>',
+            customClass: {
+                title: "swal-title",
+                container: "swal-container",
+            },
+        });
+    }
+
+    function showSuccess(message) {
+        Swal.fire({
+            icon: "success",
+            title: message,
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+            width: "350px",
+            padding: "1.5rem",
+            background: "#f8f9fa",
+            iconColor: "#28a745",
+            iconHtml: '<i class="fas fa-check-circle"></i>',
+            customClass: {
+                title: "swal-title",
+                container: "swal-container",
+            },
+        });
+    }
+</script>
+
+
+<script>
+    function backendValidation(validationClass, create_error_dict) {
+      for (var key in create_error_dict) {
+        if (create_error_dict.hasOwnProperty(key)) {
+          var inputName = key;
+          var error_message = create_error_dict[key];
+          $('.' + inputName + '1').addClass('non-valid ' + validationClass);
+          $('.' + inputName).addClass('nonvalid-alert ' + validationClass);
+          $('.' + inputName).html(error_message);
+        }
+      }
+    }
+
+  function RemoveBackendValidation(validationClass) {
+    $('.' + validationClass).html('');
+    $('.' + validationClass).removeClass('non-valid '+validationClass);
+    $('.' + validationClass).removeClass('nonvalid-alert '+validationClass);
+  }
+
+
+</script>
+
+<script>
+    function open_modal() {
+        $('#add-account').modal('show');
+        $("#product-form")[0].reset();
+        RemoveBackendValidation('create_product_validation');
+      //  $("#remove_error").load(location.href + " #remove_error"); 
+
+    }
+</script>
+
+
+<script>
+    $(document).on('click', '#product-save-btn', function (e) {
+        e.preventDefault();
+        RemoveBackendValidation('create_product_validation');
+        var formdata = new FormData($('#product-form')[0]); 
+        $('.loader-mask').show();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "add_product_action" %}',
+            data: formdata,
+            cache: false,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()  
+            },
+            success: function (data) {
+                switch(data['status']) {
+                    case 'success':
+                        RemoveBackendValidation('create_product_validation');
+                        $('.loader-mask').hide();
+                        $('#main_table_id').css('visibility','visible');
+                        $('#no_data_div').css('visibility','hidden');
+                        showSuccess("successss");
+                        $('#add-account').modal('hide');
+                        $("#product-form")[0].reset();
+                        productData()
+                        break;
+                    case 'error_dict':
+                        $('.loader-mask').hide();
+                        backendValidation("create_product_validation", data['error_dict']);
+                        break;
+                    case 'error':
+                        $('.loader-mask').hide();
+                        showError("Something went wrong");
+                        break;
+                    default:
+                        $('.loader-mask').hide();
+                        break;
+                } 
+            }
+        });
+    });
+</script>
+
+ 
+
+ <script>
+    $(document).on('click', '#product-edit-modal-btn', function (event) {
+    var id = $(this).attr("data-id")
+    $('.loader-mask').show();
+    var url = "edit_product_modal";
+    $.ajax({
+        url: url,
+        data: {
+            'id': id,   
+        },
+        success: function (data) {
+            $('.loader-mask').hide();
+            $("#edit-product-div").empty().append(data);
+            $('#edit-product').modal('show');
+        }
+    });
+})
+</script>
+
+<script>
+    $(document).on('click', '#product-edit-btn', function (e) {
+       e.preventDefault();  
+       $('.loader-mask').show();
+       var formdata = new FormData($('#product-edit-form')[0]);   
+       var id = $(this).attr("data-id")  
+       $.ajax({
+         type: 'POST',
+         url: 'edit_product_action/'+id,
+         data: formdata,
+         cache: false,
+         processData: false,
+         contentType: false,
+         headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()  
+                },
+         success: function (data) {
+            RemoveBackendValidation('edit_product_validation')
+            switch(data['status']) {
+                case 'success':
+                    $('.loader-mask').hide();
+                    RemoveBackendValidation('edit_product_validation')
+                    showSuccess('Updated Successfully')
+                    $("#edit-product").modal('hide')
+                    var product = data.after_update[0];
+                        $('#product_name' + id).text(product.product_name);
+                        $('#product_company_name' + id).text(product.product_company_name);
+                        $('#supplier_name' + id).text(product.supplier_name);
+                        $('#purchase_amount'+id).text(product.total_amount);
+                        $('#active_status' + product.id).text(product.active_status ? 'Available' : 'Unavailable');
+                        $('#number' + id).text(product.number);
+                        $('#inventory_location' + id).text(product.inventory_location);
+                        $('#category_id' + id).text(product.category_id);
+                    $("#product-edit-form")[0].reset();
+                    
+                    break;
+                case 'error_dict':
+                    $('.loader-mask').hide();
+                    backendValidation("edit_product_validation", data['error_dict'])
+                    break;
+                case 'error':
+                    $('.loader-mask').hide();
+                    showError( "Something Went Wrong")
+                    break;
+                case 'no_update':
+                    $('.loader-mask').hide();
+                    showError('No update')
+                    break;
+                default:
+                    $('.loader-mask').hide();
+                    break;
+          } 
+        }
+       });
+     });
+</script>
+   
+   <script>
+     function delete_product(val) {
+        $("#delete_modal_id").val(val)
+        $("#delete").modal('show')
+     }
+     $(document).on('click', '#delete-product-btn', function (e) {
+        $('.loader-mask').show();
+        id = $("#delete_modal_id").val()
+     $.ajax({
+             type: 'GET',
+             url: 'delete_product/'+id,            
+             processData: false,
+             contentType: false,
+             success: function (data) {
+                $('.loader-mask').hide();
+               $("#delete").modal('hide')  
+               $(".trclass"+id).remove()                
+             }
+           })
+   })
+   </script>
+
+   <script>
+    function logout_fun() {
+        $('#log_out').modal('show')
+    }
+    
+</script>
+
+
+<script>
+    function Search() {
+        var search_value = document.getElementById("search_value").value;
+        var subcompany_id = document.getElementById("subcompany_id").value;
+        redirect_url = "product_search"
+        $.ajax({
+            url: redirect_url,
+            data: {
+                'search_value': search_value,
+                'subcompany_id' : subcompany_id,
+            },
+            type: 'GET',
+            success: function (data) {
+
+                $(".append_product_search_result").empty().append(data)
+            },
+        })
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(e) {
+        productData()
+});
+    function productData(pageNumber,productSearchValue) {
+        $(".loader-mask").show();
+        var subcompany_id = document.getElementById("subcompany_id").value;
+        $.ajax({
+            type: 'GET',
+            url: `{% url "product_data" %}`,
+            data: {
+                'page_number': pageNumber,
+                'subcompany_id':subcompany_id,
+            },
+            success: function (data) {
+                switch (data['status']) {
+                    case true:
+                        var product_data = data['product_data'];
+                        var tableBody = $("#product_listing_tbody")
+                        tableBody.empty();
+                        const productListingPaginator = $('product_listing_paginator')
+                        productListingPaginator.html('')
+                        const totalPages = data.total_pages;
+                        const currentPage = data.current_page;
+                        const next_page = data.next_page;
+                        const previous_page = data.previous_page;
+                        const start_index = data.start_index;
+                        const end_index = data.end_index;
+                        const htmlDom3 = new DOMParser()
+                        // Pagination
+                        let pageNavigator = `<div style="display:flex;align-items:center:gap:8px;margin-left:8px;"><small>Range</small> 
+                            <h6 style='margin:0 8px;color:gray'>${start_index}-${end_index}</h6></div>`
+                            productListingPaginator.append(htmlDom3.parseFromString(pageNavigator,'text/html').body.children[0])                  
+                        let paginationHTML = ""
+                        if (previous_page !== null) {
+                            paginationHTML +=`<a href="#" onclick="productData(${previous_page})"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>`;
+                        }
+                        if (previous_page !== null) {
+                            paginationHTML +=`<a class="previous_page" onclick="productData(${previous_page})" href="#">${previous_page}</a>`;
+                        }
+                        if (currentPage !== null) {
+                            paginationHTML +=`<a class="active" onclick="productData(${currentPage})" href="#">${currentPage}</a>`;
+                        }
+                        if (next_page !== null) {
+                            paginationHTML +=`<a class="next_page"  onclick="productData(${next_page})" href="#">${next_page}</a>`;
+                        }
+                        if (next_page !== null) {
+                            paginationHTML +=`<a  onclick="productData(${next_page})" href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>`;
+                        }
+                        productListingPaginator.append(htmlDom3.parseFromString(paginationHTML, "text/html").body)
+                        // Pagination ends
+                        counter = (data['current_page']-1) *10
+                                                        if (data['current_page']-1 == 0) {
+                                                            counter = 1
+                                                        }
+                                                        else{
+                                                        counter = counter+1
+                                                        }   
+                        $(".product_empty_img_div").html('')
+                        if (product_data.length > 0) {
+                            $(".product_listing_table").show()
+                            productListingPaginator.css('visibility', 'visible');  
+                            product_data.forEach(function (product) {
+                                var tr = `<tr>
+                                            <!-- <td style="padding-right: 4px;"><input class="form-check-input check-input" type="checkbox" id="formCheck1"><span class="resize"></span></td> -->
+                                            <td>
+                                                <h6>${counter}</h6><span class="resize"></span>
+                                            </td>
+                                            <td id="category_id${product.id}">${product.category_id}</td>
+                                            <td id="product_company_name${product.id}">${product.product_company_name}</td>
+                                            <td id="product_name${product.id}">
+                                                <a href="basic_invoice.html">
+                                                    <div class="avatar-div">
+                                                        <span>${product.product_name}</span>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td id="product_code${product.id}">${product.product_code}</td>
+                                            <td id="active_status${product.id}">${product.active_status ? 'Available' : 'Unavailable'}</td>
+                                            <td id="number${product.id}">${product.number}</td>
+                                            <td id="inventory_location${product.id}">${product.inventory_location}</td>
+                                            <td id="supplier_name${product.id}">${product.supplier_name}</td>
+                                            
+                                            <td id="purchase_amount${product.id}">${product.total_amount}</td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a href="#" id="product-edit-modal-btn" data-id="${product.id}" class="dropdown-item d-flex align-items-center"><i class="bx bx-edit font-size-16 me-1"></i>Edit</a></li>
+                                                        <li><a href="#"  onclick="delete_product(${product.id})" class="dropdown-item d-flex align-items-center"><i class="bx bx-trash font-size-16 me-1"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>`;
+                                tableBody.append(tr);
+                            });
+                            $('.total_product').text(data.total_count);
+                            }
+                        else
+                            {
+                            $(".product_listing_table").hide()
+                            productListingPaginator.css('visibility', 'hidden');  
+                            $(".product_empty_img_div").append(`<div style="width:500px;height:500px;">
+                            <img src="{% static 'assets/images/empty-empty.gif' %}" style="width:100%;height:100%;"/></div>`)
+                            $('.total_product').text(data.total_count);
+                        }
+                        $(".loader-mask").hide()
+                        break;
+                }
+            },
+        });
+    }
+    </script>
+    <script>
+        window.onload = function () {
+            $(".loader-mask").hide();
+
+        };
+    </script>
+    <script>
+        document.getElementById('gst_percentage').addEventListener('input', function() {
+            var min = 0;
+            var max = 100;
+            var value = parseInt(this.value, 10);
+            if (value < min || isNaN(value)) {
+                this.value = min;
+            } else if (value > max) {
+                this.value = max;
+            }
+        });
+
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+
+// Get references to the input elements
+const salePriceInput = document.getElementById('sale_price_without_gst');
+const gstInput = document.getElementById('gst_percentage');
+
+// Add event listener to gstInput for input change
+gstInput.addEventListener('input', function() {
+    calculateTotalPrice();
+});
+salePriceInput.addEventListener('input', function() {
+    calculateTotalPrice();
+});
+// Function to calculate total price including GST
+function calculateTotalPrice() {
+    // Get the values from inputs
+    let salePrice = parseFloat(salePriceInput.value);
+    let gstPercentage = parseFloat(gstInput.value);
+    
+    // Check if either input is not a number
+    if (isNaN(salePrice)) {
+        showError("Sales price is required")
+        document.querySelector('#gst_percentage').value = 0
+        document.querySelector('#gst_amount').value = 0
+        document.querySelector('.total_amount1').value = 0
+        document.querySelector('.cgst_percentage1').value = 0
+        document.querySelector('.cgst_amount1').value = 0
+        document.querySelector('.sgst_percentage1').value = 0
+        document.querySelector('.sgst_amount1').value = 0
+        return;
+    }
+    if (gstPercentage < 0) {
+        // If less than 0, alert the user
+        showError('Please enter a valid GST percentage (greater than or equal to 0).');
+        return;
+    }
+    // Calculate the total price including GST
+    let gstAmount = (salePrice * gstPercentage / 100)
+    let totalPrice = salePrice + gstAmount;
+    document.querySelector('.cgst_percentage1').value = gstPercentage / 2;
+    document.querySelector('.cgst_amount1').value = gstAmount / 2;
+    document.querySelector('.sgst_percentage1').value = gstPercentage / 2;
+    document.querySelector('.sgst_amount1').value = gstAmount / 2;
+    // Display the total price
+    displayTotalPrice(totalPrice,gstAmount);
+}
+
+// Function to display the total price
+function displayTotalPrice(totalPrice,gstAmount) {
+    // Update the content of .sale_price div with the calculated total price
+    let salePriceDiv = document.querySelector('.total_amount1');
+    salePriceDiv.value = totalPrice.toFixed(2);
+    let gstAmountInput = document.querySelector('.gst_amount1');
+    gstAmountInput.value = gstAmount;
+}
+
+});
+
+
+    </script>
+
+
+
+    
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+{% load static %}
+<div class="modal fade" id="edit-company" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel"><span>Update Company</span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method='post' id="company-edit-form">
+                {% csrf_token %}
+            <div class="row">
+                <div >
+                    <div >
+                        <div class="container" style=" margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;">
+                            <div class="avatar-upload" style=" margin-top: 50px; margin-bottom: 0px;">
+                                <div class="avatar-edit">
+                                    <input type="hidden" name="delete_image_input_update_sub_company_image" id = "delete_image_input_update_sub_company_image">
+                                    <input type="file" oninput="previewFile('upld-image-sub_company','imgfile_sub_company')"
+                                    name="company_image1" accept="image/*" id="imgfile_sub_company" class="update_sub_company_image"/>
+                                    <i class="bx bxs-trash" style="cursor: pointer;" onclick="deleteUploadedImage('update_sub_company_image','update_sub_company_image_div')";></i>
+                                </div>
+                                <img class="avatar-preview update_sub_company_image_div" style="cursor: pointer;" onclick="makeimg('imgfile_sub_company')"  src="{% if data.photo %}..{{data.photo.url}}{% else %}{% static 'iconcompany.png' %}{% endif %}"
+                                id="upld-image-sub_company">
+                            </div>
+                        </div>
+                                  
+                    <div class="inputGroup form-control">
+                        <input type="text" data-class="company_name1" value="{{data.company_name|default:''}}" class="company_name11 mb-0" name="company_name1">
+                        <label for="name" class="active">Name</label>
+                    </div>
+                    <div class="company_name1 mb-2"></div>
+
+                    <div class="inputGroup form-control">
+                        <input type="number" data-class="phone1" value="{{data.phone|default:''}}" class="phone11 mb-0" name="phone1">
+                        <label for="name" class="active">Phone</label>
+                    </div>
+                    <div class="phone1 mb-2"></div>
+                    
+                    <div class="inputGroup form-control">
+                        <input type="text" data-class="email1" value="{{data.email|default:''}}" class="email11 mb-0" name="email1">
+                        <label for="name" class="active">Email</label>
+                    </div>
+                    <div class="email1 mb-2"></div>
+                    <div class="inputGroup form-control">
+                        <input type="text" data-class="location1" value="{{data.location|default:''}}" class="location11 mb-0" name="location1">
+                        <label for="name" class="active">Location</label>
+                    </div>
+                    <div class="location1 mb-2"></div>
+                    <div class="inputGroup form-control">
+                        <input type="text" data-class="gst_number" value="{{data.gst_number|default:''}}" class="gst_number1 mb-0" name="gst_number">
+                        <label for="name" class="active">GST Number</label>
+                    </div>
+                    <div class="gst_number mb-2"></div>                    
+                   
+                </div>
+                
+                       
+                              
+              
+            </div>
+        </form>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" data-id="{{data.id}}" id="company-edit-btn">Save</button>
+            <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview1').css('background-image', 'url('+e.target.result +')');
+                $('#imagePreview1').hide();
+                $('#imagePreview1').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload1").change(function() {
+        readURL(this);
+    });
+</script>

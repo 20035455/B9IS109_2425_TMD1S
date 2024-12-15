@@ -1,0 +1,2340 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>SHOPIFY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="../static/assets/images/favicon.png">
+    <link href="../static/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="../static/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../static/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <style>
+        h2 {
+            font-family: 'Damion', cursive;
+            font-weight: 400;
+            color: #4caf50;
+            font-size: 35px;
+            text-align: center;
+            position: relative;
+        }
+        h2:before {
+            position: absolute;
+            content: '';
+            width: 100%;
+            left: 0;
+            top: 22px;
+            background: #4caf50;
+            height: 1px;
+        }
+        h2 i {
+            font-style: normal;
+            background: #fff;
+            position: relative;
+            padding: 10px;
+        }
+        :focus{outline: none;}
+        
+        /* necessary to give position: relative to parent. */
+        input[type="text"]{font: 10px/10px 'Muli', sans-serif; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
+        
+        :focus{outline: none;}
+        
+        .col-3{float: left; width: 27.33%; margin: 40px 3%; position: relative;} /* necessary to give position: relative to parent. */
+        input[type="text"]{font: 10px/10px "Lato", Arial, sans-serif; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
+        
+        .effect-1, 
+        .effect-2, 
+        .effect-3{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;}
+        
+        .effect-1 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-1:focus ~ .focus-border{width: 100%; transition: 0.4s;}
+        
+        .effect-2 ~ .focus-border{position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-2:focus ~ .focus-border{width: 100%; transition: 0.4s; left: 0;}
+        
+        .effect-3 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; z-index: 99;}
+        .effect-3 ~ .focus-border:before, 
+        .effect-3 ~ .focus-border:after{content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 100%; background-color: #4caf50; transition: 0.4s;}
+        .effect-3 ~ .focus-border:after{left: auto; right: 0;}
+        .effect-3:focus ~ .focus-border:before, 
+        .effect-3:focus ~ .focus-border:after{width: 50%; transition: 0.4s;}
+        
+        .effect-4,
+        .effect-5,
+        .effect-6{border: 0; padding: 5px 0 7px; border: 1px solid transparent; border-bottom-color: #ccc; transition: 0.4s;}
+        
+        .effect-4:focus,
+        .effect-5:focus,
+        .effect-6:focus{padding: 5px 14px 7px; transition: 0.4s;}
+        
+        .effect-4 ~ .focus-border{position: absolute; height: 0; bottom: 0; left: 0; width: 100%; transition: 0.4s; z-index: -1;}
+        .effect-4:focus ~ .focus-border{transition: 0.4s; height: 36px; border: 2px solid #4caf50; z-index: 1;}
+        
+        .effect-5 ~ .focus-border{position: absolute; height: 36px; bottom: 0; left: 0; width: 0; transition: 0.4s;}
+        .effect-5:focus ~ .focus-border{width: 100%; transition: 0.4s; border: 2px solid #4caf50;}
+        
+        .effect-6 ~ .focus-border{position: absolute; height: 36px; bottom: 0; right: 0; width: 0; transition: 0.4s;}
+        .effect-6:focus ~ .focus-border{width: 100%; transition: 0.4s; border: 2px solid #4caf50;}
+        
+        .effect-7,
+        .effect-8,
+        .effect-9{border: 1px solid #ccc; padding: 7px 14px 9px; transition: 0.4s;}
+        
+        .effect-7 ~ .focus-border:before,
+        .effect-7 ~ .focus-border:after{content: ""; position: absolute; top: 0; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-7 ~ .focus-border:after{top: auto; bottom: 0;}
+        .effect-7 ~ .focus-border i:before,
+        .effect-7 ~ .focus-border i:after{content: ""; position: absolute; top: 50%; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.6s;}
+        .effect-7 ~ .focus-border i:after{left: auto; right: 0;}
+        .effect-7:focus ~ .focus-border:before,
+        .effect-7:focus ~ .focus-border:after{left: 0; width: 100%; transition: 0.4s;}
+        .effect-7:focus ~ .focus-border i:before,
+        .effect-7:focus ~ .focus-border i:after{top: 0; height: 100%; transition: 0.6s;}
+        
+        .effect-8 ~ .focus-border:before,
+        .effect-8 ~ .focus-border:after{content: ""; position: absolute; top: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.3s;}
+        .effect-8 ~ .focus-border:after{top: auto; bottom: 0; left: auto; right: 0;}
+        .effect-8 ~ .focus-border i:before,
+        .effect-8 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.4s;}
+        .effect-8 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-8:focus ~ .focus-border:before,
+        .effect-8:focus ~ .focus-border:after{width: 100%; transition: 0.3s;}
+        .effect-8:focus ~ .focus-border i:before,
+        .effect-8:focus ~ .focus-border i:after{height: 100%; transition: 0.4s;}
+        
+        .effect-9 ~ .focus-border:before,
+        .effect-9 ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.2s; transition-delay: 0.2s;}
+        .effect-9 ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+        .effect-9 ~ .focus-border i:before,
+        .effect-9 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.2s;}
+        .effect-9 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+        .effect-9:focus ~ .focus-border:before,
+        .effect-9:focus ~ .focus-border:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+        .effect-9:focus ~ .focus-border:after{transition-delay: 0.2s;}
+        .effect-9:focus ~ .focus-border i:before,
+        .effect-9:focus ~ .focus-border i:after{height: 100%; transition: 0.2s;}
+        .effect-9:focus ~ .focus-border i:after{transition-delay: 0.4s;}
+        
+        .effect-10, 
+        .effect-11, 
+        .effect-12,
+        .effect-13,
+        .effect-14,
+        .effect-15{border: 0; padding: 7px 15px; border: 1px solid #ccc; position: relative; background: transparent;}
+        
+        .effect-10 ~ .focus-bg{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #ededed; opacity: 0; transition: 0.5s; z-index: -1;}
+        .effect-10:focus ~ .focus-bg{transition: 0.5s; opacity: 1;}
+        
+        .effect-11 ~ .focus-bg{position: absolute; left: 0; top: 0; width: 0; height: 100%; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-11:focus ~ .focus-bg{transition: 0.3s; width: 100%;}
+        
+        .effect-12 ~ .focus-bg{position: absolute; left: 50%; top: 0; width: 0; height: 100%; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-12:focus ~ .focus-bg{transition: 0.3s; width: 100%; left: 0;}
+        
+        .effect-13 ~ .focus-bg:before,
+        .effect-13 ~ .focus-bg:after{content: ""; position: absolute; left: 0; top: 0; width: 0; height: 100%; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-13:focus ~ .focus-bg:before{transition: 0.3s; width: 50%;}
+        .effect-13 ~ .focus-bg:after{left: auto; right: 0;}
+        .effect-13:focus ~ .focus-bg:after{transition: 0.3s; width: 50%;}
+        
+        .effect-14 ~ .focus-bg:before,
+        .effect-14 ~ .focus-bg:after{content: ""; position: absolute; left: 0; top: 0; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-14:focus ~ .focus-bg:before{transition: 0.3s; width: 50%; height: 100%;}
+        .effect-14 ~ .focus-bg:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-14:focus ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%;}
+        
+        .effect-15 ~ .focus-bg:before,
+        .effect-15 ~ .focus-bg:after{content: ""; position: absolute; left: 50%; top: 50%; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-15:focus ~ .focus-bg:before{transition: 0.3s; width: 50%; left: 0; top: 0; height: 100%;}
+        .effect-15 ~ .focus-bg:after{left: auto; right: 50%; top: auto; bottom: 50%;}
+        .effect-15:focus ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%; bottom: 0; right: 0;}
+        
+        
+        .effect-16, 
+        .effect-17, 
+        .effect-18{border: 0; padding: 4px 0; border-bottom: 1px solid #ccc; background-color: transparent;}
+        
+        .effect-16 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-16:focus ~ .focus-border,
+        .has-content.effect-16 ~ .focus-border{width: 100%; transition: 0.4s;}
+        .effect-16 ~ label{position: absolute; left: 0; width: 100%; top: 9px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-16:focus ~ label, .has-content.effect-16 ~ label{top: -16px; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-17 ~ .focus-border{position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-17:focus ~ .focus-border,
+        .has-content.effect-17 ~ .focus-border{width: 100%; transition: 0.4s; left: 0;}
+        .effect-17 ~ label{position: absolute; left: 0; width: 100%; top: 9px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-17:focus ~ label, .has-content.effect-17 ~ label{top: -16px; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-18 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; z-index: 99;}
+        .effect-18 ~ .focus-border:before, 
+        .effect-18 ~ .focus-border:after{content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 100%; background-color: #4caf50; transition: 0.4s;}
+        .effect-18 ~ .focus-border:after{left: auto; right: 0;}
+        .effect-18:focus ~ .focus-border:before, 
+        .effect-18:focus ~ .focus-border:after,
+        .has-content.effect-18 ~ .focus-border:before,
+        .has-content.effect-18 ~ .focus-border:after{width: 50%; transition: 0.4s;}
+        .effect-18 ~ label{position: absolute; left: 0; width: 100%; top: 9px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-18:focus ~ label, .has-content.effect-18 ~ label{top: -16px; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-19,
+        .effect-20,
+        .effect-21{border: 1px solid #ccc; padding: 7px 14px; transition: 0.4s; background: transparent;}
+        
+        .effect-19 ~ .focus-border:before,
+        .effect-19 ~ .focus-border:after{content: ""; position: absolute; top: -1px; left: 50%; width: 0; height: 2px; background-color: #4caf50; transition: 0.4s;}
+        .effect-19 ~ .focus-border:after{top: auto; bottom: 0;}
+        .effect-19 ~ .focus-border i:before,
+        .effect-19 ~ .focus-border i:after{content: ""; position: absolute; top: 50%; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.6s;}
+        .effect-19 ~ .focus-border i:after{left: auto; right: 0;}
+        .effect-19:focus ~ .focus-border:before,
+        .effect-19:focus ~ .focus-border:after,
+        .has-content.effect-19 ~ .focus-border:before,
+        .has-content.effect-19 ~ .focus-border:after{left: 0; width: 100%; transition: 0.4s;}
+        .effect-19:focus ~ .focus-border i:before,
+        .effect-19:focus ~ .focus-border i:after,
+        .has-content.effect-19 ~ .focus-border i:before,
+        .has-content.effect-19 ~ .focus-border i:after{top: -1px; height: 100%; transition: 0.6s;}
+        .effect-19 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-19:focus ~ label, .has-content.effect-19 ~ label{top: -18px; left: 0; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-20 ~ .focus-border:before,
+        .effect-20 ~ .focus-border:after{content: ""; position: absolute; top: 0; left: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.3s;}
+        .effect-20 ~ .focus-border:after{top: auto; bottom: 0; left: auto; right: 0;}
+        .effect-20 ~ .focus-border i:before,
+        .effect-20 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.4s;}
+        .effect-20 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-20:focus ~ .focus-border:before,
+        .effect-20:focus ~ .focus-border:after,
+        .has-content.effect-20 ~ .focus-border:before,
+        .has-content.effect-20 ~ .focus-border:after{width: 100%; transition: 0.3s;}
+        .effect-20:focus ~ .focus-border i:before,
+        .effect-20:focus ~ .focus-border i:after,
+        .has-content.effect-20 ~ .focus-border i:before,
+        .has-content.effect-20 ~ .focus-border i:after{height: 100%; transition: 0.4s;}
+        .effect-20 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-20:focus ~ label, .has-content.effect-20 ~ label{top: -18px; left: 0; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-21 ~ .focus-border:before,
+        .effect-21 ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.2s; transition-delay: 0.2s;}
+        .effect-21 ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+        .effect-21 ~ .focus-border i:before,
+        .effect-21 ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.2s;}
+        .effect-21 ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+        .effect-21:focus ~ .focus-border:before,
+        .effect-21:focus ~ .focus-border:after,
+        .has-content.effect-21 ~ .focus-border:before,
+        .has-content.effect-21 ~ .focus-border:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+        .effect-21:focus ~ .focus-border:after,
+        .has-content.effect-21 ~ .focus-border:after{transition-delay: 0.2s;}
+        .effect-21:focus ~ .focus-border i:before,
+        .effect-21:focus ~ .focus-border i:after,
+        .has-content.effect-21 ~ .focus-border i:before,
+        .has-content.effect-21 ~ .focus-border i:after{height: 100%; transition: 0.2s;}
+        .effect-21:focus ~ .focus-border i:after,
+        .has-conten.effect-21 ~ .focus-border i:after{transition-delay: 0.4s;}
+        .effect-21 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-21:focus ~ label, .has-content.effect-21 ~ label{top: -18px; left: 0; font-size: 12px; color: #4caf50; transition: 0.3s;}
+        
+        .effect-22, 
+        .effect-23, 
+        .effect-24{border: 0; padding: 7px 15px; border: 1px solid #ccc; position: relative; background: transparent;}
+        
+        .effect-22 ~ .focus-bg{position: absolute; left: 0; top: 0; width: 0; height: 100%; background-color: transparent; transition: 0.4s; z-index: -1;}
+        .effect-22:focus ~ .focus-bg, 
+        .has-content.effect-22 ~ .focus-bg{transition: 0.4s; width: 100%; background-color: #ededed;}
+        .effect-22 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-22:focus ~ label, .has-content.effect-22 ~ label{top: -18px; left: 0; font-size: 12px; color: #333; transition: 0.3s;}
+        
+        .effect-23 ~ .focus-bg:before,
+        .effect-23 ~ .focus-bg:after{content: ""; position: absolute; left: 0; top: 0; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-23:focus ~ .focus-bg:before,
+        .has-content.effect-23 ~ .focus-bg:before{transition: 0.3s; width: 50%; height: 100%;}
+        .effect-23 ~ .focus-bg:after{left: auto; right: 0; top: auto; bottom: 0;}
+        .effect-23:focus ~ .focus-bg:after,
+        .has-content.effect-23 ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%;}
+        .effect-23 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-23:focus ~ label, .has-content.effect-23 ~ label{top: -18px; left: 0; font-size: 12px; color: #333; transition: 0.3s;}
+        
+        .effect-24 ~ .focus-bg:before,
+        .effect-24 ~ .focus-bg:after{content: ""; position: absolute; left: 50%; top: 50%; width: 0; height: 0; background-color: #ededed; transition: 0.3s; z-index: -1;}
+        .effect-24:focus ~ .focus-bg:before,
+        .has-content.effect-24 ~ .focus-bg:before{transition: 0.3s; width: 50%; left: 0; top: 0; height: 100%;}
+        .effect-24 ~ .focus-bg:after{left: auto; right: 50%; top: auto; bottom: 50%;}
+        .effect-24:focus ~ .focus-bg:after,
+        .has-content.effect-24 ~ .focus-bg:after{transition: 0.3s; width: 50%; height: 100%; bottom: 0; right: 0;}
+        .effect-24 ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #aaa; transition: 0.3s; z-index: -1; letter-spacing: 0.5px;}
+        .effect-24:focus ~ label, .has-content.effect-24 ~ label{top: -18px; left: 0; font-size: 12px; color: #333; transition: 0.3s;}
+        
+    </style>
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout-wrapper">
+
+
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex align-items-center">
+                    <div class="navbar-brand-box">
+                        <a href="index.html" class="logo">
+                            <span class="logo-lg">
+                                <img src="../static/assets/images/logo.png" alt="" height="23">
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm font-size-16 d-lg-none header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link arrow-none" href="dashboard.html" id="topnav-dashboard" role="button">
+                                            <span key="t-dashboards">Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="lead.html"
+                                            id="topnav-pages" role="button">
+                                            <span>Lead</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Lead</a>
+                                            <a href="#" class="dropdown-item">Lead</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="product.html"
+                                            id="topnav-pages" role="button">
+                                            <span>Accounts</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Accounts</a>
+                                            <a href="#" class="dropdown-item">Accounts</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="customer.html"
+                                            id="topnav-pages" role="button">
+                                            <span>customer</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">customer</a>
+                                            <a href="#" class="dropdown-item">customer</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="opportunities.html"
+                                            id="topnav-pages" role="button">
+                                            <span>Opportunity</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Opportunity</a>
+                                            <a href="#" class="dropdown-item">Opportunity</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown d-none">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages"
+                                            role="button">
+                                            <span>Forecasts</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Forecasts</a>
+                                            <a href="#" class="dropdown-item">Forecasts</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle arrow-none btn btn-primary"
+                                            href="quotation.html" id="topnav-pages" role="button">
+                                            <span>Quotation</span>
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+
+                                            <a href="#" class="dropdown-item">Quotation</a>
+                                            <a href="#" class="dropdown-item">Quotation</a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center header-rightside-btns">
+                    <form class="app-search d-none d-lg-block">
+                        <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="bx bx-search-alt"></span>
+                        </div>
+                    </form>
+                    <a href="sticky-notes.html"><button type="button"
+                            class="btn btn-primary waves-effect waves-light"><i class="bx bx-notepad"></i></button></a>
+                    <div class="dropdown d-inline-block user-dropdown">
+                        <button type="button" class="btn header-item btn-primary waves-effect waves-light"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="far fa-comments"></i>
+
+                        </button>
+                        <span class="badge bg-warning">13</span>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h5 class="m-0" key="t-notifications"> Chats </h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#!" key="t-view-all"> View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-simplebar style="max-height: 230px;">
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2 border-top d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View
+                                        More..</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown d-inline-block user-dropdown">
+                        <button type="button" class="btn header-item btn-primary waves-effect waves-light"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="bx bx-plus"></i>
+
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center noti-heading">
+                                    <div class="col">
+                                        <h5 class="m-0" key="t-notifications">GLOBAL ACTIONS</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-simplebar style="max-height: 230px;">
+
+                                <div class="global-action-btns">
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#log-call"><button type="button" class="btn btn-orange waves-effect waves-light me-2"><i class="bx bx-phone-call"></i></button>Log a Call</a>
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#new-task"><button type="button" class="btn btn-info waves-effect waves-light me-2"><i class="bx bxs-edit"></i></button>New task</a> 
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#new-event"><button type="button" class="btn btn-success waves-effect waves-light me-2"><i class="bx bx-calendar-plus"></i></button>New Event</a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="settings.html"><button type="button" class="btn btn-primary waves-effect waves-light"><i
+                                class="bx bx-cog"></i></button></a>
+                    <div class="dropdown d-inline-block user-dropdown">
+                        <button type="button" class="btn header-item btn-primary waves-effect waves-light"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="bx bx-bell"></i>
+
+                        </button>
+                        <span class="badge bg-warning">30</span>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center noti-heading">
+                                    <div class="col">
+                                        <h5 class="m-0" key="t-notifications"> Notifications </h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#!" key="t-view-all"> View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-simplebar style="max-height: 230px;">
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">James Lemire</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-simplified">It will seem like simplified
+                                                    English.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-4.jpg"
+                                            class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Salena Layfield</h5>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-occidental">As a skeptical Cambridge friend
+                                                    of mine occidental.</p>
+                                                <p class="mb-0 small"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-hours-ago">1 hours ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2 border-top d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View
+                                        More..</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown d-inline-block user-dropdown ms-2">
+                        <a class="" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
+                                alt="Header Avatar">
+
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="profile.html"><i class="bx bx-user font-size-16 align-middle me-1"></i>
+                                <span key="t-profile">Profile</span></a>
+                            <a class="dropdown-item d-block" href="settings.html"><i
+                                    class="bx bx-wrench font-size-16 align-middle me-1"></i> <span
+                                    key="t-settings">Settings</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#"><i
+                                    class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
+                                    key="t-logout">Logout</span></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+
+
+        <div class="page-content">
+            <div class="container-fluid px-0">
+                <div class="card quotatn-card">
+                    <div class="card-body">
+                        <div class="top-header-div">
+                            <div class="main-heading">
+                                <h2><img src="assets/images/quotation.svg" alt="">
+                                    <div class="team-select d-flex align-items-center">
+                                        <div class="select-dropdwn">
+                                            <select class="ddl-select" id="list" name="list">
+                                                <option value="1">All Quotes</option>
+                                                <option value="2">My Quotes</option>
+                                                <option value="3">Recently Viewed</option>
+                                                <option value="4">Recently Viewed Quotes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </h2>
+                                <span>6 items • Sorted by Name • Filtered by All leads - Lead Status • Updated 3 hours
+                                    ago</span>
+                            </div>
+
+                            <div class="top-header-rightbtns">
+                                <form class="app-search d-none d-lg-block">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <span class="bx bx-search-alt"></span>
+                                    </div>
+                                </form>
+                                <div class="dropdown d-inline-block">
+                                    <button type="button"
+                                        class="btn header-item font-size-15 btn-soft-dark waves-effect waves-light"
+                                        id="page-header-notifications-dropdown" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="bx bx-list-ul"></i>
+
+                                    </button>
+
+                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 list-kan"
+                                        aria-labelledby="page-header-notifications-dropdown">
+                                        <div class="py-2">
+                                            <a class="dropdown-item" href="quotation.html"><i
+                                                    class="bx bx-list-ul font-size-16 align-middle me-1"></i>
+                                                <span>List</span></a>
+                                            <a class="dropdown-item" href="quotation-kan.html"><i
+                                                    class="bx bx-grid-alt font-size-16 align-middle me-1"></i>
+                                                <span>Kanban</span></a>
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="bx bx-calendar font-size-16 align-middle me-1"></i>
+                                                <span>Calendar</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button data-bs-toggle="modal" data-bs-target="#edit-quote" type="button" class="btn btn-soft-dark font-size-15 waves-effect waves-light"><i
+                                        class="mdi mdi-account-edit-outline"></i></button>
+                                <button type="button" class="btn btn-soft-dark font-size-15 waves-effect waves-light"><i
+                                        class="bx bx-pie-chart"></i></button>
+                                        <div class="dropdown d-inline-block user-dropdown">
+                                            <button type="button" class="btn btn-soft-dark font-size-15 waves-effect waves-light"
+                                                id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="bx bx-filter-alt"></i>         
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0"
+                                                aria-labelledby="page-header-notifications-dropdown">
+                                                <div class="p-3">
+                                                    <div class="row align-items-center noti-heading">
+                                                        <div class="col">
+                                                            <h5 class="m-0" key="t-notifications">filter</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div data-simplebar style="max-height: 230px;">
+                    
+                                                    <div class="global-action-btns">
+                                                        <div class="form-check form-check-primary mb-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Account Name
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Amount
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-primary my-1">
+                                                            <input class="form-check-input" type="checkbox" id="formCheckcolor1" checked="">
+                                                            <label class="form-check-label" for="formCheckcolor1">
+                                                                Stage
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                    data-bs-toggle="modal" data-bs-target="#add-quote">
+                                    <i class="bx bx-plus-circle font-size-15 align-middle me-1"></i> New
+                                </button>
+                            </div>
+                        </div>
+                        <div class="lead-table table-view">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th width="40px"><input class="form-check-input" type="checkbox"
+                                                    id="formCheck1"></th>
+                                            <th width="54px">S No</th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Quote Name
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bx bxs-down-arrow"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-start">
+                                                            <li><a href="#" class="dropdown-item">Wrap Text</a></li>
+                                                            <li><a href="#" class="dropdown-item">Clip Text</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Salesperson
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Customer
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bx bxs-down-arrow"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-start">
+                                                            <li><a href="#" class="dropdown-item">Wrap Text</a></li>
+                                                            <li><a href="#" class="dropdown-item">Clip Text</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Created By
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bx bxs-down-arrow"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-start">
+                                                            <li><a href="#" class="dropdown-item">Wrap Text</a></li>
+                                                            <li><a href="#" class="dropdown-item">Clip Text</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Creation Date
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bx bxs-down-arrow"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-start">
+                                                            <li><a href="#" class="dropdown-item">Wrap Text</a></li>
+                                                            <li><a href="#" class="dropdown-item">Clip Text</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Due Date
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bx bxs-down-arrow"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-start">
+                                                            <li><a href="#" class="dropdown-item">Wrap Text</a></li>
+                                                            <li><a href="#" class="dropdown-item">Clip Text</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Total Price
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bx bxs-down-arrow"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-start">
+                                                            <li><a href="#" class="dropdown-item">Wrap Text</a></li>
+                                                            <li><a href="#" class="dropdown-item">Clip Text</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex th-dropdwn">
+                                                    Status
+                                                </div>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>1</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-4.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-warning soft-tag">Locked</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>2</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-5.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-info soft-tag">Quotation</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>3</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-6.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-orange soft-tag">Sales Order</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>4</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-2.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-success soft-tag">Need Analysis</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>5</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-4.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-warning soft-tag">Locked</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>6</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-5.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-info soft-tag">Quotation</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>7</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-6.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-orange soft-tag">Sales Order</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>8</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-2.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-success soft-tag">Need Analysis</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>9</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-4.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-warning soft-tag">Locked</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>10</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-5.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-info soft-tag">Quotation</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>11</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-6.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-orange soft-tag">Sales Order</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>12</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-2.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-success soft-tag">Need Analysis</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>13</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-4.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-warning soft-tag">Locked</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>14</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-5.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-info soft-tag">Quotation</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+                                            <td>15</td>
+                                            <td><a href="quotation-details.html">Quote Name</a></td>
+                                            <td>
+                                                <div class="avatar-div">
+                                                    <img src="assets/images/users/avatar-6.jpg" alt=""
+                                                        class="avatar-xs rounded-circle">
+                                                    <span>James Fernandas</span>
+                                                </div>
+                                            </td>
+                                            <td>Lumber INC</td>
+                                            <td>Amarnath</td>
+                                            <td>08/09/2023</td>
+                                            <td>08/09/2023</td>
+                                            <td>₹2,00,000</td>
+                                            <td><span class="btn-soft-orange soft-tag">Sales Order</span></td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li data-bs-toggle="modal" data-bs-target="#edit-quote"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#delete"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                        <li data-bs-toggle="modal" data-bs-target="#change-owner"><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-user-circle font-size-16 me-1"></i>Change
+                                                                Owner</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bottom-pagination-div">
+                <ul class="pagination pagination-rounded pb-1">
+                    <li class="page-item disabled">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">1</a>
+                    </li>
+                    <li class="page-item active">
+                        <a href="javascript: void(0);" class="page-link">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link">3</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <div class="modal fade" id="add-quote" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xxl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Add Quote</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <ul class="nav nav-tabs nav-tabs-custom nav-justified quote-form" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#order-lines" role="tab">
+                                    <span>Customer Info</span>
+                                </a>
+                            </li>
+                           
+                            
+                        </ul>
+                        
+                        <div class="col-md-6 mt-30">
+                            
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label class="search-icon" for="name">First Name</label>
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Last Name</label>
+                                {% comment %} <i class="bx bx-search search-icn"></i> {% endcomment %}
+                            </div>
+
+                            
+
+                        
+
+                        </div>
+                        <div class="col-md-6 mt-30">
+
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Email</label>
+                                {% comment %} <i class="bx bx-search search-icn"></i> {% endcomment %}
+                            </div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text">
+                                <label for="name">Phone</label>
+                            </div>
+
+                           
+                        </div>
+                       
+                    </div>
+
+                    <ul class="nav nav-tabs nav-tabs-custom nav-justified quote-form" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#order-lines" role="tab">
+                                <span>Order Lines</span>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    <hr class="quote-frm-hr">
+                    <div class="tab-pane" id="order-lines" role="tabpanel">
+                        <div class="quote-list">
+                            <div class="table-responsive quote-table">
+                                <table class="table mb-0 ">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Purchase Price</th>
+                                            <th>Sales price</th>
+                                            <th>Total</th>
+                                            {% comment %} <th>Taxes</th>
+                                            <th>Discount</th>
+                                            <th>tax excel</th> {% endcomment %}
+                                            <th><i class="bx bx-filter-alt"></i></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                <input class="effect-2" type="text" placeholder="Enter Product" style="width: 150px; ">
+                                                 
+                                              </th>
+                                            <td><input class="effect-2" type="text" placeholder="Quanity" style="width: 150px; "> </td>
+                                            <td><input class="effect-2" type="text" placeholder="Purchase price" style="width: 150px; "></td>
+                                            <td><input class="effect-2" type="text" placeholder="Sales Price" style="width: 150px; "></td>
+                                            <td><input class="effect-2" type="text" placeholder="Total price" style="width: 150px; "></td>
+                                            {% comment %} <td><input class="effect-2" type="text" placeholder="Tax" style="width: 100px; "></td>
+                                            <td><input class="effect-2" type="text" placeholder="Discount%" style="width: 100px; "></td>
+                                            <td><input class="effect-2" type="text" placeholder="Tax excel" style="width: 100px; "></td> {% endcomment %}
+                                            <td class="">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                        </li>
+                                                        <li><a href="#"
+                                                                class="dropdown-item d-flex align-items-center"><i
+                                                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="9" class="add-tble-list">
+                                                <div class="d-flex add-table-content">
+                                                    <a href="">Add a product </a>
+                                                    <a href="">Add a Section</a>
+                                                    <a href="">Add a Note</a>
+                                                    <a href="">catalog</a>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="my-3">
+                                <div class="quote-total">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>Subtotal</h5>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end">
+                                            <h4>50130</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="quote-total">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>Discount</h5>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end">
+                                            <h4>0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="quote-total">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>Total Task</h5>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end">
+                                            <h4>32456</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="quote-total">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>Total Amount(SAR)</h5>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end">
+                                            <h4>50130</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="other-info" role="tabpanel">
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit-quote" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xxl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Edit Quote(Quote Name)</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="form-grp">
+                            <h6 class="d-flex align-items-center"><span class="lead-owner">Quote Number : </span>
+                                <div class="qoute-number">9862977</div>
+                            </h6>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label class="search-icon" for="name">Quote Name</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Opportunity Name</label>
+                            <i class="bx bx-search search-icn"></i>
+                        </div>
+
+                        <div class="form-grp">
+                            <h6 class="d-flex align-items-center"><span class="lead-owner">Account Name: </span>
+                                <div class="qoute-number">Account Name</div>
+                            </h6>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Expiration Date</label>
+                        </div>
+
+                        <div class="form-grp">
+                            <h6 class="d-flex align-items-center"><span class="lead-owner">Syncing: </span> <input
+                                    class="form-check-input syncing" type="checkbox" id="formCheck1"></h6>
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-md-4 mt-30">
+
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Search customer</label>
+                            <i class="bx bx-search search-icn"></i>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Email</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Phone</label>
+                        </div>
+
+                        <div class="inputGroup form-control">
+                            <input type="text">
+                            <label for="name">Fax</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-30">
+
+
+                        <h6 class="shipping-billing-head">Status</h6>
+                        <div class="form-grp inputGroup">
+                            <div class="select-inp">
+                                <select class="form-control">
+                                    <option value="AK">None</option>
+                                    <option value="HI">Locked</option>
+                                    <option value="CA">Quotation</option>
+                                    <option value="AK">Sales order</option>
+                                    <option value="HI">Quotation Sent</option>
+                                    <option value="CA">Cancelled</option>
+                                    <option value="AK">Presented</option>
+                                    <option value="HI">Accepted</option>
+                                    <option value="CA">Denied</option>
+                                </select>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <textarea id="formmessage" class="form-control" rows="3"
+                            placeholder="Description"></textarea>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs nav-tabs-custom nav-justified quote-form" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#order-lines" role="tab">
+                            <span>Order Lines</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#other-info" role="tab">
+                            <span>Other Info</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr class="quote-frm-hr">
+                <div class="tab-pane" id="order-lines" role="tabpanel">
+                    <div class="quote-list">
+                        <div class="table-responsive quote-table">
+                            <table class="table mb-0 ">
+
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Uom</th>
+                                        <th>Unit Product</th>
+                                        <th>Taxes</th>
+                                        <th>Discount</th>
+                                        <th>tax excel</th>
+                                        <th><i class="bx bx-filter-alt"></i></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>1.00</td>
+                                        <td>Lorum ipsum</td>
+                                        <td>2.00</td>
+                                        <td>Units</td>
+                                        <td>0.00</td>
+                                        <td>15%</td>
+                                        <td>0.00</td>
+                                        <td class="">
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle card-drop"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-vertical font-size-18"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a href="#"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="bx bx-edit font-size-16 me-1"></i>Edit</a>
+                                                    </li>
+                                                    <li><a href="#"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="9" class="add-tble-list">
+                                            <div class="d-flex add-table-content">
+                                                <a href="">Add a product </a>
+                                                <a href="">Add a Section</a>
+                                                <a href="">Add a Note</a>
+                                                <a href="">catalog</a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="my-3">
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Subtotal</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <h4>50130</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Discount</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <h4>0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Total Task</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <h4>32456</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="quote-total">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Total Amount(SAR)</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <h4>50130</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="other-info" role="tabpanel">
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Delete Opportunity</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h4 class="delete-hint">Are you sure you want to delete this Opportunity?</h4>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Delete</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="change-owner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Change Owner</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="selct-box-head">Search Owner</h6>
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label class="search-icon" for="name">Search Owner</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="log-call" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>Log a Call</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Task</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="date">
+                    <label for="name">Due Date</label>
+                </div>
+
+                <h6 class="selct-box-head">Assign to</h6>
+                <div class="form-grp inputGroup">
+                    <div class="select-inp">
+                        <select class="form-control">
+                            <option value="AK">None</option>
+                            <option value="HI">Qualificatio</option>
+                            <option value="CA">Need Analysis</option>
+                            <option value="NV">Proposal</option>
+                            <option value="CA">Negotiation </option>
+                            <option value="NV">Closed won</option>
+                            <option value="NV">Closed Lost </option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="new-event" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span>New Event</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Subject</label>
+                    <i class="bx bx-search search-icn"></i>
+                </div>
+
+                <div class="form-grp">
+                    <textarea id="formmessage" class="form-control" rows="3" placeholder="Comments"></textarea>
+                </div>
+                <div class="row">
+                    <h6 class="selct-box-head">Start</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h6 class="selct-box-head">End</h6>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="date">
+                            <label for="name">Date</label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="inputGroup form-control">
+                            <input type="time">
+                            <label for="name">Time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inputGroup form-control">
+                    <input type="text">
+                    <label for="name">Location</label>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary text-uppercase br-50 btn-md">Save</button>
+                <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="../static/assets/libs/jquery/jquery.min.js"></script>
+    <script src="../static/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../static/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../static/assets/libs/node-waves/waves.min.js"></script>
+
+    <script src="../static/assets/js/app.js"></script>
+    <script>
+        $('.select2').select2({
+            dropdownParent: $('#add-contact')
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".ddl-select").each(function () {
+
+
+                $(this).hide();
+                var $select = $(this);
+                var _id = $(this).attr("id");
+                var wrapper = document.createElement("div");
+                wrapper.setAttribute("class", "ddl ddl_" + _id);
+
+                var input = document.createElement("h6");
+
+                input.setAttribute("class", "ddl-input");
+                input.setAttribute("id", "ddl_" + _id);
+                input.innerHTML = $(this)[0].options[$(this)[0].selectedIndex].innerText
+
+                $(this).before(wrapper);
+                var $ddl = $(".ddl_" + _id);
+                $ddl.append(input);
+                $ddl.append("<div class='ddl-options ddl-options-" + _id + "'></div>");
+                var $ddl_input = $("#ddl_" + _id);
+                var $ops_list = $(".ddl-options-" + _id);
+                var $ops = $(this)[0].options;
+                for (var i = 0; i < $ops.length; i++) {
+                    $ops_list.append(
+                        "<div data-value='" +
+                        $ops[i].value +
+                        "'>" +
+                        $ops[i].innerText +
+                        "</div>"
+                    );
+                }
+
+                $ddl_input.click(function () {
+                    $ddl.toggleClass("active");
+                });
+                $ddl_input.blur(function () {
+                    $ddl.removeClass("active");
+                });
+                $ops_list.find("div").click(function () {
+                    document.getElementsByClassName("ddl-input")[0].innerHTML = $(this).text();
+                    $ddl.removeClass("active");
+                });
+            });
+        });
+    </script>
+    <script>
+        // upload image
+        const uploadArea = document.querySelector('#uploadArea')
+        const dropZoon = document.querySelector('#dropZoon');
+        const loadingText = document.querySelector('#loadingText');
+        const fileInput = document.querySelector('#fileInput');
+        const previewImage = document.querySelector('#previewImage');
+        const fileDetails = document.querySelector('#fileDetails');
+        const uploadedFile = document.querySelector('#uploadedFile');
+        const uploadedFileInfo = document.querySelector('#uploadedFileInfo');
+        const uploadedFileName = document.querySelector('.uploaded-file__name');
+        const uploadedFileIconText = document.querySelector('.uploaded-file__icon-text');
+        const uploadedFileCounter = document.querySelector('.uploaded-file__counter');
+        const imagesTypes = [
+            "jpeg",
+            "png",
+            "svg",
+            "gif"
+        ];
+
+        dropZoon.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            dropZoon.classList.add('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('dragleave', function (event) {
+            dropZoon.classList.remove('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('drop', function (event) {
+            event.preventDefault();
+            dropZoon.classList.remove('drop-zoon--over');
+            const file = event.dataTransfer.files[0];
+            uploadFile(file);
+        });
+
+        dropZoon.addEventListener('click', function (event) {
+            fileInput.click();
+        });
+
+
+        fileInput.addEventListener('change', function (event) {
+
+            const file = event.target.files[0];
+            uploadFile(file);
+        });
+
+        function uploadFile(file) {
+            const fileReader = new FileReader();
+            const fileType = file.type;
+            const fileSize = file.size;
+
+            if (fileValidate(fileType, fileSize)) {
+                dropZoon.classList.add('drop-zoon--Uploaded');
+                loadingText.style.display = "block";
+                previewImage.style.display = 'none';
+                uploadedFile.classList.remove('uploaded-file--open');
+                uploadedFileInfo.classList.remove('uploaded-file__info--active');
+
+                fileReader.addEventListener('load', function () {
+                    setTimeout(function () {
+                        uploadArea.classList.add('upload-area--open');
+                        loadingText.style.display = "none";
+                        previewImage.style.display = 'block';
+                        fileDetails.classList.add('file-details--open');
+                        uploadedFile.classList.add('uploaded-file--open');
+                        uploadedFileInfo.classList.add('uploaded-file__info--active');
+                    }, 500);
+
+                    previewImage.setAttribute('src', fileReader.result);
+                    uploadedFileName.innerHTML = file.name;
+
+                    progressMove();
+                });
+
+                fileReader.readAsDataURL(file);
+            } else {
+
+                this;
+
+            };
+        };
+
+
+        function progressMove() {
+            let counter = 0;
+            setTimeout(() => {
+                let counterIncrease = setInterval(() => {
+                    if (counter === 100) {
+                        clearInterval(counterIncrease);
+                    } else {
+                        counter = counter + 10;
+                        uploadedFileCounter.innerHTML = `${counter}%`
+                    }
+                }, 100);
+            }, 600);
+        };
+
+        function fileValidate(fileType, fileSize) {
+            let isImage = imagesTypes.filter((type) => fileType.indexOf(`image/${type}`) !== -1);
+            if (isImage[0] === 'jpeg') {
+                uploadedFileIconText.innerHTML = 'jpg';
+            } else {
+                uploadedFileIconText.innerHTML = isImage[0];
+            };
+
+            if (isImage.length !== 0) {
+                if (fileSize <= 2000000) {
+                    return true;
+                } else {
+                    return alert('Please Your File Should be 2 Megabytes or Less');
+                };
+            } else {
+                return alert('Please make sure to upload An Image File Type');
+            };
+        };
+    </script>
+
+<script>
+    $('.inputGroup input').on('focusin', function () {
+        $(this).parent().find('label').addClass('active');
+    });
+
+    $('.inputGroup input').on('focusout', function () {
+        if (!this.value) {
+            $(this).parent().find('label').removeClass('active');
+        }
+    });
+
+    var dateInputs = document.querySelectorAll('.inputGroup input[type="date"] , .inputGroup input[type="time"]');
+
+    dateInputs.forEach(function (dateInput) {
+        dateInput.addEventListener('input', function () {
+            if (this.value) {
+                this.classList.add('hasValue');
+            } else {
+                this.classList.remove('hasValue');
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

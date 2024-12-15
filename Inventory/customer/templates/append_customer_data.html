@@ -1,0 +1,101 @@
+{% load static %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th width="40px"><input class="form-check-input" type="checkbox"
+                    id="formCheck1"></th>
+            <th width="54px">S No</th>
+    
+            <th>
+                <div class="d-flex th-dropdwn">
+                    Product Owner
+                   
+                </div>
+            </th>
+            <th>
+                <div class="d-flex th-dropdwn">
+                    Owner Email
+                
+                </div>
+            </th>
+            <th>
+                <div class="d-flex th-dropdwn">
+                    Owner Phone
+                   
+                </div>
+            </th>
+            <th>
+                <div class="d-flex th-dropdwn">
+                   Total Price
+                    
+                </div>
+            </th>
+           
+            <th>
+                <div class="d-flex th-dropdwn">
+                     Date 
+                   
+                </div>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody id="append_new_data">
+        {% for i in data_search %}
+        <tr class="trclass{{i.id}}">
+            <td><input class="form-check-input" type="checkbox" id="formCheck1"></td>
+            <td>{{forloop.counter}}</td>
+            <td><div class="avatar-div">
+                <a href="#">
+                <img src="{% static 'assets/images/users/avatar-7.jpg' %}" alt=""
+                    class="avatar-xs rounded-circle">
+                <span>{{i.customer_firstname|default:''}} {{i.customer_lastname|default:''}}</span></a>
+            </div></td>
+            <td>{{i.customer_email|default:''}}</td>
+            <td>{{i.customer_phone_no|default:''}}</td>
+            <td>{{i.total_amount|default:''}}</td>
+            <td>{{i.created_dt|date:"d-m-Y"}},{{i.created_tm|default:''}}</td>
+            <td class="text-right">
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle card-drop"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li ><a href="#" id="view_customer_detail" data-id="{{i.id}}"
+                                class="dropdown-item d-flex align-items-center"><i
+                                    class="bx bx-edit font-size-16 me-1"></i>View</a>
+                        </li>
+                        <li ><a href="#" onclick="delete_modal({{i.id}})"
+                                class="dropdown-item d-flex align-items-center"><i
+                                    class="bx bx-trash font-size-16 me-1"></i>Delete</a>
+                        </li>
+                        <li ><a href="pdf?=id={{i.id}}" target="_blank"
+                            class="dropdown-item d-flex align-items-center"><svg  style="width: 15px;height: 15px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M288 256H96v64h192v-64zm89-151L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-153 31V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H72c-4.4 0-8-3.6-8-8V72zm0 64c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H72c-4.4 0-8-3.6-8-8v-16zm256 304c0 4.4-3.6 8-8 8h-80c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v16zm0-200v96c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-96c0-8.8 7.2-16 16-16h224c8.8 0 16 7.2 16 16z"/></svg>
+                            Invoice</a>
+                    </li>
+                       
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% if not customer_data %}
+<div class="empty-bx" id="no_data_div" {% if not customer_data %}style="visibility:visible;"{% endif %} >
+    <img src="{% static 'assets/images/empty-empty.gif' %}" alt="" style="width: 300px;">
+    <h4>There is no data.</h4>
+</div>
+{% endif %}
+
+{% if not data_search %}
+<div class="empty-bx" id="no_data_div" {% if not data_search %}style="visibility:visible;"{% endif %} >
+    {% comment %} <p>There is no data.</p> {% endcomment %}
+    <img src="{% static 'assets/images/loading-files.gif' %}" alt="" style="width: 500px;">
+    
+</div>
+{% endif %}

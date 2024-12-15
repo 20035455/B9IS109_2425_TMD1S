@@ -1,0 +1,50 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+*.db
+
+# Media files (media uploads should not be versioned)
+media/
+
+# Static files
+staticfiles/
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# VSCode settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Coverage reports
+.coverage
+*.coveragerc
+
+# mypy
+.mypy_cache/
+
+# Django-specific
+*.log
+*.pot
+*.pyc
+*.sqlite3

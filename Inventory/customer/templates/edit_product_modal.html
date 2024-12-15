@@ -1,0 +1,378 @@
+<div class="modal fade" id="edit-product" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form method="post" id="product-edit-form">
+            {% csrf_token %}
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>Update Product</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="uploadArea1" class="upload-area">
+                                <div id="dropZoon1" class="upload-area__drop-zoon drop-zoon">
+                                    <span class="drop-zoon__icon">
+                                        <i class='bx bxs-file-image'></i>
+                                    </span>
+                                    <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                    <span id="loadingText1" class="drop-zoon__loading-text">Please Wait</span>
+                                    <img src="" alt="Preview Image" id="previewImage1" class="drop-zoon__preview-image"
+                                        draggable="false">
+                                    <input type="file" id="fileInput1" class="drop-zoon__file-input" accept="image/*">
+                                </div>
+
+                                <div id="fileDetails1" class="upload-area__file-details file-details">
+                                    <h3 class="file-details__title">Uploaded File</h3>
+
+                                    <div id="uploadedFile1" class="uploaded-file">
+                                        <div class="uploaded-file__icon-container">
+                                            <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                            <span class="uploaded-file__icon-text"></span>
+                                        </div>
+
+                                        <div id="uploadedFileInfo1" class="uploaded-file__info">
+                                            <span class="uploaded-file__name">Proejct 1</span>
+                                            <span class="uploaded-file__counter">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text" name="product_name1" value="{{data.product_name|default:''}}" class="product_name11 mb-0" data-class="product_name1">
+                                <label for="name" {% if data.product_name %} class="active"  {% endif %}>Product Name</label>
+                            </div>
+                            <div class="product_name1 mb-2"></div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text" data-class="product_code" class="product_code1 mb-0" value="{{data.product_code|default:''}}" name="product_code">
+                                <label for="name" {% if data.product_code %} class="active"  {% endif %}>Product Code</label>
+                            </div>
+                            <div class="inputGroup form-control">
+                                <input type="text" name="product_company1" value="{{data.product_company_name|default:''}}" data-class="product_company1" class="product_company11 mb-0">
+                                <label for="name" {% if data.product_company_name %} class="active"  {% endif %}>Product Company</label>
+                            </div>
+                            <div class="product_company1 mb-2"></div>
+
+                            <div class="inputGroup form-control">
+                                <input type="text" name="hsn_code1" value="{{data.product_hsn|default:''}}">
+                                <label for="name" {% if data.product_hsn %} class="active"  {% endif %}>Product HSN code</label>
+                            </div>
+
+                           
+
+                            <h6 class="selct-box-head">Product Category</h6>
+                            <div class="form-grp inputGroup">
+                                <div class="select-inp">
+                                    <select class="form-control category11" data-class="category1" name="category1">
+                                        {% for i in category_data %}
+                                        <option value="{{i.id}}" {% if i.id == data.category_id.id %} selected {% endif %}>{{i.category_name|default:''}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="category1"></div>
+
+                            <h6 class="shipping-billing-head">Description</h6>
+                            <div class="form-grp">
+                                <textarea id="formmessage" name="description1" value="{{data.product_description|default:''}}" class="form-control" rows="3"
+                                    placeholder="">{{data.product_description|default:''}}</textarea>
+                            </div>
+                            
+                            <div class="inputGroup form-control">
+                                <input type="text" value="{{data.inventory_location|default:''}}" name="location1">
+                                <label for="name" {% if data.inventory_location %} class="active"  {% endif %}>Inventory location</label>
+                            </div>
+  
+                            <div class="inputGroup form-control">
+                                <input type="hidden" value="{{data.id}}" name="id">
+                                <input type="text" value="{{data.supplier_name|default:''}}" name="supplier_name1">
+                                <label for="name" {% if data.supplier_name %} class="active"  {% endif %}>Supplier Name</label>
+                            </div>
+
+
+                            <h5 class="addrss-info">Product available status :- 
+
+                            <input class="form-check-input" type="checkbox" name="product_active1" value="True" id="flexCheckDefault" {% if data.active_status == True %} checked {% endif %} ></h5>
+
+
+                            
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="inputGroup form-control">
+                                <input type="text" data-class="amount1" value="{{data.purchase_amount|default:''}}" class="amount11" name="amount1">
+                                <label for="name" {% if data.purchase_amount %} class="active"  {% endif %}>Purchase amount</label>
+                            </div>
+                            <div class="amount"></div>
+                            <div class="inputGroup form-control">
+                                <input type="text" data-class="quantity1" value="{{data.number|default:''}}" class="quantity11 mb-0" name="quantity1">
+                                <label for="name" {% if data.number %} class="active"  {% endif %}>Quantity</label>
+                            </div>
+                            <div class="quantity1 mb-2"></div>
+                            <div class="inputGroup form-control">
+                                <input type="number" data-class="update_sale_price_without_gst" class="update_sale_price_without_gst1 mb-0" value="{{data.sale_price_without_gst|default:0}}" name="sale_price_without_gst" id="update_sale_price_without_gst">
+                                <label for="sale_price_without_gst" {% if data.sale_price_without_gst %} class="active"  {% endif %}>Sale Price Without Gst</label>
+                            </div>
+
+                            <div class="sale_price_without_gst mb-2"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 for="gst_percentage">GST%</h6>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" data-class="update_gst_percentage" class="update_gst_percentage1 mb-0" value="{{data.gst_percentage|default:0}}" name="gst_percentage" id="update_gst_percentage">
+                                    </div>
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="update_gst_amount">Total GST Amount</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" data-class="update_gst_amount" class="update_gst_amount1 mb-0" value="{{data.gst_amount|default:0}}" readonly name="gst_amount" id="update_gst_amount">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="cgst_percentage">CGST(%)</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="cgst_percentage" class="update_cgst_percentage1 mb-0" value="{{data.cgst_percentage|default:0}}" name="cgst_percentage" id="cgst_percentage">
+                                    </div>
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="cgst_amount">Amount</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="cgst_amount" class="update_cgst_amount1 mb-0" value="{{data.cgst_amount|default:0}}" readonly name="cgst_amount" id="cgst_amount">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="sgst_percentage">SGST(%)</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="sgst_percentage" class="update_sgst_percentage1 mb-0" value="{{data.sgst_percentage|default:0}}" name="sgst_percentage" id="sgst_percentage">
+                                    </div>
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="sgst_amount">Amount</label>
+                                    <div class="inputGroup form-control">
+                                        <input type="number" readonly data-class="sgst_amount" class="update_sgst_amount1 mb-0" value="{{data.sgst_amount|default:0}}" readonly name="sgst_amount" id="sgst_amount">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="selct-box-head">Total Sale Amount</h6>
+                            <div class="inputGroup form-control">
+                                <input type="number" readonly data-class="update_total_amount" class="update_total_amount1 mb-0" value="{{data.total_amount|default:0}}" name="total_amount" id="update_total_amount">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary text-uppercase br-50 btn-md" data-id="{{data.id}}" id="product-edit-btn">Save</button>
+                    <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+
+
+    <script>
+        // upload image
+        const uploadArea = document.querySelector('#uploadArea1')
+        const dropZoon = document.querySelector('#dropZoon1');
+        const loadingText = document.querySelector('#loadingText1');
+        const fileInput = document.querySelector('#fileInput1');
+        const previewImage = document.querySelector('#previewImage1');
+        const fileDetails = document.querySelector('#fileDetails1');
+        const uploadedFile = document.querySelector('#uploadedFile1');
+        const uploadedFileInfo = document.querySelector('#uploadedFileInfo1');
+        const uploadedFileName = document.querySelector('.uploaded-file__name');
+        const uploadedFileIconText = document.querySelector('.uploaded-file__icon-text');
+        const uploadedFileCounter = document.querySelector('.uploaded-file__counter');
+        const imagesTypes = [
+            "jpeg",
+            "png",
+            "svg",
+            "gif"
+        ];
+
+        dropZoon.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            dropZoon.classList.add('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('dragleave', function (event) {
+            dropZoon.classList.remove('drop-zoon--over');
+        });
+
+        dropZoon.addEventListener('drop', function (event) {
+            event.preventDefault();
+            dropZoon.classList.remove('drop-zoon--over');
+            const file = event.dataTransfer.files[0];
+            uploadFile1(file);
+        });
+
+        dropZoon.addEventListener('click', function (event) {
+            fileInput.click();
+        });
+
+
+        fileInput.addEventListener('change', function (event) {
+
+            const file = event.target.files[0];
+            uploadFile1(file);
+        });
+
+        function uploadFile1(file) {
+            const fileReader = new FileReader();
+            const fileType = file.type;
+            const fileSize = file.size;
+
+            if (fileValidate1(fileType, fileSize)) {
+                dropZoon.classList.add('drop-zoon--Uploaded');
+                loadingText.style.display = "block";
+                previewImage.style.display = 'none';
+                uploadedFile.classList.remove('uploaded-file--open');
+                uploadedFileInfo.classList.remove('uploaded-file__info--active');
+
+                fileReader.addEventListener('load', function () {
+                    setTimeout(function () {
+                        uploadArea.classList.add('upload-area--open');
+                        loadingText.style.display = "none";
+                        previewImage.style.display = 'block';
+                        fileDetails.classList.add('file-details--open');
+                        uploadedFile.classList.add('uploaded-file--open');
+                        uploadedFileInfo.classList.add('uploaded-file__info--active');
+                    }, 500);
+
+                    previewImage.setAttribute('src', fileReader.result);
+                    uploadedFileName.innerHTML = file.name;
+
+                    progressMove1();
+                });
+
+                fileReader.readAsDataURL(file);
+            } else {
+
+                this;
+
+            };
+        };
+
+
+        function progressMove1() {
+            let counter = 0;
+            setTimeout(() => {
+                let counterIncrease = setInterval(() => {
+                    if (counter === 100) {
+                        clearInterval(counterIncrease);
+                    } else {
+                        counter = counter + 10;
+                        uploadedFileCounter.innerHTML = `${counter}%`
+                    }
+                }, 100);
+            }, 600);
+        };
+
+        function fileValidate1(fileType, fileSize) {
+            let isImage = imagesTypes.filter((type) => fileType.indexOf(`image/${type}`) !== -1);
+            if (isImage[0] === 'jpeg') {
+                uploadedFileIconText.innerHTML = 'jpg';
+            } else {
+                uploadedFileIconText.innerHTML = isImage[0];
+            };
+
+            if (isImage.length !== 0) {
+                if (fileSize <= 2000000) {
+                    return true;
+                } else {
+                    return alert('Please Your File Should be 2 Megabytes or Less');
+                };
+            } else {
+                return alert('Please make sure to upload An Image File Type');
+            };
+        };
+    </script>
+    <script>
+        document.getElementById('update_gst_percentage').addEventListener('input', function() {
+            var min = 0;
+            var max = 100;
+            var value = parseInt(this.value, 10);
+            if (value < min || isNaN(value)) {
+                this.value = min;
+            } else if (value > max) {
+                this.value = max;
+            }
+        });
+    
+
+    // Get references to the input elements
+    const updateSalePriceInput = document.getElementById('update_sale_price_without_gst');
+    const UpdateGstInput = document.getElementById('update_gst_percentage');
+    // Add event listener to UpdateGstInput for input change
+    UpdateGstInput.addEventListener('input', function() {
+    calculateUpdateTotalPrice();
+    });
+    updateSalePriceInput.addEventListener('input', function() {
+    calculateUpdateTotalPrice();
+    });
+    // Function to calculate total price including GST
+    function calculateUpdateTotalPrice() {
+    // Get the values from inputs
+    let updateSalePrice = parseFloat(updateSalePriceInput.value);
+    let updateGstPercentage = parseFloat(UpdateGstInput.value);
+    
+    // Check if either input is not a number
+    if (isNaN(updateSalePrice)) {
+        showError("Sales price is required")
+        document.querySelector('#update_gst_percentage').value = 0
+        document.querySelector('#update_gst_amount').value = 0
+        document.querySelector('.update_total_amount1').value = 0
+        document.querySelector('.update_cgst_percentage1').value = 0
+        document.querySelector('.update_cgst_amount1').value = 0
+        document.querySelector('.update_sgst_percentage1').value = 0
+        document.querySelector('.update_sgst_amount1').value = 0
+        return;
+    }
+    if (updateGstPercentage < 0) {
+        // If less than 0, alert the user
+        showError('Please enter a valid GST percentage (greater than or equal to 0).');
+        return;
+    }
+    // Calculate the total price including GST
+    let updateGstAmount = (updateSalePrice * updateGstPercentage / 100)
+    let updateTotalPrice = updateSalePrice + updateGstAmount;
+    document.querySelector('.update_cgst_percentage1').value = updateGstPercentage / 2;
+    document.querySelector('.update_cgst_amount1').value = updateGstAmount / 2;
+    document.querySelector('.update_sgst_percentage1').value = updateGstPercentage / 2;
+    document.querySelector('.update_sgst_amount1').value = updateGstAmount / 2;
+    
+    // Display the total price
+    updateDisplayTotalPrice(updateTotalPrice,updateGstAmount);
+    }
+    
+    // Function to display the total price
+    function updateDisplayTotalPrice(updateTotalPrice,updateGstAmount) {
+    // Update the content of .sale_price div with the calculated total price
+    let updateSalePriceDiv = document.querySelector('.update_total_amount1');
+    updateSalePriceDiv.value = updateTotalPrice.toFixed(2);
+    let updateGstAmountInput = document.querySelector('.update_gst_amount1');
+    updateGstAmountInput.value = updateGstAmount;
+    }
+        
+    
+    </script>
+    
+
+
+    

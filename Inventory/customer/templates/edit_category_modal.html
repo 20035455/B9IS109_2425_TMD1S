@@ -1,0 +1,32 @@
+<div class="modal fade" id="edit-category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+          {% comment %} <button type="button" class="close" data-dismiss="modal" aria-label="Close"> {% endcomment %}
+            {% comment %} <span aria-hidden="true">&times;</span> {% endcomment %}
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="category-edit-form">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Category:</label>
+              <input type="hidden" value="{{data.id}}" name="id">
+              <input type="text" class="form-control category11" data-class="category1" value="{{data.category_name|default:''}}" name="category_name1" id="recipient-name">
+            </div>
+            <div class="category1"></div>
+            {% comment %} <div class="form-group">
+              <label for="message-text" class="col-form-label">Message:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div> {% endcomment %}
+          </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light text-uppercase br-50 btn-md"
+            data-bs-dismiss="modal">Close</button>              
+            <button type="button" class="btn btn-primary" id="category-edit-btn" data-id="{{data.id}}">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

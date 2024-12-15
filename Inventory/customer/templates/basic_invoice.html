@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="icon" href="{% static 'assets/img/fav-icon.png' %}" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .invoice-container {
+            
+        }
+        .invoice-header {
+            background-color: #101010;
+            padding: 30px;
+        }
+        .invoice-header h4 {
+            color: white;
+            margin: 0;
+            font-size: 30px;
+        }
+        .invoice-content {
+            padding: 5px;
+        }
+        .invoice-to h4 {
+            font-size: 23px;
+            margin: 10px 0px;
+        }
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+    
+        .invoice-details h5 {
+            margin: 0;
+            font-size:16px;
+            margin-top: 5px;
+            font-weight: 500;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            margin-bottom:10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            word-break: break-word; /* Ensures long words or content wrap correctly */
+        }
+        th {
+            background-color: #101010;
+            color: white;
+        }
+        .invoice-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .invoice-footer div {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div align"center" class="invoice-container" style="width: 660px;margin: 20px auto;">
+        
+        <div class="invoice-header">
+            <h4>INVOICE</h4>
+        </div>
+        <div class="invoice-content" style="display: flex;justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;">
+            <h6 style="text-align: center;
+            margin: 0px 0px 5px 0px;
+            font-size: 16px;
+            color: #868686;
+            font-weight: 600;"></h6>
+            <h6 style="text-align: center;
+            margin: 0px;
+            font-size: 14px;
+            font-weight: 600;"> <span>Invoice No. : </span>{{customer.order_id}}</h6>
+            <h4>Bill To</h4>
+            <div style="display:flex;">
+                <div class="invoice-details" style=" display: flex !important;
+                    justify-content: space-between;madhyamam
+                    width: 100%;
+                    margin-top: 20px; !important">
+                    <div  style="width: 48%;
+                                font-size: 23px;padding: 1px !important;" >
+                        <h5>Name : {{customer.customer_firstname|default:''}} {{customer.customer_lastname|default:''}}</h5>
+                        <h5>Phone : {{customer.customer_phone_no|default:''}}</h5>
+                        <h5>Email : {{customer.customer_email|default:''}}</h5>
+                    </div>
+                    <div style="width: 48%;
+                                font-size: 23px;
+                                text-align:right;">
+                                <div style= "text-align:right !important;">
+                                <h5><span style="font-weight: 700;">Date : </span> {{customer.date|date:"d/m/Y"|default:""}}</h5>
+                                <h5><span style="font-weight: 700;">Company  :</span> {{customer.subcompany_id.company_name}}</h5>
+                                <h5><span style="font-weight: 700;">Phone : </span> {{customer.subcompany_id.phone}}</h5>
+                                <h5><span style="font-weight: 700;">Location : </span> {{customer.subcompany_id.location}} </h5>
+                                <h5><span style="font-weight: 700;">GST No.  : </span> {{customer.subcompany_id.gst_number|default:''}}</h5>
+                                </div>
+
+                    </div>
+                </div>
+            </div>
+    
+            <table>total_tax_amount
+                <tr>
+                    <th style="width:30px;text-align:center;">
+                        Sr#
+                    </th>
+                    <th style="width:180px;text-align:center;">Product Name</th>
+
+                    <th style="text-align:center;">Rate</th>
+
+                    <th style="width:50px;text-align:center;">
+                    Qty</th>
+
+                    <th style="width:50px;text-align:center;">
+                      
+                        Tax(%)
+                    </th>
+
+                    <th style="width:50px;text-align:center;">
+                      
+                        Tax(Amt)
+                    </th>
+
+                    <th style="width:50px;text-align:center;">
+                        Discount
+                    </th>
+
+                    <th style="width:50px;text-align:center;">
+                        Amount</th>
+                </tr>
+
+
+
+                {% for i in product_data %}
+                <tr>
+                    <td style="text-align:center;">{{ forloop.counter }}</td>
+                    <td style="text-align:center;">
+                        {{i.product_name|default:''}}
+                     </td>
+
+                     <td style="text-align:center;">
+                        {{i.product_sale_price}}
+                     </td>
+                     <td style="text-align:center;">
+                        {{i.product_quantity}}
+                     </td>
+                     <td style="text-align:center;">
+                        {{i.gst_percentage|default:''}}
+                     </td>
+
+                     <td style="text-align:center;">
+                        {{i.gst_amount|default:''}}
+                     </td>
+
+                     <td style="text-align:center;">
+                        {{i.discount_amount}}
+                     </td>
+                     <td style="width:15%; text-align:right;">
+                        {{i.total_amount}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+    
+            <div class="invoice-footer">
+                <div style="width:30%">
+                    <img style="width: 100px;" src="{{domain}}/media/{{iinvoicenvoice.zatca_qr}}" alt="QR Code">
+                </div>
+                <div style="width:70%; text-align:right;" >
+                    <h5 style="margin-bottom:10px;font-weight:500;margin-top:10px;font-weight:500"><span style="font-weight: 700;">Subtotal :</span>  {{customer.sub_total_amount}} </h5>
+                    <h5 style="margin-bottom:10px;font-weight:500;margin-top:10px;font-weight:500"><span style="font-weight: 700;">Discount :</span>   {{customer.total_discount_amount}}  </h5>
+                    <h5 style="margin-bottom:10px;font-weight:500;margin-top:10px;font-weight:500"><span style="font-weight: 700;">Tax Value :</span> {{customer.total_tax_amount|default:'0.00'}} </h5>
+                    <h5 style="margin-bottom:10px;font-weight:500;margin-top:10px;font-weight:500"><span style="font-weight: 700;">CGST :</span> {{customer.cgst_amount|default:'0.00'}}</h5>
+                    <h5 style="margin-bottom:10px;font-weight:500;margin-top:10px;font-weight:500"><span style="font-weight: 700;">CGST :</span> {{customer.sgst_amount|default:'0.00'}}</h5>
+                    <h5 style="margin-bottom:10px;font-weight:500;margin-top:10px;font-weight:500"><span style="font-weight: 700;">Total :</span> {{customer.grand_total_amount|default:'0.00'}}</h5>
+                </div>
+
+
+                
+                <td>
+                    <b> Signature </b>
+                </td>
+    
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
